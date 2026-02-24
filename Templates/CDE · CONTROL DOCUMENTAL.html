@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CDE · Control Documental | Demo Triple A</title>
+    <title>CDE · Control Documental | Programa Ejecutable</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -16,144 +16,250 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0a1c28;
+            background: #0c1c2b;
             color: #e6edf3;
-            padding: 0;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
-        .app-container {
+        /* Ventana principal simulando programa ejecutable */
+        .program-window {
             width: 100%;
             max-width: 1600px;
-            margin: 20px;
-            background: rgba(12, 30, 45, 0.95);
-            backdrop-filter: blur(12px);
-            border-radius: 48px;
-            border: 1px solid #2a5f85;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(80, 160, 255, 0.2) inset;
+            height: 95vh;
+            background: #0f2638;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(80, 170, 255, 0.2);
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
-            padding: 24px;
+            border: 1px solid #2d5470;
         }
 
-        /* Header */
-        .app-header {
+        /* Barra de título estilo Windows */
+        .title-bar {
+            background: #0d1f2e;
+            padding: 12px 20px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px 20px 20px;
             border-bottom: 1px solid #1f4a6a;
+            user-select: none;
         }
 
-        .logo-area {
+        .title-bar-left {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
-        .logo-icon {
-            background: #1e6f9f;
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
+        .window-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .window-control {
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 10px 20px -5px #0a2a3b;
-        }
-
-        .logo-text h1 {
-            font-weight: 700;
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #c0e2ff, #6eb7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .logo-text p {
-            color: #88b8d8;
-            font-size: 0.85rem;
-        }
-
-        .project-badge {
-            background: #143244;
-            padding: 12px 24px;
-            border-radius: 60px;
-            border: 1px solid #29668f;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Navegación específica CDE */
-        .cde-tabs {
-            display: flex;
-            gap: 8px;
-            margin: 20px 0 20px;
-            flex-wrap: wrap;
-            background: #0b2637;
-            padding: 8px;
-            border-radius: 60px;
-        }
-
-        .cde-tab {
-            background: transparent;
-            border: none;
-            color: #a1bfd8;
-            font-weight: 500;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-size: 0.95rem;
-            cursor: default;
+            border-radius: 8px;
+            color: #9bb8d4;
             transition: all 0.2s;
         }
 
-        .cde-tab.active {
-            background: #1a4b6b;
+        .window-control:hover {
+            background: #1f4059;
             color: white;
-            box-shadow: 0 5px 15px #0d3143;
         }
 
-        .cde-tab i {
-            margin-right: 8px;
+        .window-control.close:hover {
+            background: #c54a4a;
+            color: white;
         }
 
-        /* Grid principal */
+        .app-icon {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .app-icon i {
+            font-size: 1.4rem;
+            color: #5db0e0;
+        }
+
+        .app-icon span {
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+        }
+
+        /* Menú superior */
+        .menu-bar {
+            background: #0f2638;
+            padding: 8px 20px;
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid #1f3f58;
+            font-size: 0.9rem;
+        }
+
+        .menu-item {
+            color: #b0cde0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            position: relative;
+            cursor: default;
+        }
+
+        .menu-item:hover {
+            background: #1a3e58;
+            color: white;
+        }
+
+        .menu-item i {
+            margin-right: 6px;
+            font-size: 0.8rem;
+        }
+
+        /* Barra de herramientas */
+        .toolbar {
+            background: #0f2638;
+            padding: 10px 20px;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid #1f3f58;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: #1a3a50;
+            border: none;
+            color: #cde1f0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: default;
+            border: 1px solid #2d5470;
+        }
+
+        .tool-btn i {
+            color: #5db0e0;
+        }
+
+        .separator {
+            width: 1px;
+            background: #1f4a6a;
+            margin: 0 8px;
+        }
+
+        /* Contenido principal con scroll */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #0a1c2b;
+            scrollbar-width: thin;
+            scrollbar-color: #1f4a6a #0a1c2b;
+        }
+
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .main-content::-webkit-scrollbar-track {
+            background: #0a1c2b;
+        }
+        .main-content::-webkit-scrollbar-thumb {
+            background: #1f4a6a;
+            border-radius: 10px;
+        }
+
+        /* Indicador de estado */
+        .status-panel {
+            background: #0f2638;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #2a5f85;
+        }
+
+        .status-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #2d9e6f;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(45, 158, 111, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(45, 158, 111, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(45, 158, 111, 0); }
+        }
+
+        .project-badge {
+            background: #1a3a50;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #b0cde0;
+        }
+
+        /* Grid */
         .grid-2col {
             display: grid;
-            grid-template-columns: 1.1fr 1.9fr;
-            gap: 24px;
-            margin-bottom: 24px;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
         }
 
         .card {
-            background: rgba(18, 35, 48, 0.8);
-            backdrop-filter: blur(5px);
+            background: #102937;
+            border-radius: 18px;
+            padding: 20px;
             border: 1px solid #2b4f6b;
-            border-radius: 32px;
-            padding: 24px;
-            box-shadow: 0 20px 30px -15px black;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             border-bottom: 1px solid #1f4a6a;
-            padding-bottom: 12px;
+            padding-bottom: 10px;
         }
 
         .card-header h3 {
-            font-weight: 600;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .card-header i {
@@ -161,13 +267,13 @@
         }
 
         .badge {
-            padding: 4px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
             background: #1f4059;
             color: #cae3f5;
             border: 1px solid #346a8c;
+            white-space: nowrap;
         }
 
         .badge-success {
@@ -194,34 +300,29 @@
             color: #c1e2ff;
         }
 
-        .status-badge {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 24px;
-            font-weight: bold;
-            margin-right: 6px;
-        }
-
-        /* Metadatos estilo ISO */
+        /* Metadatos */
         .metadata-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .metadata-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .metadata-item {
-            background: #102f40;
-            padding: 14px;
-            border-radius: 20px;
+            background: #0d2535;
+            padding: 12px;
+            border-radius: 12px;
             border-left: 3px solid #3298db;
         }
 
         .metadata-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #8fb4d4;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -229,40 +330,40 @@
 
         .metadata-value {
             font-weight: 600;
-            font-size: 1rem;
-            margin-top: 5px;
+            font-size: 0.9rem;
+            margin-top: 4px;
         }
 
-        /* Visor de plano simulado */
+        /* Visor de plano */
         .viewer-container {
             background: #0d1f2b;
-            border-radius: 28px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 16px;
             border: 1px solid #3f7a9e;
             position: relative;
         }
 
         .viewer-tools {
             display: flex;
-            gap: 12px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
         }
 
-        .tool-btn {
+        .viewer-tool {
             background: #1c4059;
             border: none;
             color: white;
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
             cursor: default;
         }
 
         .mock-plan {
             background: #213e52;
-            height: 220px;
-            border-radius: 20px;
+            height: 200px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -271,87 +372,39 @@
             border: 2px solid #2b6a94;
         }
 
-        .mock-plan svg {
-            width: 100%;
-            height: 100%;
-        }
-
         .plan-overlay {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
+            bottom: 8px;
+            right: 8px;
             background: #0e2f42;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
             border: 1px solid #4da2d9;
         }
 
-        .qr-sim {
-            background: white;
-            width: 60px;
-            height: 60px;
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            padding: 4px;
-            border-radius: 8px;
-        }
-
-        .qr-sim img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        /* Comparador de versiones */
-        .version-compare {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .version-box {
-            flex: 1;
-            background: #0f2c3b;
-            border-radius: 16px;
-            padding: 12px;
-            border: 1px solid #2e6885;
-        }
-
-        .diff-highlight {
-            background: #3d5e3d;
-            color: #b6ffb6;
-            padding: 2px 8px;
-            border-radius: 12px;
-        }
-
-        .diff-highlight-red {
-            background: #693333;
-            color: #ffb6b6;
-        }
-
-        /* Flujo de aprobación */
+        /* Workflow steps */
         .workflow-steps {
             display: flex;
             justify-content: space-between;
-            margin: 20px 0;
+            margin: 16px 0;
             flex-wrap: wrap;
+            gap: 8px;
         }
 
         .step {
             flex: 1;
             text-align: center;
             position: relative;
-            min-width: 100px;
+            min-width: 80px;
         }
 
         .step-icon {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background: #1f3c50;
             border-radius: 50%;
-            margin: 0 auto 10px;
+            margin: 0 auto 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -369,16 +422,21 @@
             box-shadow: 0 0 15px #4799d1;
         }
 
-        /* Lista de versiones */
+        .step-label {
+            font-size: 0.75rem;
+            color: #8fb4d4;
+        }
+
+        /* Version list */
         .version-list {
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         .version-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #1f4a6a;
         }
 
@@ -386,323 +444,326 @@
             border-bottom: none;
         }
 
-        .rfis-section {
-            background: #102937;
-            border-radius: 24px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .rfis-section h4 {
+        /* Barra de estado */
+        .status-bar {
+            background: #0d1f2e;
+            padding: 8px 20px;
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #8fb4d4;
+            border-top: 1px solid #1f4a6a;
         }
 
-        .btn-outline {
-            border: 1px solid #4799d1;
-            background: transparent;
-            color: white;
-            padding: 8px 18px;
-            border-radius: 40px;
-            cursor: default;
+        .status-left, .status-right {
+            display: flex;
+            gap: 16px;
         }
 
-        .tree-structure {
-            background: #0d2635;
-            padding: 20px;
-            border-radius: 24px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .program-window {
+                height: auto;
+                min-height: 100vh;
+                border-radius: 16px;
+            }
+
+            .title-bar {
+                padding: 10px 12px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .title-bar-left {
+                gap: 10px;
+            }
+
+            .window-controls {
+                gap: 8px;
+            }
+
+            .window-control {
+                width: 28px;
+                height: 28px;
+            }
+
+            .app-icon i {
+                font-size: 1.2rem;
+            }
+
+            .app-icon span {
+                font-size: 0.9rem;
+            }
+
+            .menu-bar {
+                padding: 8px 12px;
+                gap: 12px;
+                font-size: 0.8rem;
+                overflow-x: auto;
+            }
+
+            .menu-item {
+                padding: 4px 6px;
+                white-space: nowrap;
+            }
+
+            .toolbar {
+                padding: 8px 12px;
+                gap: 8px;
+            }
+
+            .tool-btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+
+            .main-content {
+                padding: 12px;
+            }
+
+            .status-panel {
+                padding: 10px 12px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .card {
+                padding: 14px;
+                border-radius: 14px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .card-header h3 {
+                font-size: 1rem;
+            }
+
+            .mock-plan {
+                height: 150px;
+            }
+
+            .workflow-steps {
+                justify-content: center;
+            }
+
+            .step {
+                min-width: 60px;
+            }
+
+            .status-bar {
+                padding: 8px 12px;
+                flex-direction: column;
+                gap: 6px;
+                font-size: 0.65rem;
+            }
+
+            .status-left, .status-right {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .badge {
+                font-size: 0.6rem;
+                padding: 3px 8px;
+            }
         }
 
-        .tree-item {
-            padding: 6px 0 6px 20px;
-            border-left: 2px solid #3980b0;
-            margin-left: 10px;
+        @media (max-width: 480px) {
+            .app-icon span {
+                font-size: 0.8rem;
+            }
+
+            .metadata-grid {
+                gap: 8px;
+            }
+
+            .metadata-item {
+                padding: 10px;
+            }
+
+            .metadata-value {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="app-container">
+<div class="program-window">
 
-    <!-- Header -->
-    <div class="app-header">
-        <div class="logo-area">
-            <div class="logo-icon"><i class="fas fa-draw-polygon"></i></div>
-            <div class="logo-text">
-                <h1>CDE · CONTROL DOCUMENTAL</h1>
-                <p><i class="fas fa-cube"></i> ISO 19650 · Workflow Aprobación · QR Dinámico</p>
+    <!-- Barra de título -->
+    <div class="title-bar">
+        <div class="title-bar-left">
+            <div class="app-icon">
+                <i class="fas fa-draw-polygon"></i>
+                <span>CDE · Control Documental</span>
             </div>
         </div>
-        <div class="project-badge">
-            <i class="fas fa-hard-hat"></i> <span>Proyecto: Torres del Parque · Fase 2</span>
+        <div class="window-controls">
+            <div class="window-control"><i class="fas fa-minus"></i></div>
+            <div class="window-control"><i class="fas fa-square"></i></div>
+            <div class="window-control close"><i class="fas fa-times"></i></div>
         </div>
     </div>
 
-    <!-- Pestañas específicas CDE -->
-    <div class="cde-tabs">
-        <span class="cde-tab active"><i class="fas fa-info-circle"></i> Metadatos ISO</span>
-        <span class="cde-tab"><i class="fas fa-random"></i> Workflow</span>
-        <span class="cde-tab"><i class="fas fa-code-branch"></i> Versiones</span>
-        <span class="cde-tab"><i class="fas fa-qrcode"></i> QR Dinámico</span>
-        <span class="cde-tab"><i class="fas fa-folder-tree"></i> Estructura</span>
-        <span class="cde-tab"><i class="fas fa-link"></i> Integración</span>
+    <!-- Menú -->
+    <div class="menu-bar">
+        <span class="menu-item"><i class="fas fa-file"></i> Archivo</span>
+        <span class="menu-item"><i class="fas fa-edit"></i> Editar</span>
+        <span class="menu-item"><i class="fas fa-eye"></i> Ver</span>
+        <span class="menu-item"><i class="fas fa-cog"></i> Herramientas</span>
+        <span class="menu-item"><i class="fas fa-question-circle"></i> Ayuda</span>
     </div>
 
-    <!-- Grid principal: metadatos + visor -->
-    <div class="grid-2col">
-        <!-- Columna izquierda: Metadatos y workflow -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-dna"></i> ADN del Plano · Metadatos ISO 19650</h3>
-                <span class="badge badge-info">Código Único</span>
-            </div>
+    <!-- Barra de herramientas -->
+    <div class="toolbar">
+        <button class="tool-btn"><i class="fas fa-upload"></i> Subir</button>
+        <button class="tool-btn"><i class="fas fa-download"></i> Descargar</button>
+        <button class="tool-btn"><i class="fas fa-share-alt"></i> Compartir</button>
+        <div class="separator"></div>
+        <button class="tool-btn"><i class="fas fa-qrcode"></i> QR</button>
+        <button class="tool-btn"><i class="fas fa-history"></i> Versiones</button>
+        <button class="tool-btn"><i class="fas fa-code-branch"></i> Workflow</button>
+    </div>
 
-            <!-- Metadatos del plano activo -->
-            <div class="metadata-grid">
-                <div class="metadata-item">
-                    <div class="metadata-label">Código ISO</div>
-                    <div class="metadata-value">PROY-02-EST-PL-0123</div>
-                </div>
-                <div class="metadata-item">
-                    <div class="metadata-label">Disciplina</div>
-                    <div class="metadata-value">Estructural</div>
-                </div>
-                <div class="metadata-item">
-                    <div class="metadata-label">Fase</div>
-                    <div class="metadata-value">Ingeniería de Detalle</div>
-                </div>
-                <div class="metadata-item">
-                    <div class="metadata-label">Estado Revisión</div>
-                    <div class="metadata-value">C (Preliminar) → 1 (Construcción)</div>
-                </div>
-                <div class="metadata-item">
-                    <div class="metadata-label">Status Code</div>
-                    <div class="metadata-value"><span class="status-badge" style="background:#2d9e6f;">S4</span> Aprobado para Construcción</div>
-                </div>
-                <div class="metadata-item">
-                    <div class="metadata-label">Responsable</div>
-                    <div class="metadata-value">Ing. Estructural SA</div>
-                </div>
+    <!-- Contenido principal -->
+    <div class="main-content">
+        
+        <!-- Panel de estado -->
+        <div class="status-panel">
+            <div class="status-info">
+                <div class="status-dot"></div>
+                <span><strong>CDE Activo</strong> · ISO 19650</span>
             </div>
-
-            <!-- Flujo de aprobación (Workflow) -->
-            <div class="card-header" style="margin-top: 10px;">
-                <h3><i class="fas fa-random"></i> Flujo de Aprobación</h3>
-            </div>
-            <div class="workflow-steps">
-                <div class="step completed">
-                    <div class="step-icon"><i class="fas fa-upload"></i></div>
-                    <div style="font-size:0.8rem;">Carga</div>
-                </div>
-                <div class="step completed">
-                    <div class="step-icon"><i class="fas fa-clipboard-check"></i></div>
-                    <div style="font-size:0.8rem;">Revisión</div>
-                </div>
-                <div class="step completed">
-                    <div class="step-icon"><i class="fas fa-hard-hat"></i></div>
-                    <div style="font-size:0.8rem;">HSE</div>
-                </div>
-                <div class="step active">
-                    <div class="step-icon"><i class="fas fa-check-double"></i></div>
-                    <div style="font-size:0.8rem;">Gerente</div>
-                </div>
-                <div class="step">
-                    <div class="step-icon"><i class="fas fa-stamp"></i></div>
-                    <div style="font-size:0.8rem;">Sellado</div>
-                </div>
-            </div>
-
-            <div style="background: #13415a; padding: 16px; border-radius: 20px; margin: 10px 0;">
-                <i class="fas fa-bell"></i> Próximo paso: Aprobación final pendiente (Gerente Proyecto)
-            </div>
-
-            <!-- Control de versiones -->
-            <div class="card-header" style="margin-top: 10px;">
-                <h3><i class="fas fa-code-branch"></i> Versiones</h3>
-            </div>
-            <div class="version-list">
-                <div class="version-row">
-                    <div><i class="fas fa-file-pdf"></i> Rev 04 <span class="badge badge-success">VIGENTE</span></div>
-                    <div><span class="badge">S4</span> 22/02/2026</div>
-                </div>
-                <div class="version-row" style="opacity:0.6;">
-                    <div><i class="fas fa-file-pdf"></i> Rev 03 <span class="badge badge-warning">OBSOLETO</span></div>
-                    <div>15/02/2026</div>
-                </div>
-                <div class="version-row" style="opacity:0.4;">
-                    <div><i class="fas fa-file-pdf"></i> Rev 02</div>
-                    <div>01/02/2026</div>
-                </div>
+            <div class="project-badge">
+                <i class="fas fa-hard-hat"></i> Torres del Parque · Fase 2
             </div>
         </div>
 
-        <!-- Columna derecha: Visor y funcionalidades mágicas -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-eye"></i> Visor Web Integrado</h3>
-                <span class="badge badge-info">PL-EST-N2 · Rev 04</span>
+        <!-- Grid principal -->
+        <div class="grid-2col">
+            <!-- Columna izquierda: Metadatos -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-dna"></i> Metadatos ISO 19650</h3>
+                    <span class="badge badge-info">Código Único</span>
+                </div>
+
+                <div class="metadata-grid">
+                    <div class="metadata-item">
+                        <div class="metadata-label">Código ISO</div>
+                        <div class="metadata-value">PROY-02-EST-PL-0123</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Disciplina</div>
+                        <div class="metadata-value">Estructural</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Fase</div>
+                        <div class="metadata-value">Ing. de Detalle</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Estado Revisión</div>
+                        <div class="metadata-value">C → 1 (Construcción)</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Status Code</div>
+                        <div class="metadata-value" style="color: #42d69e;">● S4 Aprobado</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Responsable</div>
+                        <div class="metadata-value">Ing. Estructural SA</div>
+                    </div>
+                </div>
+
+                <!-- Workflow -->
+                <div class="card-header" style="margin-top: 10px;">
+                    <h3><i class="fas fa-random"></i> Flujo de Aprobación</h3>
+                </div>
+                <div class="workflow-steps">
+                    <div class="step completed">
+                        <div class="step-icon"><i class="fas fa-upload"></i></div>
+                        <div class="step-label">Carga</div>
+                    </div>
+                    <div class="step completed">
+                        <div class="step-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <div class="step-label">Revisión</div>
+                    </div>
+                    <div class="step completed">
+                        <div class="step-icon"><i class="fas fa-check"></i></div>
+                        <div class="step-label">Aprobado</div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-icon"><i class="fas fa-check-double"></i></div>
+                        <div class="step-label">Released</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Visor simulado con herramientas -->
-            <div class="viewer-container">
-                <div class="viewer-tools">
-                    <span class="tool-btn"><i class="fas fa-ruler"></i> Medir</span>
-                    <span class="tool-btn"><i class="fas fa-pen"></i> Marcar</span>
-                    <span class="tool-btn"><i class="fas fa-sync-alt"></i> Comparar</span>
-                    <span class="tool-btn"><i class="fas fa-download"></i></span>
+            <!-- Columna derecha: Visor -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-file-alt"></i> Visor de Planos</h3>
+                    <span class="badge badge-success">Versión 3.2</span>
                 </div>
 
-                <!-- Simulación de plano con marcas de agua y QR -->
-                <div class="mock-plan">
-                    <svg viewBox="0 0 400 180" style="background: #1b3b51;">
-                        <rect x="50" y="30" width="100" height="60" stroke="#4799d1" stroke-width="2" fill="none" />
-                        <rect x="180" y="50" width="80" height="40" stroke="#e67a3c" stroke-width="2" fill="none" />
-                        <text x="70" y="70" fill="#a3c9f0" font-size="8">Viga V-12</text>
-                        <text x="200" y="80" fill="#f0b37b" font-size="8">Columna C-5</text>
-                        <!-- Marcas de agua de versión obsoleta (simulación comparador) -->
-                        <text x="150" y="130" fill="#ff6b6b" font-size="10" opacity="0.5">Rev 03</text>
-                        <text x="170" y="140" fill="#6bff8b" font-size="10" opacity="0.7">Rev 04</text>
-                    </svg>
-                    <!-- QR Dinámico -->
-                    <div class="qr-sim" style="background: white; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-qrcode" style="font-size: 40px; color: black;"></i>
+                <div class="viewer-container">
+                    <div class="viewer-tools">
+                        <button class="viewer-tool"><i class="fas fa-search-plus"></i> Zoom</button>
+                        <button class="viewer-tool"><i class="fas fa-arrows-alt"></i> Mover</button>
+                        <button class="viewer-tool"><i class="fas fa-print"></i> Imprimir</button>
+                        <button class="viewer-tool"><i class="fas fa-ruler"></i> Medir</button>
                     </div>
-                    <div class="plan-overlay">
-                        <i class="fas fa-check-circle" style="color: #2d9e6f;"></i> Sello Digital · Aprobado
+                    <div class="mock-plan">
+                        <i class="fas fa-drafting-compass" style="font-size: 4rem; color: #5db0e0;"></i>
+                        <div class="plan-overlay">
+                            <i class="fas fa-file-pdf"></i> PL-0123-R1.pdf
+                        </div>
                     </div>
                 </div>
 
-                <!-- Comparador de versiones overlay -->
-                <div class="version-compare">
-                    <div class="version-box">
-                        <i class="fas fa-file"></i> Rev 03 <span class="badge badge-warning">obsoleto</span>
-                        <div style="font-size:0.8rem; margin-top:5px;"><span class="diff-highlight-red"><i class="fas fa-arrow-up"></i> Cambio viga</span></div>
+                <!-- Versiones -->
+                <div class="version-list">
+                    <div class="card-header" style="margin-top: 10px;">
+                        <h3><i class="fas fa-history"></i> Historial de Versiones</h3>
                     </div>
-                    <div class="version-box">
-                        <i class="fas fa-file"></i> Rev 04 <span class="badge badge-success">vigente</span>
-                        <div style="font-size:0.8rem; margin-top:5px;"><span class="diff-highlight"><i class="fas fa-check"></i> Refuerzo añadido</span></div>
+                    <div class="version-row">
+                        <span><strong>v3.2</strong> <span class="badge badge-success">Actual</span></span>
+                        <span style="color: #8fb4d4;">Ing. Structural · hace 2h</span>
                     </div>
-                </div>
-                <p style="margin-top:10px;"><i class="fas fa-sync-alt"></i> Overlay: diferencias entre Rev 03 y Rev 04 resaltadas automáticamente</p>
-            </div>
-
-            <!-- Gestión de RFIs (Consultas Técnicas) -->
-            <div class="rfis-section">
-                <h4><i class="fas fa-map-pin"></i> RFI · Consultas Técnicas</h4>
-                <div style="display: flex; gap: 20px;">
-                    <div style="flex:1; background: #124059; padding: 12px; border-radius: 16px;">
-                        <i class="fas fa-thumbtack" style="color: #ffa36b;"></i> Pin en coordenada (X: 245, Y: 130)
-                        <div style="font-size:0.8rem; margin-top:5px;">Residente: ¿Esta viga cumple con el refuerzo?</div>
+                    <div class="version-row">
+                        <span><strong>v3.1</strong></span>
+                        <span style="color: #8fb4d4;">Ing. Structural · hace 1d</span>
                     </div>
-                    <div style="flex:1; background: #124059; padding: 12px; border-radius: 16px;">
-                        <i class="fas fa-camera"></i> Foto adjunta
-                        <div style="font-size:0.8rem;">colado losa norte.jpg</div>
+                    <div class="version-row">
+                        <span><strong>v3.0</strong></span>
+                        <span style="color: #8fb4d4;">COORD · hace 3d</span>
                     </div>
-                </div>
-                <div class="btn-outline" style="margin-top:15px; display:inline-block;"><i class="fas fa-plus"></i> Clavar nuevo pin en plano</div>
-            </div>
-
-            <!-- QR Dinámico / Escaneo en obra -->
-            <div style="background: #0d2d3f; border-radius: 24px; padding: 16px; margin-top: 15px;">
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div style="background: white; width: 70px; height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-qrcode" style="font-size: 50px; color: black;"></i>
-                    </div>
-                    <div>
-                        <h4><i class="fas fa-mobile-alt"></i> QR Dinámico · Blindaje de Copias</h4>
-                        <p style="font-size:0.9rem;">Al escanear el QR de un plano impreso:</p>
-                        <div><span class="badge badge-success">✅ Versión vigente</span> <span class="badge badge-error" style="margin-left:10px;">❌ Versión obsoleta</span></div>
-                    </div>
-                </div>
-                <div style="margin-top: 10px; background: #1b3f55; padding: 8px; border-radius: 40px; text-align:center;">
-                    <i class="fas fa-check-circle" style="color:#4ae0a0;"></i> Simulación: Escaneo OK · Plano Rev 04 autorizado
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Segunda fila: Estructura de carpetas + Integración -->
-    <div class="grid-2col" style="margin-top: 0;">
-        <!-- Estructura de carpetas industrial -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-folder-tree"></i> Estructura de Carpetas (ISO 19650)</h3>
-            </div>
-            <div class="tree-structure">
-                <div><i class="fas fa-folder-open" style="color:#f0b37b;"></i> 01_INGENIERÍA</div>
-                <div class="tree-item"><i class="fas fa-folder"></i> 01.1_Básica</div>
-                <div class="tree-item"><i class="fas fa-folder-open"></i> 01.2_Detalle</div>
-                <div class="tree-item" style="margin-left:40px;"><i class="fas fa-file-pdf"></i> Civil</div>
-                <div class="tree-item" style="margin-left:40px;"><i class="fas fa-file-pdf"></i> Estructural</div>
-                <div class="tree-item" style="margin-left:40px;"><i class="fas fa-file-pdf"></i> Mecánica</div>
-                <div><i class="fas fa-folder"></i> 02_GESTIÓN_PROYECTO</div>
-                <div class="tree-item"><i class="fas fa-folder"></i> 02.1_Contratos</div>
-                <div class="tree-item"><i class="fas fa-folder"></i> 02.2_Cronogramas</div>
-                <div class="tree-item"><i class="fas fa-folder"></i> 02.3_RFIs</div>
-                <div><i class="fas fa-folder"></i> 03_QA-QC_Y_HSE</div>
-                <div class="tree-item"><i class="fas fa-file"></i> 03.1_Certificados</div>
-                <div class="tree-item"><i class="fas fa-file"></i> 03.2_Checklists</div>
-                <div><i class="fas fa-folder"></i> 04_AS-BUILT</div>
-                <div><i class="fas fa-folder"></i> 05_FOTOS_Y_DRONE</div>
-            </div>
+    <!-- Barra de estado -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span><i class="fas fa-folder"></i> CDE / 01_Proyecto / 02_Estructural / Planos</span>
         </div>
-
-        <!-- Integración con Almacén y Estimaciones -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-link"></i> Integración Industrial</h3>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <!-- Vínculo con almacén -->
-                <div style="background: #0f2e40; border-radius: 24px; padding: 20px;">
-                    <h4><i class="fas fa-boxes"></i> Vínculo con Almacén</h4>
-                    <p style="margin: 10px 0;">Plano estructural activo: Acero especificado A615 Grado 60</p>
-                    <div style="display: flex; gap: 10px;">
-                        <span class="badge badge-success">✅ 20 ton en almacén</span>
-                        <span class="badge badge-info">🚚 10 ton en tránsito</span>
-                    </div>
-                    <div style="margin-top: 15px; background: #0c2635; padding: 10px; border-radius: 16px;">
-                        <i class="fas fa-clock"></i> Última entrada: 22/02/2026 · Vale A-445
-                    </div>
-                </div>
-                <!-- Vínculo con Estimaciones -->
-                <div style="background: #0f2e40; border-radius: 24px; padding: 20px;">
-                    <h4><i class="fas fa-calculator"></i> Vínculo con Estimaciones</h4>
-                    <div style="display: flex; justify-content: space-between;">
-                        <span>Montaje Bomba CB-223</span>
-                        <span class="badge badge-warning">⏳ Pendiente As-Built</span>
-                    </div>
-                    <div style="margin-top: 10px; font-size:0.9rem;">
-                        <i class="fas fa-exclamation-triangle" style="color:#ffa36b;"></i> No se puede cobrar: plano As-Built no cargado en CDE
-                    </div>
-                    <div class="btn-outline" style="margin-top:15px;"><i class="fas fa-upload"></i> Subir As-Built para liberar pago</div>
-                </div>
-            </div>
+        <div class="status-right">
+            <span><i class="fas fa-user"></i> Ing. Estructural SA</span>
+            <span><i class="fas fa-clock"></i> Último acceso: Ahora</span>
         </div>
     </div>
 
-    <!-- Beneficios específicos CDE -->
-    <div style="display: flex; gap: 20px; margin-top: 24px; padding: 20px; background: #0a293d; border-radius: 32px;">
-        <div style="flex:1; display: flex; align-items: center; gap: 12px;">
-            <i class="fas fa-shield" style="color:#6fc3ff; font-size: 2rem;"></i>
-            <div><strong>Fuente Única de Verdad</strong><br>0 retrabajos por planos obsoletos</div>
-        </div>
-        <div style="flex:1; display: flex; align-items: center; gap: 12px;">
-            <i class="fas fa-qrcode" style="color:#6fc3ff; font-size: 2rem;"></i>
-            <div><strong>QR Dinámico</strong><br>Escaneo y validación en obra</div>
-        </div>
-        <div style="flex:1; display: flex; align-items: center; gap: 12px;">
-            <i class="fas fa-file-invoice" style="color:#6fc3ff; font-size: 2rem;"></i>
-            <div><strong>Vinculación Pago</strong><br>No cobro sin As-Built</div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <p style="text-align:right; color:#5f8fb0; padding:20px 0 0;">
-        <i class="fas fa-microchip"></i> CDE · Conforme a ISO 19650 · Reemplazo Enkontrol
-    </p>
 </div>
 </body>
 </html>
