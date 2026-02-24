@@ -471,8 +471,348 @@
             70% { box-shadow: 0 0 0 10px rgba(200, 70, 50, 0); }
             100% { box-shadow: 0 0 0 0 rgba(200, 70, 50, 0); }
         }
+
+        /* ========== MEDIA QUERIES PARA RESPONSIVE ========== */
+        
+        /* Tablets pequeños y móviles grandes (hasta 1024px) */
+        @media screen and (max-width: 1024px) {
+            .app-container {
+                margin: 10px;
+                padding: 16px;
+                border-radius: 24px;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .card-large {
+                grid-column: span 2;
+            }
+
+            .logo-text h1 {
+                font-size: 1.4rem;
+            }
+
+            .logo-text p {
+                font-size: 0.75rem;
+            }
+
+            .project-badge {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .benefits-strip {
+                gap: 10px;
+                margin: 15px 0;
+            }
+
+            .benefit-pill {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .benefit-pill i {
+                font-size: 1rem;
+            }
+
+            .bim-mock {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .bim-mock i {
+                font-size: 2.5rem;
+            }
+
+            .roadmap-flex {
+                gap: 15px;
+            }
+
+            .phase {
+                min-width: 160px;
+                padding: 16px;
+            }
+
+            .wow-footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Móviles (hasta 768px) */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .app-container {
+                margin: 0;
+                padding: 12px;
+                border-radius: 20px;
+            }
+
+            .app-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 10px 10px 15px;
+            }
+
+            .logo-area {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+                font-size: 22px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+
+            .logo-text p {
+                font-size: 0.7rem;
+            }
+
+            .project-badge {
+                font-size: 0.8rem;
+                padding: 6px 14px;
+            }
+
+            .benefits-strip {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                margin: 12px 0;
+            }
+
+            .benefit-pill {
+                justify-content: center;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+
+            .demo-tabs {
+                justify-content: center;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                flex-wrap: nowrap;
+                padding-bottom: 5px;
+            }
+
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                white-space: nowrap;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin: 12px 0;
+            }
+
+            .card {
+                padding: 16px;
+                border-radius: 20px;
+            }
+
+            .card-large {
+                grid-column: span 1;
+            }
+
+            .card-header h3 {
+                font-size: 1rem;
+            }
+
+            .benefit-tag {
+                font-size: 0.7rem;
+                padding: 5px 12px;
+            }
+
+            .plano-card {
+                padding: 12px;
+                border-radius: 16px;
+            }
+
+            .proveedor-row {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+
+            .modal-content {
+                border-radius: 20px;
+                padding: 15px;
+            }
+
+            .modal-close {
+                top: 10px;
+                right: 10px;
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .bim-mock {
+                padding: 16px;
+                border-radius: 16px;
+            }
+
+            .bim-mock i {
+                font-size: 2rem;
+            }
+
+            .roadmap-section {
+                padding: 15px 0;
+                margin-top: 15px;
+            }
+
+            .roadmap-section h2 {
+                font-size: 1.1rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .roadmap-flex {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .phase {
+                min-width: 100%;
+                padding: 16px;
+                border-radius: 20px;
+                position: relative;
+                padding-left: 50px;
+            }
+
+            .phase::before {
+                content: '';
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 24px;
+                height: 24px;
+                background: #1a6b9f;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                color: white;
+                font-weight: bold;
+            }
+
+            .phase:nth-child(1)::before { content: '1'; background: #1a6b9f; }
+            .phase:nth-child(2)::before { content: '2'; background: #2d8a6b; }
+            .phase:nth-child(3)::before { content: '3'; background: #6b8a1a; }
+
+            .phase .title {
+                font-size: 0.95rem;
+            }
+
+            .phase li {
+                font-size: 0.85rem;
+            }
+
+            .db-schema {
+                padding: 16px;
+                border-radius: 20px;
+                margin-top: 20px;
+                overflow-x: auto;
+            }
+
+            .db-schema h3 {
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            .schema-tables {
+                flex-direction: column;
+                gap: 15px;
+                min-width: 600px;
+            }
+
+            .schema-tables > div {
+                padding: 14px;
+                border-radius: 16px;
+                min-width: auto;
+            }
+
+            .wow-footer {
+                padding: 15px 0 10px;
+                flex-direction: column;
+            }
+
+            .wow-card {
+                border-radius: 16px;
+                padding: 14px;
+                border-left-width: 4px;
+            }
+
+            .live-notification {
+                font-size: 0.75rem;
+                padding: 6px 14px;
+            }
+
+            .tabla-precios {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Móviles pequeños (hasta 480px) */
+        @media screen and (max-width: 480px) {
+            .logo-text h1 {
+                font-size: 1rem;
+            }
+
+            .logo-text p {
+                font-size: 0.65rem;
+            }
+
+            .project-badge {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+
+            .tab-btn {
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+
+            .card-header h3 {
+                font-size: 0.9rem;
+            }
+
+            .badge {
+                font-size: 0.65rem;
+                padding: 3px 8px;
+            }
+
+            .phase li {
+                font-size: 0.8rem;
+            }
+        }
     </style>
     <script>
+        // Función de sanitización básica para prevenir XSS
+        function sanitizeHTML(html) {
+            const temp = document.createElement('div');
+            temp.textContent = html;
+            return temp.innerHTML;
+        }
+
         // Función para mostrar los escenarios demo (ocultar modal)
         function showDemo(evt) {
             var event = evt || window.event;
@@ -490,15 +830,26 @@
             document.getElementById('demo-content').style.display = 'none';
             document.getElementById('cde-modal').classList.add('active');
             
-            // Cargar el contenido del archivo CDE
+            // Cargar el contenido del archivo CDE de forma segura
             fetch('Templates/CDE · CONTROL DOCUMENTAL.html')
                 .then(response => response.text())
                 .then(html => {
-                    document.getElementById('cde-modal-content').innerHTML = html;
+                    // Usar DOMParser para parsear HTML de forma segura
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const modalContent = document.getElementById('cde-modal-content');
+                    modalContent.innerHTML = '';
+                    // Solo insertar el contenido del body, no scripts externos
+                    const bodyContent = doc.body.innerHTML;
+                    modalContent.innerHTML = bodyContent;
                 })
                 .catch(err => {
                     console.error('Error cargando CDE:', err);
-                    document.getElementById('cde-modal-content').innerHTML = '<p style="color:white;padding:40px;">Error al cargar el contenido</p>';
+                    const errorMsg = document.createElement('p');
+                    errorMsg.style.cssText = 'color:white;padding:40px;';
+                    errorMsg.textContent = 'Error al cargar el contenido';
+                    document.getElementById('cde-modal-content').innerHTML = '';
+                    document.getElementById('cde-modal-content').appendChild(errorMsg);
                 });
         }
 
@@ -546,7 +897,7 @@
     <div class="demo-tabs">
         <button class="tab-btn active" type="button" onclick="showDemo(event)"><i class="fas fa-eye" aria-hidden="true"></i> Escenarios Demo</button>
         <button class="tab-btn" type="button" onclick="openCDEModal(event)"><i class="fas fa-file-signature" aria-hidden="true"></i> CDE / Planos</button>
-        <button class="tab-btn" type="button"><i class="fas fa-truck" aria-hidden="true"></i> Portal Proveedores</button>
+        <button class="tab-btn" type="button" onclick="window.open('Templates/Portal Provedores.html', '_blank')"><i class="fas fa-truck" aria-hidden="true"></i> Portal Proveedores</button>
         <button class="tab-btn" type="button"><i class="fas fa-chart-line" aria-hidden="true"></i> Control Obra</button>
         <button class="tab-btn" type="button"><i class="fas fa-cubes" aria-hidden="true"></i> BIM Connect</button>
         <span class="live-notification"><i class="fas fa-bell" aria-hidden="true"></i> Beneficios en acción</span>
@@ -858,8 +1209,8 @@
 </script>
 
 <!-- Modal para CDE -->
-<div id="cde-modal" class="modal-overlay" onclick="closeCDEModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
+<div id="cde-modal" class="modal-overlay">
+    <div class="modal-content">
         <button class="modal-close" onclick="closeCDEModal()"><i class="fas fa-times"></i></button>
         <div id="cde-modal-content">
             <!-- El contenido se cargará dinámicamente -->
