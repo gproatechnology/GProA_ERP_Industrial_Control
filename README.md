@@ -69,10 +69,4 @@ Este ecosistema ERP nace para resolver la desconexión documental y operativa en
 
 Para dudas sobre la implementación o acceso al ambiente de demo:
 
-* **Líder de Proyecto:** [Tu Nombre]
-* **Email:** [Tu Email]
-* **Documentación Técnica:** [Link a Wiki/Confluence]
-
----
-
 *Este proyecto es propiedad de [Nombre de tu Empresa/Consultora] y está diseñado exclusivamente para el sector de Construcción Industrial.*

@@ -422,6 +422,254 @@
             70% { box-shadow: 0 0 0 10px rgba(200, 70, 50, 0); }
             100% { box-shadow: 0 0 0 0 rgba(200, 70, 50, 0); }
         }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #0c1e2e;
+            border-radius: 32px;
+            border: 1px solid #2a5f85;
+            width: 100%;
+            max-width: 1400px;
+            max-height: 90vh;
+            overflow: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #1a4b6b;
+            border: none;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #2a6b9b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design - Mobile & Tablet */
+        @media screen and (max-width: 1024px) {
+            .app-container {
+                margin: 15px;
+                padding: 20px;
+                border-radius: 32px;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .card-large {
+                grid-column: span 2;
+            }
+
+            .roadmap-flex {
+                gap: 15px;
+            }
+
+            .phase {
+                min-width: 180px;
+                padding: 18px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .app-container {
+                margin: 10px;
+                padding: 16px;
+                border-radius: 24px;
+            }
+
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                padding: 10px 10px 16px 10px;
+            }
+
+            .logo-area {
+                width: 100%;
+            }
+
+            .logo-text h1 {
+                font-size: 1.4rem;
+            }
+
+            .logo-text p {
+                font-size: 0.75rem;
+            }
+
+            .project-badge {
+                width: 100%;
+                justify-content: center;
+                font-size: 0.85rem;
+            }
+
+            .benefits-strip {
+                gap: 10px;
+                margin: 16px 0;
+            }
+
+            .benefit-pill {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+
+            .demo-tabs {
+                gap: 6px;
+            }
+
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                margin: 14px 0;
+            }
+
+            .card-large {
+                grid-column: span 1;
+            }
+
+            .card {
+                padding: 18px;
+                border-radius: 24px;
+            }
+
+            .card-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .bim-mock {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                padding: 18px;
+            }
+
+            .bim-mock i {
+                font-size: 2.5rem;
+            }
+
+            .roadmap-flex {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .phase {
+                min-width: 100%;
+                padding: 16px;
+            }
+
+            .wow-footer {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .db-schema {
+                padding: 20px;
+                border-radius: 24px;
+            }
+
+            .schema-tables {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .modal-content {
+                border-radius: 20px;
+                max-height: 85vh;
+            }
+
+            .modal-close {
+                top: 12px;
+                right: 12px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+                font-size: 22px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.1rem;
+            }
+
+            .benefit-pill {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+
+            .tab-btn {
+                padding: 7px 12px;
+                font-size: 0.8rem;
+            }
+
+            .badge {
+                padding: 3px 10px;
+                font-size: 0.7rem;
+            }
+
+            .live-notification {
+                font-size: 0.8rem;
+                padding: 6px 14px;
+            }
+        }
+
+        /* Touch-friendly buttons for mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .tab-btn,
+            .modal-close,
+            .btn-outline {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -453,9 +701,9 @@
     <!-- Pestañas de navegación (estéticas) -->
     <div class="demo-tabs">
         <button class="tab-btn active" type="button"><i class="fas fa-eye" aria-hidden="true"></i> Escenarios Demo</button>
-        <button class="tab-btn" type="button"><i class="fas fa-file-signature" aria-hidden="true"></i> CDE / Planos</button>
-        <button class="tab-btn" type="button"><i class="fas fa-truck" aria-hidden="true"></i> Portal Proveedores</button>
-        <button class="tab-btn" type="button"><i class="fas fa-chart-line" aria-hidden="true"></i> Control Obra</button>
+        <button class="tab-btn" type="button" onclick="openCDEModal()"><i class="fas fa-file-signature" aria-hidden="true"></i> CDE / Planos</button>
+        <button class="tab-btn" type="button" onclick="openPortalModal()"><i class="fas fa-truck" aria-hidden="true"></i> Portal Proveedores</button>
+        <button class="tab-btn" type="button" onclick="openControlObraModal()"><i class="fas fa-chart-line" aria-hidden="true"></i> Control Obra</button>
         <button class="tab-btn" type="button"><i class="fas fa-cubes" aria-hidden="true"></i> BIM Connect</button>
         <span class="live-notification"><i class="fas fa-bell" aria-hidden="true"></i> Beneficios en acción</span>
     </div>
@@ -765,6 +1013,136 @@
             });
         }
     })();
+</script>
+
+<!-- Modal for CDE -->
+<div id="cde-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeCDEModal()"><i class="fas fa-times"></i></button>
+        <div id="cde-modal-content">
+            <!-- Content loaded dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Portal Proveedores -->
+<div id="portal-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closePortalModal()"><i class="fas fa-times"></i></button>
+        <div id="portal-modal-content">
+            <!-- Content loaded dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Control de Obras -->
+<div id="control-obra-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeControlObraModal()"><i class="fas fa-times"></i></button>
+        <div id="control-obra-modal-content">
+            <!-- Content loaded dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- DOMPurify for XSS protection -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+
+<script>
+    // Function to open CDE modal
+    function openCDEModal() {
+        document.getElementById('cde-modal').classList.add('active');
+        loadModalContent('cde-modal-content', 'Templates/CDE · CONTROL DOCUMENTAL.html', true);
+    }
+
+    // Function to close CDE modal
+    function closeCDEModal() {
+        document.getElementById('cde-modal').classList.remove('active');
+    }
+
+    // Function to open Portal Proveedores modal
+    function openPortalModal() {
+        document.getElementById('portal-modal').classList.add('active');
+        loadModalContent('portal-modal-content', 'Templates/Portal Provedores.html', false);
+    }
+
+    // Function to close Portal Proveedores modal
+    function closePortalModal() {
+        document.getElementById('portal-modal').classList.remove('active');
+    }
+
+    // Function to open Control de Obras modal
+    function openControlObraModal() {
+        document.getElementById('control-obra-modal').classList.add('active');
+        loadModalContent('control-obra-modal-content', 'Templates/control de obras.html', false);
+    }
+
+    // Function to close Control de Obras modal
+    function closeControlObraModal() {
+        document.getElementById('control-obra-modal').classList.remove('active');
+    }
+
+    // Function to load content dynamically
+    function loadModalContent(elementId, url, isCDE = false) {
+        const modalContent = document.getElementById(elementId);
+        
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                modalContent.innerHTML = '';
+                
+                // Get styles from head
+                const styles = doc.querySelectorAll('style, link[rel="stylesheet"]');
+                let styleContainer = document.createElement('div');
+                styleContainer.id = 'dynamic-styles-' + elementId;
+                
+                // Add styles to the page
+                styles.forEach(style => {
+                    if (style.tagName === 'STYLE') {
+                        const newStyle = document.createElement('style');
+                        newStyle.textContent = style.textContent;
+                        document.head.appendChild(newStyle);
+                    } else if (style.tagName === 'LINK' && style.rel === 'stylesheet') {
+                        const newLink = document.createElement('link');
+                        newLink.rel = 'stylesheet';
+                        newLink.href = style.href;
+                        document.head.appendChild(newLink);
+                    }
+                });
+                
+                // Get body content
+                const bodyContent = doc.body.innerHTML;
+                
+                // Wrap content and add appropriate class
+                const wrapper = document.createElement('div');
+                wrapper.className = isCDE ? 'modal-app-container' : 'modal-app-container';
+                // Sanitize HTML to prevent XSS attacks
+                wrapper.innerHTML = DOMPurify.sanitize(bodyContent);
+                modalContent.appendChild(wrapper);
+            })
+            .catch(err => {
+                console.error('Error loading content:', err);
+                modalContent.innerHTML = '<p style="color:white;padding:40px;">Error al cargar el contenido</p>';
+            });
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('click', function(e) {
+        const cdeModal = document.getElementById('cde-modal');
+        if (e.target === cdeModal) {
+            closeCDEModal();
+        }
+        const portalModal = document.getElementById('portal-modal');
+        if (e.target === portalModal) {
+            closePortalModal();
+        }
+        const controlObraModal = document.getElementById('control-obra-modal');
+        if (e.target === controlObraModal) {
+            closeControlObraModal();
+        }
+    });
 </script>
 </body>
 </html>

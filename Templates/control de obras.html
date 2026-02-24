@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Obra · Centro de Mando · Programa Ejecutable</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0c1c2b;
+            color: #e6edf3;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Ventana principal simulando programa ejecutable */
+        .program-window {
+            width: 100%;
+            max-width: 1600px;
+            height: 95vh;
+            background: #0f2638;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(80, 170, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #2d5470;
+        }
+
+        /* Barra de título estilo Windows */
+        .title-bar {
+            background: #0d1f2e;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #1f4a6a;
+            user-select: none;
+        }
+
+        .title-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .window-control {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #9bb8d4;
+            transition: all 0.2s;
+        }
+
+        .window-control:hover {
+            background: #1f4059;
+            color: white;
+        }
+
+        .window-control.close:hover {
+            background: #c54a4a;
+            color: white;
+        }
+
+        .app-icon {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .app-icon i {
+            font-size: 1.4rem;
+            color: #5db0e0;
+        }
+
+        .app-icon span {
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+        }
+
+        /* Menú superior */
+        .menu-bar {
+            background: #0f2638;
+            padding: 8px 20px;
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid #1f3f58;
+            font-size: 0.9rem;
+        }
+
+        .menu-item {
+            color: #b0cde0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: #1a3e58;
+            color: white;
+        }
+
+        .menu-item i {
+            margin-right: 6px;
+            font-size: 0.8rem;
+        }
+
+        /* Barra de herramientas */
+        .toolbar {
+            background: #0f2638;
+            padding: 10px 20px;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid #1f3f58;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: #1a3a50;
+            border: none;
+            color: #cde1f0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: default;
+            border: 1px solid #2d5470;
+        }
+
+        .tool-btn i {
+            color: #5db0e0;
+        }
+
+        .separator {
+            width: 1px;
+            background: #1f4a6a;
+            margin: 0 8px;
+        }
+
+        /* Contenido principal con scroll */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #0a1c2b;
+            scrollbar-width: thin;
+            scrollbar-color: #1f4a6a #0a1c2b;
+        }
+
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .main-content::-webkit-scrollbar-track {
+            background: #0a1c2b;
+        }
+        .main-content::-webkit-scrollbar-thumb {
+            background: #1f4a6a;
+            border-radius: 10px;
+        }
+
+        /* Indicador de estado en vivo */
+        .live-status {
+            background: #0f2638;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #2a5f85;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-dot {
+            width: 12px;
+            height: 12px;
+            background: #2d9e6f;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(45, 158, 111, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(45, 158, 111, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(45, 158, 111, 0); }
+        }
+
+        .project-path {
+            background: #1a3a50;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #b0cde0;
+        }
+
+        /* Grids */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kpi-card {
+            background: #102937;
+            border-radius: 18px;
+            padding: 20px;
+            border-left: 5px solid;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at top right, rgba(80,170,255,0.1), transparent);
+        }
+
+        .kpi-card.green { border-left-color: #2d9e6f; }
+        .kpi-card.red { border-left-color: #c54a4a; }
+        .kpi-card.yellow { border-left-color: #e6b42c; }
+        .kpi-card.blue { border-left-color: #3298db; }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            color: #8fb4d4;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .kpi-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .kpi-trend {
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trend-up { color: #2d9e6f; }
+        .trend-down { color: #c54a4a; }
+
+        .tooltip-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: #1f4a6a;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 11px;
+            margin-left: 5px;
+            cursor: help;
+            position: relative;
+        }
+
+        .tooltip-icon:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d1f2e;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 100;
+            border: 1px solid #3980b0;
+            margin-bottom: 8px;
+            box-shadow: 0 5px 15px black;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: #102937;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #2b4f6b;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #1f4a6a;
+            padding-bottom: 10px;
+        }
+
+        .card-header h3 {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-header i {
+            color: #5db0e0;
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            background: #1f4059;
+            color: #cae3f5;
+            border: 1px solid #346a8c;
+            white-space: nowrap;
+        }
+
+        .badge-success {
+            background: #0d492d;
+            border-color: #2d9e6f;
+            color: #b8f0d6;
+        }
+
+        .badge-warning {
+            background: #7a5a1a;
+            border-color: #e6b42c;
+            color: #ffecb3;
+        }
+
+        .badge-error {
+            background: #632b2b;
+            border-color: #c54a4a;
+            color: #ffc6c6;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #1f4059;
+            border-radius: 10px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2d9e6f;
+        }
+
+        .progress-fill.warning { background: #e6b42c; }
+        .progress-fill.danger { background: #c54a4a; }
+
+        .wbs-tree {
+            background: #0d2635;
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .wbs-item {
+            padding: 8px 0 8px 15px;
+            border-left: 2px solid #3980b0;
+            margin-left: 10px;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .text-muted {
+            color: #8fb4d4;
+            font-size: 0.85rem;
+        }
+
+        .alert-item {
+            background: #0d2635;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid;
+        }
+
+        .alert-item.red { border-left-color: #c54a4a; }
+        .alert-item.yellow { border-left-color: #e6b42c; }
+
+        .bim-element {
+            background: #0d2635;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid;
+        }
+
+        .bim-element.green { border-left-color: #2d9e6f; }
+        .bim-element.yellow { border-left-color: #e6b42c; }
+        .bim-element.red { border-left-color: #c54a4a; }
+
+        .quote-panel {
+            background: linear-gradient(145deg, #0f2b3d, #0a1e2c);
+            border-radius: 20px;
+            padding: 24px;
+            margin: 20px 0;
+            border: 1px solid #2d5470;
+            box-shadow: inset 0 1px 3px rgba(255,255,255,0.1);
+        }
+
+        /* Barra de estado */
+        .status-bar {
+            background: #0d1f2e;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #8fb4d4;
+            border-top: 1px solid #1f4a6a;
+        }
+
+        .status-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .status-right {
+            display: flex;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="program-window">
+    <!-- Barra de título -->
+    <div class="title-bar">
+        <div class="title-bar-left">
+            <div class="app-icon">
+                <i class="fas fa-helmet-safety"></i>
+                <span>Control de Obra · Centro de Mando v2.0</span>
+            </div>
+            <div class="window-controls">
+                <div class="window-control"><i class="fas fa-minus"></i></div>
+                <div class="window-control"><i class="fas fa-square"></i></div>
+                <div class="window-control close"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="project-path">
+            <i class="fas fa-folder-open"></i> C:\Proyectos\Planta_Enfriamiento\Fase2
+        </div>
+    </div>
+
+    <!-- Menú superior -->
+    <div class="menu-bar">
+        <div class="menu-item"><i class="far fa-file"></i> Archivo</div>
+        <div class="menu-item"><i class="fas fa-edit"></i> Edición</div>
+        <div class="menu-item"><i class="fas fa-eye"></i> Ver</div>
+        <div class="menu-item"><i class="fas fa-cog"></i> Herramientas</div>
+        <div class="menu-item"><i class="fas fa-window-maximize"></i> Ventana</div>
+        <div class="menu-item"><i class="fas fa-question-circle"></i> Ayuda</div>
+    </div>
+
+    <!-- Barra de herramientas -->
+    <div class="toolbar">
+        <div class="tool-btn"><i class="fas fa-sync-alt"></i> Sincronizar</div>
+        <div class="tool-btn"><i class="fas fa-file-export"></i> Exportar</div>
+        <div class="tool-btn"><i class="fas fa-print"></i> Imprimir</div>
+        <div class="separator"></div>
+        <div class="tool-btn"><i class="fas fa-chart-bar"></i> Curvas S</div>
+        <div class="tool-btn"><i class="fas fa-code-branch"></i> RFIs</div>
+        <div class="tool-btn"><i class="fas fa-users"></i> Subcontratistas</div>
+        <div class="separator"></div>
+        <div class="tool-btn"><i class="fas fa-bell"></i> Alertas <span class="badge badge-error" style="margin-left:5px;">3</span></div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Live status bar -->
+        <div class="live-status">
+            <div class="live-indicator">
+                <span class="live-dot"></span>
+                <span><strong>Datos en tiempo real</strong> · Última actualización: 24 Feb 2026 14:30:45</span>
+            </div>
+            <div>
+                <span class="badge badge-info"><i class="fas fa-database"></i> 1.2 MB</span>
+                <span class="badge badge-info" style="margin-left:8px;"><i class="fas fa-user"></i> Supervisor: R. Gómez</span>
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpi-grid">
+            <div class="kpi-card green">
+                <div class="kpi-header">
+                    <span>SPI <span class="tooltip-icon" data-tooltip="Schedule Performance Index: Mide eficiencia del cronograma. >1 = adelantado">?</span></span>
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="kpi-value">1.08</div>
+                <div class="kpi-trend"><span class="trend-up"><i class="fas fa-arrow-up"></i> +8% adelantado</span></div>
+                <div class="text-muted">Adelanto: 3.5 días</div>
+            </div>
+            <div class="kpi-card red">
+                <div class="kpi-header">
+                    <span>CPI <span class="tooltip-icon" data-tooltip="Cost Performance Index: Mide eficiencia de costos. <1 = sobrecosto">?</span></span>
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="kpi-value">0.86</div>
+                <div class="kpi-trend"><span class="trend-down"><i class="fas fa-arrow-down"></i> -14% sobrecosto</span></div>
+                <div class="text-muted">Pérdida: $342,000</div>
+            </div>
+            <div class="kpi-card yellow">
+                <div class="kpi-header">
+                    <span>EAC <span class="tooltip-icon" data-tooltip="Estimate at Completion: Proyección del costo final">?</span></span>
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="kpi-value">$18.4M</div>
+                <div class="kpi-trend">+15% vs $16.0M</div>
+                <div class="text-muted">Desviación: $2.4M</div>
+            </div>
+            <div class="kpi-card blue">
+                <div class="kpi-header">
+                    <span>Avance Físico</span>
+                    <i class="fas fa-percent"></i>
+                </div>
+                <div class="kpi-value">67%</div>
+                <div class="kpi-trend"><span class="trend-down">-5% vs programado</span></div>
+                <div class="text-muted">72% programado</div>
+            </div>
+        </div>
+
+        <!-- Grid 2 columnas: WBS + Bitácora -->
+        <div class="grid-2">
+            <!-- WBS Industrial -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-sitemap"></i> WBS Industrial · Baseline</h3>
+                    <span class="badge">Presupuesto de Control</span>
+                </div>
+                <div class="wbs-tree">
+                    <div class="flex-between" style="font-weight:600; padding-bottom:8px; border-bottom:1px solid #2a5f7a;">
+                        <span>Estructura de Desglose</span>
+                        <span>Ejec/Ppto</span>
+                    </div>
+                    <div class="wbs-item">
+                        <div class="flex-between">
+                            <span><i class="fas fa-folder-open"></i> 01. Planta de Fuerza</span>
+                            <span class="badge badge-warning">$2.1M/$2.4M</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" style="width:88%"></div></div>
+                        
+                        <div class="wbs-item">
+                            <div class="flex-between">
+                                <span>01.1 Civil</span>
+                                <span class="badge badge-success">$850K/$890K</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width:96%"></div></div>
+                        </div>
+                        <div class="wbs-item">
+                            <div class="flex-between">
+                                <span>01.2 Mecánico</span>
+                                <span class="badge badge-error">$1.2M/$980K</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill danger" style="width:122%"></div></div>
+                            <div class="text-muted" style="font-size:0.75rem;"><i class="fas fa-exclamation-triangle" style="color:#ffa36b;"></i> Excede $220K</div>
+                        </div>
+                        <div class="wbs-item">
+                            <div class="flex-between">
+                                <span>01.3 Eléctrico</span>
+                                <span class="badge badge-success">$490K/$530K</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width:92%"></div></div>
+                        </div>
+                    </div>
+                    <div class="wbs-item">
+                        <div class="flex-between">
+                            <span><i class="fas fa-folder-open"></i> 02. Sistema Enfriamiento</span>
+                            <span class="badge badge-error">$3.6M/$3.1M</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill danger" style="width:116%"></div></div>
+                    </div>
+                </div>
+                <!-- Bloqueo activo -->
+                <div style="background:#301f1f; border-radius:14px; padding:14px; margin-top:16px; border-left:4px solid #c54a4a;">
+                    <div class="flex">
+                        <i class="fas fa-ban" style="color:#ff6b6b; font-size:1.2rem;"></i>
+                        <div><strong>Bloqueo de Compras Activo</strong> - OC-452 excede explosión de insumos</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bitácora Digital -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-clipboard-list"></i> Bitácora Digital</h3>
+                    <span class="badge badge-success">App Móvil</span>
+                </div>
+                <div style="max-height: 300px; overflow-y: auto;">
+                    <div style="padding:12px 0; border-bottom:1px solid #1f4a6a;">
+                        <div class="flex-between">
+                            <span class="text-muted">14:30</span>
+                            <span class="badge">Cuadrilla 7</span>
+                        </div>
+                        <div style="margin-top:4px;"><strong>Soldadura:</strong> 45 metros (75% rendimiento)</div>
+                        <div class="progress-bar"><div class="progress-fill warning" style="width:75%"></div></div>
+                    </div>
+                    <div style="padding:12px 0; border-bottom:1px solid #1f4a6a;">
+                        <div class="flex-between">
+                            <span class="text-muted">12:15</span>
+                            <span class="badge badge-success">Completado</span>
+                        </div>
+                        <div><strong>Colado losa norte:</strong> 12 m³</div>
+                        <div class="text-muted">Supervisor: J. Pérez</div>
+                    </div>
+                    <div style="padding:12px 0;">
+                        <div class="flex-between">
+                            <span class="text-muted">10:30</span>
+                            <span class="badge badge-success">Aprobada</span>
+                        </div>
+                        <div><strong>Prueba hidrostática</strong> línea 12"</div>
+                    </div>
+                </div>
+                <!-- Evidencia foto -->
+                <div style="background:#0d2635; border-radius:16px; padding:16px; margin-top:16px;">
+                    <h4 class="flex" style="margin-bottom:12px;"><i class="fas fa-camera"></i> Evidencia geolocalizada</h4>
+                    <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                        <div style="flex:1; min-width:100px;">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80' viewBox='0 0 120 80'%3E%3Crect width='120' height='80' fill='%233280b0'/%3E%3Ctext x='20' y='45' fill='white' font-size='12'%3Ecolado%3C/text%3E%3C/svg%3E" style="border-radius:10px; width:100%;">
+                            <div class="text-muted" style="font-size:0.7rem;">colado_losa.jpg</div>
+                        </div>
+                        <div style="flex:1; min-width:100px;">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80' viewBox='0 0 120 80'%3E%3Crect width='120' height='80' fill='%233280b0'/%3E%3Ctext x='20' y='45' fill='white' font-size='12'%3Esoldadura%3C/text%3E%3C/svg%3E" style="border-radius:10px; width:100%;">
+                            <div class="text-muted" style="font-size:0.7rem;">soldadura_viga.jpg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid 2 columnas: Curvas S + RFIs -->
+        <div class="grid-2">
+            <!-- Curvas S -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-line"></i> Curvas S en Tiempo Real</h3>
+                    <span class="badge">Programado vs Real vs Costo</span>
+                </div>
+                <div style="height: 200px;">
+                    <canvas id="curvaSChart"></canvas>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:15px; flex-wrap:wrap; gap:10px;">
+                    <div class="flex"><span style="width:12px;height:12px;background:#3298db;border-radius:3px;"></span> Programado: 72%</div>
+                    <div class="flex"><span style="width:12px;height:12px;background:#2d9e6f;border-radius:3px;"></span> Avance Físico: 67%</div>
+                    <div class="flex"><span style="width:12px;height:12px;background:#c54a4a;border-radius:3px;"></span> Costo: $14.2M</div>
+                </div>
+            </div>
+
+            <!-- RFIs y Órdenes de Cambio -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-code-branch"></i> RFIs y Órdenes de Cambio</h3>
+                    <span class="badge badge-warning">3 activos</span>
+                </div>
+                <div style="background:#0d2635; border-radius:16px; padding:16px; margin-bottom:12px;">
+                    <div class="flex-between">
+                        <span class="flex"><i class="fas fa-file-alt"></i> <strong>RFI-042</strong> · Bomba CB-223</span>
+                        <span class="badge badge-info">Abierto</span>
+                    </div>
+                    <div class="text-muted" style="margin:8px 0;">Especificación de bridas no coincide</div>
+                    <div class="flex">
+                        <span class="badge">PL-MEC-023</span>
+                        <span class="badge">X:342, Y:156</span>
+                    </div>
+                    <div style="background:#1a3a50; border-radius:10px; padding:8px; margin-top:10px;">
+                        <i class="fas fa-exchange-alt"></i> Conversión a Evento de Cambio +$12,400
+                    </div>
+                </div>
+                <div style="background:#124a6b; border-radius:16px; padding:16px;">
+                    <div class="flex-between">
+                        <h4 class="flex"><i class="fas fa-file-signature"></i> OC-012 Aprobada</h4>
+                        <span class="badge badge-success">Activa</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Monto adicional:</span>
+                        <span><strong>$24,500</strong></span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+                    <div class="text-muted">Explosión de insumos ajustada</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid 2 columnas: Subcontratistas + BIM -->
+        <div class="grid-2">
+            <!-- Subcontratistas -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-users"></i> Subcontratistas · Estado de Cuenta</h3>
+                    <span class="badge">Destajos</span>
+                </div>
+                <div style="margin-bottom:20px;">
+                    <div class="flex-between">
+                        <div><strong>Instalaciones Mecánicas GM</strong></div>
+                        <span>$1.89M / $2.45M</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:77%"></div></div>
+                    <div class="flex-between text-muted">
+                        <span>77% ejecutado</span>
+                        <span class="badge badge-success">Sin desviaciones</span>
+                    </div>
+                </div>
+                <div style="margin-bottom:20px;">
+                    <div class="flex-between">
+                        <div><strong>Soldadura Especializada</strong></div>
+                        <span>$1.05M / $0.98M</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill danger" style="width:107%"></div></div>
+                    <div class="flex-between text-muted">
+                        <span>107%</span>
+                        <span class="badge badge-error">Sobreestimado</span>
+                    </div>
+                </div>
+                <!-- Retenciones -->
+                <div style="background:#0d2635; border-radius:16px; padding:16px;">
+                    <h4 class="flex"><i class="fas fa-calculator"></i> Retenciones Automáticas</h4>
+                    <div class="flex-between"><span>Fondo de garantía (5%)</span> <span class="badge">$94,500</span></div>
+                    <div class="flex-between"><span>Amortización anticipo</span> <span class="badge">$122,500</span></div>
+                    <div class="flex-between"><span>Seguridad social</span> <span class="badge">$18,300</span></div>
+                </div>
+            </div>
+
+            <!-- BIM + Calidad -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-cubes"></i> Mapa de Calor BIM · Calidad</h3>
+                    <span class="badge">Vinculado Revit</span>
+                </div>
+                <div class="bim-element green">
+                    <i class="fas fa-check-circle" style="color:#2d9e6f;"></i>
+                    <span style="flex:1;">Zapatas Z-01 a Z-12</span>
+                    <span class="badge badge-success">Instalado</span>
+                </div>
+                <div class="bim-element yellow">
+                    <i class="fas fa-clock" style="color:#e6b42c;"></i>
+                    <span style="flex:1;">Columnas C-05 a C-08</span>
+                    <span class="badge badge-warning">En almacén</span>
+                </div>
+                <div class="bim-element red">
+                    <i class="fas fa-exclamation-triangle" style="color:#c54a4a;"></i>
+                    <span style="flex:1;">Vigas V-12 a V-15</span>
+                    <span class="badge badge-error">Retraso 2 sem</span>
+                </div>
+                <!-- QA/QC -->
+                <div style="background:#0d2635; border-radius:16px; padding:16px; margin-top:16px;">
+                    <h4 class="flex"><i class="fas fa-clipboard-check"></i> QA/QC · HSE</h4>
+                    <div class="flex-between"><span>Prueba hidrostática</span> <span class="badge badge-success">Aprobada</span></div>
+                    <div class="flex-between"><span>Radiografías soldadura</span> <span class="badge badge-success">OK</span></div>
+                    <div class="flex-between"><span>Permiso trabajo alturas</span> <span class="badge badge-warning">Vence 28/02</span></div>
+                    <div class="flex-between"><span>DC-3 soldadores</span> <span class="badge badge-error">4 pendientes</span></div>
+                </div>
+                <!-- Bloqueo por calidad -->
+                <div style="background:#301f1f; border-radius:12px; padding:12px; margin-top:12px;">
+                    <div class="flex"><i class="fas fa-lock" style="color:#ff6b6b;"></i> <strong>Hito bloqueado:</strong> Pruebas eléctricas pendientes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alertas -->
+        <div style="background:#0d2635; border-radius:20px; padding:16px; margin:20px 0;">
+            <h3 class="flex" style="margin-bottom:15px;"><i class="fas fa-bell"></i> Alertas Inteligentes en Tiempo Real</h3>
+            <div class="alert-item red">
+                <i class="fas fa-exclamation-circle" style="color:#ff6b6b;"></i>
+                <div style="flex:1;"><strong>Sobrecosto en Mecánico</strong> · $220,000 sobre presupuesto</div>
+                <span class="badge badge-error">Hace 10 min</span>
+            </div>
+            <div class="alert-item yellow">
+                <i class="fas fa-clock" style="color:#e6b42c;"></i>
+                <div style="flex:1;"><strong>Rendimiento bajo en soldadura</strong> · 75% vs meta 90%</div>
+                <span class="badge badge-warning">Hace 25 min</span>
+            </div>
+            <div class="alert-item yellow">
+                <i class="fas fa-file" style="color:#e6b42c;"></i>
+                <div style="flex:1;"><strong>REPSE por vencer</strong> · Instalaciones Mecánicas GM (7 días)</div>
+                <span class="badge badge-warning">Hace 1 h</span>
+            </div>
+        </div>
+
+        <!-- Quote de valor -->
+        <div class="quote-panel">
+            <i class="fas fa-quote-right" style="font-size:2rem; color:#6fc3ff; opacity:0.5;"></i>
+            <p style="margin:15px 0; font-size:1rem; line-height:1.6;">
+                "Con el Módulo de Control de Obra, eliminamos la 'ceguera' de los últimos 15 días del mes. Ustedes podrán ver el costo real de la obra mientras sucede, no cuando ya se pagó la factura. Si un subcontratista intenta cobrar de más o si un rendimiento cae, el sistema les avisará en el momento exacto."
+            </p>
+            <div style="display:flex; gap:20px; justify-content:flex-end; flex-wrap:wrap;">
+                <span class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> SPI tiempo real</span>
+                <span class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> CPI automático</span>
+                <span class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> Alertas predictivas</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de estado -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span><i class="fas fa-database"></i> Conectado a servidor central</span>
+            <span><i class="fas fa-sync-alt"></i> Sincronizado 14:30</span>
+        </div>
+        <div class="status-right">
+            <span><i class="fas fa-user"></i> Usuario: Supervisor</span>
+            <span><i class="fas fa-shield-alt"></i> Rol: Administrador</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const ctx = document.getElementById('curvaSChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Sem1', 'Sem2', 'Sem3', 'Sem4', 'Sem5', 'Sem6', 'Sem7', 'Sem8', 'Sem9', 'Sem10'],
+                datasets: [
+                    { data: [3,8,16,28,42,58,72,85,95,100], borderColor: '#3298db', backgroundColor: 'transparent', tension: 0.4, borderWidth: 2 },
+                    { data: [2,6,13,24,38,52,67,78,88,94], borderColor: '#2d9e6f', backgroundColor: 'transparent', tension: 0.4, borderWidth: 2 },
+                    { data: [4,10,20,34,48,65,82,98,112,124], borderColor: '#c54a4a', backgroundColor: 'transparent', tension: 0.4, borderWidth: 2 }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { 
+                    y: { 
+                        beginAtZero: true, 
+                        max: 140, 
+                        grid: { color: '#1f4059' },
+                        ticks: { color: '#8fb4d4' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#8fb4d4' }
+                    }
+                }
+            }
+        });
+    })();
+</script>
+</body>
+</html>
