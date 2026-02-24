@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Proveedores · Blindaje Total | Demo Industrial</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a1c28;
+            color: #e6edf3;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 20px;
+            background: rgba(12, 30, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            border: 1px solid #2a5f85;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(80, 160, 255, 0.2) inset;
+            overflow: hidden;
+            padding: 24px;
+        }
+
+        /* Header */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px 20px 20px;
+            border-bottom: 1px solid #1f4a6a;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            background: #1e6f9f;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 10px 20px -5px #0a2a3b;
+        }
+
+        .logo-text h1 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #c0e2ff, #6eb7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            color: #88b8d8;
+            font-size: 0.85rem;
+        }
+
+        .project-badge {
+            background: #143244;
+            padding: 12px 24px;
+            border-radius: 60px;
+            border: 1px solid #29668f;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Beneficios destacados */
+        .benefits-strip {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .benefit-pill {
+            background: #0c3145;
+            border: 1px solid #3c799e;
+            border-radius: 60px;
+            padding: 12px 28px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 20px #081b26;
+        }
+
+        .benefit-pill i {
+            color: #6fc3ff;
+            font-size: 1.2rem;
+        }
+
+        /* Navegación específica Proveedores */
+        .portal-tabs {
+            display: flex;
+            gap: 8px;
+            margin: 20px 0 20px;
+            flex-wrap: wrap;
+            background: #0b2637;
+            padding: 8px;
+            border-radius: 60px;
+        }
+
+        .portal-tab {
+            background: transparent;
+            border: none;
+            color: #a1bfd8;
+            font-weight: 500;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            cursor: default;
+            transition: all 0.2s;
+        }
+
+        .portal-tab.active {
+            background: #1a4b6b;
+            color: white;
+            box-shadow: 0 5px 15px #0d3143;
+        }
+
+        .portal-tab i {
+            margin-right: 8px;
+        }
+
+        /* Grid principal */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: rgba(18, 35, 48, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid #2b4f6b;
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 20px 30px -15px black;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #1f4a6a;
+            padding-bottom: 12px;
+        }
+
+        .card-header h3 {
+            font-weight: 600;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header i {
+            color: #5db0e0;
+        }
+
+        .badge {
+            padding: 4px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 0.75rem;
+            background: #1f4059;
+            color: #cae3f5;
+            border: 1px solid #346a8c;
+        }
+
+        .badge-success {
+            background: #0d492d;
+            border-color: #2d9e6f;
+            color: #b8f0d6;
+        }
+
+        .badge-warning {
+            background: #7a5a1a;
+            border-color: #e6b42c;
+            color: #ffecb3;
+        }
+
+        .badge-error {
+            background: #632b2b;
+            border-color: #c54a4a;
+            color: #ffc6c6;
+        }
+
+        .badge-info {
+            background: #124a6b;
+            border-color: #3298db;
+            color: #c1e2ff;
+        }
+
+        /* Semáforo de cumplimiento */
+        .semaforo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .doc-item {
+            background: #102f40;
+            padding: 16px;
+            border-radius: 20px;
+            border-left: 4px solid;
+        }
+
+        .doc-verde {
+            border-left-color: #2d9e6f;
+        }
+
+        .doc-rojo {
+            border-left-color: #c54a4a;
+        }
+
+        .doc-amarillo {
+            border-left-color: #e6b42c;
+        }
+
+        .doc-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        /* Lista de proveedores */
+        .proveedor-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #1f4a6a;
+        }
+
+        .proveedor-row:last-child {
+            border-bottom: none;
+        }
+
+        .proveedor-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Validación de factura */
+        .factura-card {
+            background: #102937;
+            border-radius: 24px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #3f7a9e;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px dashed #274d66;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        /* REPSE y subcontratistas */
+        .repse-section {
+            background: #0d2635;
+            border-radius: 24px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .trabajador-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard de riesgos */
+        .dashboard-riesgos {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .riesgo-card {
+            flex: 1;
+            min-width: 150px;
+            background: #0b3145;
+            border-radius: 24px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #3980b0;
+        }
+
+        .btn-outline {
+            border: 1px solid #4799d1;
+            background: transparent;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            cursor: default;
+        }
+
+        .chart-container {
+            height: 120px;
+            margin: 15px 0;
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(199, 70, 50, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(199, 70, 50, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(199, 70, 50, 0); }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+
+    <!-- Header -->
+    <div class="app-header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-truck"></i></div>
+            <div class="logo-text">
+                <h1>PORTAL PROVEEDORES · FULL BLINDAJE</h1>
+                <p><i class="fas fa-shield-halved"></i> REPSE · SAT · IMSS · INFONAVIT · Transferencia de Responsabilidad</p>
+            </div>
+        </div>
+        <div class="project-badge">
+            <i class="fas fa-hard-hat"></i> <span>Proyecto: Torres del Parque · Fase 2</span>
+        </div>
+    </div>
+
+    <!-- Beneficios clave -->
+    <div class="benefits-strip">
+        <span class="benefit-pill"><i class="fas fa-shield"></i> Blindaje Legal Total</span>
+        <span class="benefit-pill"><i class="fas fa-ban"></i> 0 Facturas con Riesgo</span>
+        <span class="benefit-pill"><i class="fas fa-file-invoice"></i> Validación Automática</span>
+        <span class="benefit-pill"><i class="fas fa-users"></i> Control REPSE</span>
+        <span class="benefit-pill"><i class="fas fa-chart-line"></i> Dashboard de Riesgos</span>
+    </div>
+
+    <!-- Pestañas de navegación -->
+    <div class="portal-tabs">
+        <span class="portal-tab active"><i class="fas fa-id-card"></i> Alta y Pre-calificación</span>
+        <span class="portal-tab"><i class="fas fa-traffic-light"></i> Semáforo Cumplimiento</span>
+        <span class="portal-tab"><i class="fas fa-file-invoice"></i> Validación Facturas</span>
+        <span class="portal-tab"><i class="fas fa-people-group"></i> REPSE/Subcontratistas</span>
+        <span class="portal-tab"><i class="fas fa-chart-pie"></i> Dashboard Riesgos</span>
+    </div>
+
+    <!-- Grid principal: Alta y Pre-calificación + Semáforo -->
+    <div class="grid-2col">
+        <!-- Columna izquierda: Perfil de Alta y Pre-calificación -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-id-card"></i> Perfil de Alta · Compliance</h3>
+                <span class="badge badge-info">Filtro de Entrada</span>
+            </div>
+            <p style="margin-bottom: 15px;">Documentación obligatoria antes de cotizar:</p>
+            <div style="display: grid; gap: 12px;">
+                <div class="checklist-item">
+                    <i class="fas fa-check-circle" style="color:#2d9e6f;"></i>
+                    <div style="flex:1;">Acta Constitutiva y Poderes</div>
+                    <span class="badge badge-success">Cargado</span>
+                </div>
+                <div class="checklist-item">
+                    <i class="fas fa-check-circle" style="color:#2d9e6f;"></i>
+                    <div style="flex:1;">Constancia de Situación Fiscal (CSF)</div>
+                    <span class="badge badge-success">Vigente</span>
+                </div>
+                <div class="checklist-item">
+                    <i class="fas fa-check-circle" style="color:#2d9e6f;"></i>
+                    <div style="flex:1;">Identificación Oficial (INE)</div>
+                    <span class="badge badge-success">Validado</span>
+                </div>
+                <div class="checklist-item">
+                    <i class="fas fa-exclamation-triangle" style="color:#e6b42c;"></i>
+                    <div style="flex:1;">Registro REPSE</div>
+                    <span class="badge badge-warning">Vence en 15 días</span>
+                </div>
+                <div class="checklist-item">
+                    <i class="fas fa-check-circle" style="color:#2d9e6f;"></i>
+                    <div style="flex:1;">Validación Bancaria (Cuenta)</div>
+                    <span class="badge badge-success">Verificada</span>
+                </div>
+            </div>
+
+            <!-- Ejemplo de proveedor en proceso -->
+            <div style="background: #0f2e40; border-radius: 24px; padding: 16px; margin-top: 20px;">
+                <h4><i class="fas fa-building"></i> Proveedor: Aceros Industriales SA</h4>
+                <div style="margin-top: 10px;">
+                    <span class="badge badge-warning">Pre-calificación pendiente</span>
+                    <span class="badge badge-info">RFC: AIC850101XXX</span>
+                </div>
+                <div style="margin-top: 10px; font-size:0.9rem;">
+                    <i class="fas fa-clock"></i> Último acceso: 23/02/2026
+                </div>
+            </div>
+
+            <!-- Botón simulado -->
+            <div class="btn-outline" style="margin-top:20px; display:inline-block;">
+                <i class="fas fa-user-plus"></i> Solicitar alta proveedor
+            </div>
+        </div>
+
+        <!-- Columna derecha: Semáforo de Cumplimiento Mensual -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-traffic-light"></i> Semáforo de Cumplimiento</h3>
+                <span class="badge badge-error">Actualización Mensual</span>
+            </div>
+            <p style="margin-bottom: 15px;">Proveedor: Hormigones del Centro · RFC: HOC890202XXX</p>
+
+            <div class="semaforo-grid">
+                <div class="doc-item doc-verde">
+                    <div class="doc-label">
+                        <span>SAT (32-D)</span>
+                        <span class="badge badge-success">Vigente</span>
+                    </div>
+                    <div style="font-size:0.85rem;">Vence: 31/03/2026</div>
+                </div>
+                <div class="doc-item doc-verde">
+                    <div class="doc-label">
+                        <span>IMSS</span>
+                        <span class="badge badge-success">Vigente</span>
+                    </div>
+                    <div style="font-size:0.85rem;">Vence: 15/03/2026</div>
+                </div>
+                <div class="doc-item doc-rojo">
+                    <div class="doc-label">
+                        <span>INFONAVIT</span>
+                        <span class="badge badge-error">Vencido</span>
+                    </div>
+                    <div style="font-size:0.85rem;">Vence: 31/01/2026</div>
+                </div>
+                <div class="doc-item doc-amarillo">
+                    <div class="doc-label">
+                        <span>Listas Negras (69-B)</span>
+                        <span class="badge badge-warning">Verificar</span>
+                    </div>
+                    <div style="font-size:0.85rem;">Revisión automática</div>
+                </div>
+            </div>
+
+            <div style="background: #301f1f; border-radius: 16px; padding: 14px; margin-top: 15px;">
+                <i class="fas fa-exclamation-triangle" style="color:#ff6b6b;"></i>
+                <strong>EFECTO:</strong> Facturas bloqueadas hasta regularizar INFONAVIT
+            </div>
+
+            <!-- Lista de otros proveedores -->
+            <div style="margin-top: 20px;">
+                <h4>Otros proveedores</h4>
+                <div class="proveedor-row">
+                    <div class="proveedor-info">
+                        <i class="fas fa-building"></i> Constructora Omega
+                    </div>
+                    <span class="badge badge-success">✅ SAT, IMSS, INFONAVIT</span>
+                </div>
+                <div class="proveedor-row">
+                    <div class="proveedor-info">
+                        <i class="fas fa-building"></i> Aceros Industriales
+                    </div>
+                    <span class="badge badge-error">❌ SAT vencido</span>
+                </div>
+                <div class="proveedor-row">
+                    <div class="proveedor-info">
+                        <i class="fas fa-building"></i> Instalaciones Eléctricas GM
+                    </div>
+                    <span class="badge badge-warning">⚠️ REPSE por vencer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Segunda fila: Validación de Facturas + Control Subcontratistas -->
+    <div class="grid-2col">
+        <!-- Validación de Facturas (Triple validación) -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-file-invoice"></i> Validación de Facturas</h3>
+                <span class="badge badge-info">3 validaciones en microsegundos</span>
+            </div>
+
+            <!-- Factura ejemplo -->
+            <div class="factura-card">
+                <div style="display: flex; justify-content: space-between;">
+                    <span><i class="fas fa-file-pdf"></i> Factura F8854 · UUID: 4F2E-...-A3B2</span>
+                    <span class="badge badge-error">RECHAZADA</span>
+                </div>
+                <div style="margin-top: 15px;">
+                    <div class="checklist-item">
+                        <i class="fas fa-check-circle" style="color:#2d9e6f;"></i>
+                        <div style="flex:1;">Validación Fiscal (UUID válido, RFC correcto)</div>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-times-circle" style="color:#c54a4a;"></i>
+                        <div style="flex:1;">Match OC: Monto $185,400 vs OC $180,000</div>
+                        <span class="badge badge-error">Diferencia</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-times-circle" style="color:#c54a4a;"></i>
+                        <div style="flex:1;">Entregables: Falta certificado calidad</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Factura aceptada -->
+            <div class="factura-card" style="border-color: #2d9e6f;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span><i class="fas fa-file-pdf"></i> Factura F3312 · UUID: 1A3D-...-B8C9</span>
+                    <span class="badge badge-success">ACEPTADA</span>
+                </div>
+                <div style="margin-top: 15px;">
+                    <div class="checklist-item">
+                        <i class="fas fa-check-circle" style="color:#2d9e6f;"></i> Validación Fiscal OK
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-check-circle" style="color:#2d9e6f;"></i> Match OC perfecto
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-check-circle" style="color:#2d9e6f;"></i> Certificado calidad adjunto
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-check-circle" style="color:#2d9e6f;"></i> Reporte fotográfico obra
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top:15px;"><i class="fas fa-microchip"></i> Validación automática: fiscal, orden de compra y entregables</p>
+        </div>
+
+        <!-- Control de Subcontratistas (REPSE) -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-people-group"></i> Control Subcontratistas · REPSE</h3>
+                <span class="badge badge-warning">Responsabilidad Solidaria</span>
+            </div>
+
+            <div class="repse-section">
+                <h4>Subcontratista: Instalaciones Eléctricas GM</h4>
+                <div style="margin: 15px 0;">
+                    <span class="badge badge-info">REPSE: IE-2026-0234</span>
+                    <span class="badge badge-warning">Vence 15/04/2026</span>
+                </div>
+
+                <h5 style="margin: 15px 0 10px;">Personal asignado a obra (Lista de Raya)</h5>
+                <div class="trabajador-row">
+                    <span>Juan Pérez López</span>
+                    <span><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> SUA pagado</span>
+                    <span class="badge badge-success">DC-3 Alturas</span>
+                </div>
+                <div class="trabajador-row">
+                    <span>Carlos Gómez Ruiz</span>
+                    <span><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> SUA pagado</span>
+                    <span class="badge badge-success">DC-3 Confinado</span>
+                </div>
+                <div class="trabajador-row">
+                    <span>Miguel Ángel Soto</span>
+                    <span><i class="fas fa-exclamation-triangle" style="color:#e6b42c;"></i> SUA pendiente</span>
+                    <span class="badge badge-warning">DC-3 vence</span>
+                </div>
+
+                <div style="margin-top: 15px; background: #1b3f55; padding: 10px; border-radius: 16px;">
+                    <i class="fas fa-file-pdf"></i> Comprobante de pago SUA (febrero) adjunto
+                </div>
+            </div>
+
+            <!-- Panel de transparencia para proveedor -->
+            <div style="margin-top: 20px;">
+                <h4><i class="fas fa-eye"></i> Panel de Transparencia</h4>
+                <div style="display: flex; justify-content: space-between; background: #102937; padding: 12px; border-radius: 16px;">
+                    <div>
+                        <div style="font-size:0.8rem;">Factura F3312</div>
+                        <div><span class="badge badge-success">Pagada 20/02</span></div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.8rem;">Factura F3345</div>
+                        <div><span class="badge badge-info">Programada 28/02</span></div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.8rem;">Factura F3356</div>
+                        <div><span class="badge badge-warning">Validación</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tercera fila: Dashboard de Riesgos para Dirección -->
+    <div class="card" style="margin-top: 0;">
+        <div class="card-header">
+            <h3><i class="fas fa-chart-pie"></i> Dashboard de Riesgos · Cadena de Suministro</h3>
+            <span class="badge badge-error">Actualización en vivo</span>
+        </div>
+
+        <div class="dashboard-riesgos">
+            <div class="riesgo-card">
+                <i class="fas fa-file-contract" style="font-size: 2rem; color:#6fc3ff;"></i>
+                <div style="font-size: 2rem; font-weight:700;">32%</div>
+                <div>Proveedores con SAT vencido</div>
+                <div style="margin-top:10px;"><span class="badge badge-error">12 de 38</span></div>
+            </div>
+            <div class="riesgo-card">
+                <i class="fas fa-dollar-sign" style="font-size: 2rem; color:#ffa36b;"></i>
+                <div style="font-size: 2rem; font-weight:700;">$2.4M</div>
+                <div>Pagos retenidos por documentos</div>
+                <div style="margin-top:10px;"><span class="badge badge-warning">8 facturas</span></div>
+            </div>
+            <div class="riesgo-card">
+                <i class="fas fa-users" style="font-size: 2rem; color:#f0b37b;"></i>
+                <div style="font-size: 2rem; font-weight:700;">5</div>
+                <div>Alertas REPSE próximas</div>
+                <div style="margin-top:10px;"><span class="badge badge-warning">Vencen 15 días</span></div>
+            </div>
+            <div class="riesgo-card">
+                <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color:#ff6b6b;"></i>
+                <div style="font-size: 2rem; font-weight:700;">2</div>
+                <div>Proveedores en Listas Negras</div>
+                <div style="margin-top:10px;"><span class="badge badge-error">Alerta roja</span></div>
+            </div>
+        </div>
+
+        <!-- Gráfico de cumplimiento (simulado) -->
+        <div style="display: flex; gap: 20px; margin-top: 20px; align-items: center;">
+            <div style="width: 200px; height: 120px;">
+                <canvas id="chartCumplimiento"></canvas>
+            </div>
+            <div>
+                <div><span class="badge badge-success">✅ 45% Cumplen todo</span></div>
+                <div><span class="badge badge-warning">⚠️ 23% Documentos parciales</span></div>
+                <div><span class="badge badge-error">❌ 32% No aptos para pago</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resumen de Blindaje y Beneficios -->
+    <div style="display: flex; gap: 20px; margin: 30px 0 20px; flex-wrap: wrap;">
+        <div style="flex:1; background: #0b3145; border-radius: 24px; padding: 24px;">
+            <i class="fas fa-shield" style="color:#6fc3ff; font-size:2rem;"></i>
+            <h4 style="margin:15px 0;">Transferencia de Responsabilidad</h4>
+            <p>El proveedor es responsable de mantener su documentación vigente. El ERP bloquea automáticamente pagos y facturas si no cumple.</p>
+        </div>
+        <div style="flex:1; background: #0b3145; border-radius: 24px; padding: 24px;">
+            <i class="fas fa-robot" style="color:#6fc3ff; font-size:2rem;"></i>
+            <h4 style="margin:15px 0;">Validación en Microsegundos</h4>
+            <p>Triple filtro: fiscal, orden de compra y entregables. Protección total contra riesgos de deducibilidad.</p>
+        </div>
+        <div style="flex:1; background: #0b3145; border-radius: 24px; padding: 24px;">
+            <i class="fas fa-chart-line" style="color:#6fc3ff; font-size:2rem;"></i>
+            <h4 style="margin:15px 0;">Visibilidad de Riesgos</h4>
+            <p>Dashboard en tiempo real para Dirección: % de cumplimiento, pagos retenidos y alertas REPSE.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <p style="text-align:right; color:#5f8fb0; padding:20px 0 0;">
+        <i class="fas fa-microchip"></i> Portal Proveedores · Full Blindaje · REPSE · SAT · IMSS · INFONAVIT
+    </p>
+</div>
+
+<script>
+    (function() {
+        // Gráfico de cumplimiento (dashboard)
+        const ctx = document.getElementById('chartCumplimiento').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Cumplen todo', 'Parciales', 'No aptos'],
+                datasets: [{
+                    data: [45, 23, 32],
+                    backgroundColor: ['#2d9e6f', '#e6b42c', '#c54a4a'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutout: '65%',
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: { legend: { display: false } }
+            }
+        });
+    })();
+</script>
+</body>
+</html>
