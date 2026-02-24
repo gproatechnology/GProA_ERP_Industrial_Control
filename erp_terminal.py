@@ -12,9 +12,4 @@ cd /workspaces/GProA_ERP_Industrial_Control && python3 -m http.server 8000
 
 Luego accede a: `http://localhost:8000`
 
-**Para el test de terminal:**
-```bash
-python3 erp_terminal.py
-```
-
 Ambos métodos funcionan sin necesidad de configuración adicional.
