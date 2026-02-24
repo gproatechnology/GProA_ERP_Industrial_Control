@@ -22,30 +22,20 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            overflow-x: hidden;
+            align-items: center;
         }
 
-        .app-container, .modal-app-container {
+        .app-container {
             width: 100%;
             max-width: 1600px;
             margin: 20px;
             background: rgba(12, 30, 45, 0.95);
             backdrop-filter: blur(12px);
-            border-radius: 24px;
+            border-radius: 48px;
             border: 1px solid #2a5f85;
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(80, 160, 255, 0.2) inset;
             overflow: hidden;
             padding: 24px;
-            min-height: calc(100vh - 40px);
-        }
-
-        /* Estilos específicos cuando se carga en modal */
-        .modal-app-container {
-            margin: 0;
-            border-radius: 16px;
-            max-width: 100%;
-            min-height: auto;
         }
 
         /* Header */
@@ -81,7 +71,6 @@
             background: linear-gradient(135deg, #c0e2ff, #6eb7ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .logo-text p {
@@ -307,14 +296,12 @@
             left: 10px;
             padding: 4px;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .qr-sim i {
-            font-size: 40px;
-            color: black;
+        .qr-sim img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         /* Comparador de versiones */
@@ -433,143 +420,6 @@
             padding: 6px 0 6px 20px;
             border-left: 2px solid #3980b0;
             margin-left: 10px;
-        }
-
-        /* Responsive Design - Solo para tablets y móviles */
-        @media screen and (max-width: 992px) {
-            .grid-2col {
-                grid-template-columns: 1fr;
-            }
-            
-            .app-container {
-                margin: 15px;
-                padding: 20px;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            body {
-                padding: 10px;
-                align-items: flex-start;
-            }
-
-            .app-container {
-                margin: 10px;
-                padding: 16px;
-                border-radius: 20px;
-            }
-
-            .app-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-                padding: 10px 10px 16px 10px;
-            }
-
-            .logo-area {
-                width: 100%;
-            }
-
-            .logo-text h1 {
-                font-size: 1.4rem;
-            }
-
-            .logo-text p {
-                font-size: 0.75rem;
-            }
-
-            .project-badge {
-                width: 100%;
-                justify-content: center;
-                font-size: 0.85rem;
-            }
-
-            .cde-tabs {
-                gap: 6px;
-                padding: 6px;
-                margin: 16px 0;
-            }
-
-            .cde-tab {
-                padding: 10px 16px;
-                font-size: 0.85rem;
-                flex: 1 1 auto;
-                text-align: center;
-            }
-
-            .metadata-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .workflow-steps {
-                gap: 8px;
-            }
-
-            .step {
-                min-width: 60px;
-            }
-
-            .step-icon {
-                width: 32px;
-                height: 32px;
-            }
-
-            .viewer-container {
-                padding: 14px;
-            }
-
-            .mock-plan {
-                height: 180px;
-            }
-
-            .version-compare {
-                flex-direction: column;
-            }
-
-            .tree-structure {
-                padding: 14px;
-            }
-
-            .rfis-section {
-                padding: 14px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .logo-icon {
-                width: 40px;
-                height: 40px;
-                border-radius: 12px;
-                font-size: 22px;
-            }
-
-            .logo-text h1 {
-                font-size: 1.1rem;
-            }
-
-            .cde-tab {
-                padding: 8px 12px;
-                font-size: 0.75rem;
-            }
-
-            .badge {
-                padding: 3px 10px;
-                font-size: 0.7rem;
-            }
-
-            .metadata-item {
-                padding: 10px;
-                border-radius: 14px;
-            }
-
-            .metadata-label {
-                font-size: 0.7rem;
-            }
-
-            .metadata-value {
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
@@ -716,8 +566,8 @@
                         <text x="170" y="140" fill="#6bff8b" font-size="10" opacity="0.7">Rev 04</text>
                     </svg>
                     <!-- QR Dinámico -->
-                    <div class="qr-sim">
-                        <i class="fas fa-qrcode"></i>
+                    <div class="qr-sim" style="background: white; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-qrcode" style="font-size: 40px; color: black;"></i>
                     </div>
                     <div class="plan-overlay">
                         <i class="fas fa-check-circle" style="color: #2d9e6f;"></i> Sello Digital · Aprobado
