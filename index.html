@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Industrial Control - MVP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .nav {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 0.5rem 2rem;
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .nav a:hover, .nav a.active {
+            color: #1e3c72;
+            border-bottom-color: #1e3c72;
+        }
+        
+        .main-content {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #1e3c72;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .card-icon {
+            font-size: 1.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-alert {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .module-section {
+            margin-top: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+            border-left: 4px solid #1e3c72;
+            padding-left: 0.75rem;
+        }
+        
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .module-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .module-card:hover {
+            border-color: #1e3c72;
+        }
+        
+        .module-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .module-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+        
+        .module-desc {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .footer {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            background-color: #1e3c72;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2a5298;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">🏗️</span>
+            <span>ERP Industrial Control</span>
+        </div>
+        <div class="user-info">
+            <span>MVP v0.1</span>
+        </div>
+    </header>
+    
+    <nav class="nav">
+        <ul>
+            <li><a href="#" class="active">Dashboard</a></li>
+            <li><a href="#">Proyectos</a></li>
+            <li><a href="#">CDE Planos</a></li>
+            <li><a href="#">Proveedores</a></li>
+            <li><a href="#">Calidad</a></li>
+            <li><a href="#">Almacén</a></li>
+            <li><a href="#">Reportes</a></li>
+        </ul>
+    </nav>
+    
+    <main class="main-content">
+        <h1 class="page-title">Dashboard - Vista General</h1>
+        
+        <!-- KPIs -->
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Proyectos Activos</span>
+                    <span class="card-icon">📁</span>
+                </div>
+                <div class="stat-value">3</div>
+                <div class="stat-label">En ejecución</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Planos Pendientes</span>
+                    <span class="card-icon">📐</span>
+                </div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">Por revisar</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Proveedores</span>
+                    <span class="card-icon">🏭</span>
+                </div>
+                <div class="stat-value">48</div>
+                <div class="stat-label">Registrados</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Alertas</span>
+                    <span class="card-icon">⚠️</span>
+                </div>
+                <div class="stat-value" style="color: #dc3545;">5</div>
+                <div class="stat-label">Documentos vencidos</div>
+            </div>
+        </div>
+        
+        <!-- Módulos -->
+        <section class="module-section">
+            <h2 class="section-title">Módulos del Sistema</h2>
+            <div class="module-grid">
+                <div class="module-card">
+                    <div class="module-icon">📐</div>
+                    <div class="module-name">CDE & Planos</div>
+                    <div class="module-desc">Control de versiones y QR de validación</div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-icon">🏭</div>
+                    <div class="module-name">Portal Proveedores</div>
+                    <div class="module-desc">Blindaje fiscal y compliance</div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-icon">📦</div>
+                    <div class="module-name">Almacén</div>
+                    <div class="module-desc">Control de entradas/salidas</div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-icon">✅</div>
+                    <div class="module-name">QA/QC</div>
+                    <div class="module-desc">Checklists y liberación de áreas</div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-icon">📊</div>
+                    <div class="module-name">BIM 5D</div>
+                    <div class="module-desc">Integración y visualización</div>
+                </div>
+                
+                <div class="module-card">
+                    <div class="module-icon">📋</div>
+                    <div class="module-name">Requisiciones</div>
+                    <div class="module-desc">Gestión de compras</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Actividad Reciente -->
+        <section class="module-section">
+            <h2 class="section-title">Actividad Reciente</h2>
+            <div class="card">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📝</div>
+                    <p>Sin actividad reciente</p>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">La actividad del sistema aparecerá aquí</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <p>ERP Industrial Control © 2026 | MVP en Desarrollo</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">Proyecto preparado para autorización</p>
+    </footer>
+    
+    <script>
+        // Aquí se integrará la lógica del MVP
+        console.log('ERP Industrial Control - MVP v0.1');
+    </script>
+</body>
+</html>
