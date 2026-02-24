@@ -858,11 +858,51 @@
             document.getElementById('cde-modal').classList.remove('active');
         }
 
+        // Función para abrir el modal de Control de Obras
+        function openControlObrasModal(evt) {
+            var event = evt || window.event;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.tab-btn').classList.add('active');
+            document.getElementById('demo-content').style.display = 'none';
+            document.getElementById('control-obras-modal').classList.add('active');
+            
+            // Cargar el contenido del archivo Control de Obras de forma segura
+            fetch('Templates/control de obras.html')
+                .then(response => response.text())
+                .then(html => {
+                    // Usar DOMParser para parsear HTML de forma segura
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const modalContent = document.getElementById('control-obras-modal-content');
+                    modalContent.innerHTML = '';
+                    // Solo insertar el contenido del body, no scripts externos
+                    const bodyContent = doc.body.innerHTML;
+                    modalContent.innerHTML = bodyContent;
+                })
+                .catch(err => {
+                    console.error('Error cargando Control de Obras:', err);
+                    const errorMsg = document.createElement('p');
+                    errorMsg.style.cssText = 'color:white;padding:40px;';
+                    errorMsg.textContent = 'Error al cargar el contenido';
+                    document.getElementById('control-obras-modal-content').innerHTML = '';
+                    document.getElementById('control-obras-modal-content').appendChild(errorMsg);
+                });
+        }
+
+        // Función para cerrar el modal de Control de Obras
+        function closeControlObrasModal() {
+            document.getElementById('control-obras-modal').classList.remove('active');
+        }
+
         // Cerrar modal al hacer clic fuera
         document.addEventListener('click', function(e) {
-            const modal = document.getElementById('cde-modal');
-            if (e.target === modal) {
+            const cdeModal = document.getElementById('cde-modal');
+            if (e.target === cdeModal) {
                 closeCDEModal();
+            }
+            const controlObrasModal = document.getElementById('control-obras-modal');
+            if (e.target === controlObrasModal) {
+                closeControlObrasModal();
             }
         });
     </script>
@@ -898,7 +938,7 @@
         <button class="tab-btn active" type="button" onclick="showDemo(event)"><i class="fas fa-eye" aria-hidden="true"></i> Escenarios Demo</button>
         <button class="tab-btn" type="button" onclick="window.location.href='Templates/CDE · CONTROL DOCUMENTAL.html'"><i class="fas fa-file-signature" aria-hidden="true"></i> CDE / Planos</button>
         <button class="tab-btn" type="button" onclick="window.location.href='Templates/Portal Provedores.html'"><i class="fas fa-truck" aria-hidden="true"></i> Portal Proveedores</button>
-        <button class="tab-btn" type="button"><i class="fas fa-chart-line" aria-hidden="true"></i> Control Obra</button>
+        <button class="tab-btn" type="button" onclick="openControlObrasModal(event)"><i class="fas fa-chart-line" aria-hidden="true"></i> Control Obra</button>
         <button class="tab-btn" type="button"><i class="fas fa-cubes" aria-hidden="true"></i> BIM Connect</button>
         <span class="live-notification"><i class="fas fa-bell" aria-hidden="true"></i> Beneficios en acción</span>
     </div>
@@ -1213,6 +1253,16 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeCDEModal()"><i class="fas fa-times"></i></button>
         <div id="cde-modal-content">
+            <!-- El contenido se cargará dinámicamente -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Control de Obras -->
+<div id="control-obras-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 1400px;">
+        <button class="modal-close" onclick="closeControlObrasModal()"><i class="fas fa-times"></i></button>
+        <div id="control-obras-modal-content">
             <!-- El contenido se cargará dinámicamente -->
         </div>
     </div>
