@@ -831,7 +831,7 @@
             document.getElementById('cde-modal').classList.add('active');
             
             // Cargar el contenido del archivo CDE de forma segura
-            fetch('Templates/CDE · CONTROL DOCUMENTAL.html')
+            fetch(encodeURI('Templates/CDE · CONTROL DOCUMENTAL.html'))
                 .then(response => response.text())
                 .then(html => {
                     // Usar DOMParser para parsear HTML de forma segura
@@ -867,7 +867,7 @@
             document.getElementById('control-obras-modal').classList.add('active');
             
             // Cargar el contenido del archivo Control de Obras de forma segura
-            fetch('Templates/control de obras.html')
+            fetch(encodeURI('Templates/control de obras.html'))
                 .then(response => response.text())
                 .then(html => {
                     // Usar DOMParser para parsear HTML de forma segura
