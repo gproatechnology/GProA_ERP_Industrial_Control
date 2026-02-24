@@ -484,10 +484,10 @@
                 <div class="metadata-item">
                     <div class="metadata-label">Responsable</div>
                     <div class="metadata-value">Ing. Estructural SA</div>
-                </div>
             </div>
 
-            <!-- Flujo de aprobación (Workflow) -->
+            <!--</div>
+                 Flujo de aprobación (Workflow) -->
             <div class="card-header" style="margin-top: 10px;">
                 <h3><i class="fas fa-random"></i> Flujo de Aprobación</h3>
             </div>
@@ -501,208 +501,230 @@
                     <div style="font-size:0.8rem;">Revisión</div>
                 </div>
                 <div class="step completed">
-                    <div class="step-icon"><i class="fas fa-hard-hat"></i></div>
-                    <div style="font-size:0.8rem;">HSE</div>
+                    <div class="step-icon"><i class="fas fa-check"></i></div>
+                    <div style="font-size:0.8rem;">Aprobación</div>
                 </div>
                 <div class="step active">
-                    <div class="step-icon"><i class="fas fa-check-double"></i></div>
-                    <div style="font-size:0.8rem;">Gerente</div>
-                </div>
-                <div class="step">
-                    <div class="step-icon"><i class="fas fa-stamp"></i></div>
-                    <div style="font-size:0.8rem;">Sellado</div>
+                    <div class="step-icon"><i class="fas fa-share-alt"></i></div>
+                    <div style="font-size:0.8rem;">Distribución</div>
                 </div>
             </div>
 
-            <div style="background: #13415a; padding: 16px; border-radius: 20px; margin: 10px 0;">
-                <i class="fas fa-bell"></i> Próximo paso: Aprobación final pendiente (Gerente Proyecto)
-            </div>
-
-            <!-- Control de versiones -->
-            <div class="card-header" style="margin-top: 10px;">
-                <h3><i class="fas fa-code-branch"></i> Versiones</h3>
-            </div>
+            <!-- Lista de versiones -->
             <div class="version-list">
                 <div class="version-row">
-                    <div><i class="fas fa-file-pdf"></i> Rev 04 <span class="badge badge-success">VIGENTE</span></div>
-                    <div><span class="badge">S4</span> 22/02/2026</div>
+                    <div>
+                        <strong>v.04</strong> <span class="badge badge-success">ACTUAL</span>
+                    </div>
+                    <div style="text-align:right; font-size:0.85rem;">
+                        <div>23/02/2026</div>
+                        <div style="color:#8fb4d4;">Ing. Martínez</div>
+                    </div>
                 </div>
-                <div class="version-row" style="opacity:0.6;">
-                    <div><i class="fas fa-file-pdf"></i> Rev 03 <span class="badge badge-warning">OBSOLETO</span></div>
-                    <div>15/02/2026</div>
+                <div class="version-row">
+                    <div>
+                        <strong>v.03</strong> <span class="badge badge-warning">OBSOLETA</span>
+                    </div>
+                    <div style="text-align:right; font-size:0.85rem;">
+                        <div>15/02/2026</div>
+                        <div style="color:#8fb4d4;">Ing. López</div>
+                    </div>
                 </div>
-                <div class="version-row" style="opacity:0.4;">
-                    <div><i class="fas fa-file-pdf"></i> Rev 02</div>
-                    <div>01/02/2026</div>
+                <div class="version-row">
+                    <div>
+                        <strong>v.02</strong> <span class="badge badge-warning">OBSOLETA</span>
+                    </div>
+                    <div style="text-align:right; font-size:0.85rem;">
+                        <div>10/02/2026</div>
+                        <div style="color:#8fb4d4;">Ing. Martínez</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Columna derecha: Visor y funcionalidades mágicas -->
+        <!-- Columna derecha: Visor de plano -->
         <div class="card">
             <div class="card-header">
-                <h3><i class="fas fa-eye"></i> Visor Web Integrado</h3>
-                <span class="badge badge-info">PL-EST-N2 · Rev 04</span>
+                <h3><i class="fas fa-layer-group"></i> Visor de Plano · PL-EST-N2</h3>
+                <span class="badge badge-success">v.04 ACTUAL</span>
             </div>
 
-            <!-- Visor simulado con herramientas -->
+            <!-- Visor simulado -->
             <div class="viewer-container">
                 <div class="viewer-tools">
+                    <span class="tool-btn"><i class="fas fa-search-plus"></i> Zoom</span>
+                    <span class="tool-btn"><i class="fas fa-arrows-alt"></i> Mover</span>
                     <span class="tool-btn"><i class="fas fa-ruler"></i> Medir</span>
-                    <span class="tool-btn"><i class="fas fa-pen"></i> Marcar</span>
-                    <span class="tool-btn"><i class="fas fa-sync-alt"></i> Comparar</span>
-                    <span class="tool-btn"><i class="fas fa-download"></i></span>
+                    <span class="tool-btn"><i class="fas fa-print"></i> Imprimir</span>
+                    <span class="tool-btn"><i class="fas fa-download"></i> Descargar</span>
                 </div>
-
-                <!-- Simulación de plano con marcas de agua y QR -->
+                
+                <!-- Mock de plano arquitectónico -->
                 <div class="mock-plan">
-                    <svg viewBox="0 0 400 180" style="background: #1b3b51;">
-                        <rect x="50" y="30" width="100" height="60" stroke="#4799d1" stroke-width="2" fill="none" />
-                        <rect x="180" y="50" width="80" height="40" stroke="#e67a3c" stroke-width="2" fill="none" />
-                        <text x="70" y="70" fill="#a3c9f0" font-size="8">Viga V-12</text>
-                        <text x="200" y="80" fill="#f0b37b" font-size="8">Columna C-5</text>
-                        <!-- Marcas de agua de versión obsoleta (simulación comparador) -->
-                        <text x="150" y="130" fill="#ff6b6b" font-size="10" opacity="0.5">Rev 03</text>
-                        <text x="170" y="140" fill="#6bff8b" font-size="10" opacity="0.7">Rev 04</text>
+                    <svg viewBox="0 0 400 200" style="width:100%;height:100%;">
+                        <!-- Fondo -->
+                        <rect x="0" y="0" width="400" height="200" fill="#1a3a4d"/>
+                        <!-- Muros -->
+                        <rect x="20" y="20" width="360" height="160" fill="none" stroke="#4da2d9" stroke-width="3"/>
+                        <!-- Muro interior -->
+                        <line x1="200" y1="20" x2="200" y2="180" stroke="#4da2d9" stroke-width="2"/>
+                        <!-- Puertas -->
+                        <rect x="180" y="140" width="40" height="40" fill="#2a5a7a" stroke="#4da2d9"/>
+                        <!-- Ventanas -->
+                        <rect x="50" y="30" width="60" height="20" fill="#3a7a9a" stroke="#4da2d9"/>
+                        <rect x="290" y="30" width="60" height="20" fill="#3a7a9a" stroke="#4da2d9"/>
+                        <rect x="50" y="150" width="60" height="20" fill="#3a7a9a" stroke="#4da2d9"/>
+                        <rect x="290" y="150" width="60" height="20" fill="#3a7a9a" stroke="#4da2d9"/>
+                        <!-- Texto -->
+                        <text x="200" y="105" text-anchor="middle" fill="#8fb4d4" font-size="12">PLANO ESTRUCTURAL N2</text>
+                        <text x="200" y="120" text-anchor="middle" fill="#6eb7ff" font-size="10">VIGAS Y COLUMNAS</text>
                     </svg>
-                    <!-- QR Dinámico -->
-                    <div class="qr-sim" style="background: white; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-qrcode" style="font-size: 40px; color: black;"></i>
-                    </div>
                     <div class="plan-overlay">
-                        <i class="fas fa-check-circle" style="color: #2d9e6f;"></i> Sello Digital · Aprobado
+                        <i class="fas fa-lock"></i> Versión bloqueada
+                    </div>
+                    <div class="qr-sim">
+                        <svg viewBox="0 0 60 60">
+                            <rect width="60" height="60" fill="white"/>
+                            <rect x="5" y="5" width="20" height="20" fill="black"/>
+                            <rect x="35" y="5" width="20" height="20" fill="black"/>
+                            <rect x="5" y="35" width="20" height="20" fill="black"/>
+                            <rect x="35" y="35" width="10" height="10" fill="black"/>
+                            <rect x="50" y="35" width="5" height="5" fill="black"/>
+                            <rect x="35" y="50" width="5" height="5" fill="black"/>
+                        </svg>
                     </div>
                 </div>
 
-                <!-- Comparador de versiones overlay -->
-                <div class="version-compare">
-                    <div class="version-box">
-                        <i class="fas fa-file"></i> Rev 03 <span class="badge badge-warning">obsoleto</span>
-                        <div style="font-size:0.8rem; margin-top:5px;"><span class="diff-highlight-red"><i class="fas fa-arrow-up"></i> Cambio viga</span></div>
-                    </div>
-                    <div class="version-box">
-                        <i class="fas fa-file"></i> Rev 04 <span class="badge badge-success">vigente</span>
-                        <div style="font-size:0.8rem; margin-top:5px;"><span class="diff-highlight"><i class="fas fa-check"></i> Refuerzo añadido</span></div>
+                <!-- Comparador de versiones -->
+                <div style="margin-top: 15px;">
+                    <h4 style="margin-bottom:10px;"><i class="fas fa-code-branch"></i> Comparador de Versiones</h4>
+                    <div class="version-compare">
+                        <div class="version-box">
+                            <div style="font-size:0.8rem; color:#8fb4d4; margin-bottom:8px;">v.03 (Obsoleto)</div>
+                            <div style="font-size:0.9rem;">
+                                Cimentación: <span class="diff-highlight-red">Zapata Z-1 modificada</span><br>
+                                Acero: 3#5 @ 20cm
+                            </div>
+                        </div>
+                        <div class="version-box">
+                            <div style="font-size:0.8rem; color:#6eb7ff; margin-bottom:8px;">v.04 (Actual)</div>
+                            <div style="font-size:0.9rem;">
+                                Cimentación: <span class="diff-highlight">Zapata Z-1 reforzada</span><br>
+                                Acero: 4#6 @ 15cm
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <p style="margin-top:10px;"><i class="fas fa-sync-alt"></i> Overlay: diferencias entre Rev 03 y Rev 04 resaltadas automáticamente</p>
             </div>
 
-            <!-- Gestión de RFIs (Consultas Técnicas) -->
+            <!-- RFIs asociados -->
             <div class="rfis-section">
-                <h4><i class="fas fa-map-pin"></i> RFI · Consultas Técnicas</h4>
-                <div style="display: flex; gap: 20px;">
-                    <div style="flex:1; background: #124059; padding: 12px; border-radius: 16px;">
-                        <i class="fas fa-thumbtack" style="color: #ffa36b;"></i> Pin en coordenada (X: 245, Y: 130)
-                        <div style="font-size:0.8rem; margin-top:5px;">Residente: ¿Esta viga cumple con el refuerzo?</div>
+                <h4><i class="fas fa-question-circle"></i> RFIs Asociados</h4>
+                <div style="display:grid; gap:10px;">
+                    <div style="background:#0f2c3b; padding:12px; border-radius:12px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <strong>RFI-023</strong>
+                            <span class="badge badge-success">CERRADO</span>
+                        </div>
+                        <div style="font-size:0.85rem; color:#8fb4d4; margin-top:5px;">
+                            Consulta sobre refuerzos en Zapata Z-1
+                        </div>
                     </div>
-                    <div style="flex:1; background: #124059; padding: 12px; border-radius: 16px;">
-                        <i class="fas fa-camera"></i> Foto adjunta
-                        <div style="font-size:0.8rem;">colado losa norte.jpg</div>
+                    <div style="background:#0f2c3b; padding:12px; border-radius:12px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <strong>RFI-031</strong>
+                            <span class="badge badge-warning">EN REVISIÓN</span>
+                        </div>
+                        <div style="font-size:0.85rem; color:#8fb4d4; margin-top:5px;">
+                            Cambios en especificación de acero
+                        </div>
                     </div>
-                </div>
-                <div class="btn-outline" style="margin-top:15px; display:inline-block;"><i class="fas fa-plus"></i> Clavar nuevo pin en plano</div>
-            </div>
-
-            <!-- QR Dinámico / Escaneo en obra -->
-            <div style="background: #0d2d3f; border-radius: 24px; padding: 16px; margin-top: 15px;">
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div style="background: white; width: 70px; height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-qrcode" style="font-size: 50px; color: black;"></i>
-                    </div>
-                    <div>
-                        <h4><i class="fas fa-mobile-alt"></i> QR Dinámico · Blindaje de Copias</h4>
-                        <p style="font-size:0.9rem;">Al escanear el QR de un plano impreso:</p>
-                        <div><span class="badge badge-success">✅ Versión vigente</span> <span class="badge badge-error" style="margin-left:10px;">❌ Versión obsoleta</span></div>
-                    </div>
-                </div>
-                <div style="margin-top: 10px; background: #1b3f55; padding: 8px; border-radius: 40px; text-align:center;">
-                    <i class="fas fa-check-circle" style="color:#4ae0a0;"></i> Simulación: Escaneo OK · Plano Rev 04 autorizado
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Segunda fila: Estructura de carpetas + Integración -->
-    <div class="grid-2col" style="margin-top: 0;">
-        <!-- Estructura de carpetas industrial -->
+    <!-- Segunda fila: Estructura de carpetas + Integraciones -->
+    <div class="grid-2col">
+        <!-- Estructura de carpetas -->
         <div class="card">
             <div class="card-header">
-                <h3><i class="fas fa-folder-tree"></i> Estructura de Carpetas (ISO 19650)</h3>
+                <h3><i class="fas fa-folder-tree"></i> Estructura CDE · ISO 19650</h3>
             </div>
             <div class="tree-structure">
-                <div><i class="fas fa-folder-open" style="color:#f0b37b;"></i> 01_INGENIERÍA</div>
-                <div class="tree-item"><i class="fas fa-folder"></i> 01.1_Básica</div>
-                <div class="tree-item"><i class="fas fa-folder-open"></i> 01.2_Detalle</div>
-                <div class="tree-item" style="margin-left:40px;"><i class="fas fa-file-pdf"></i> Civil</div>
-                <div class="tree-item" style="margin-left:40px;"><i class="fas fa-file-pdf"></i> Estructural</div>
-                <div class="tree-item" style="margin-left:40px;"><i class="fas fa-file-pdf"></i> Mecánica</div>
-                <div><i class="fas fa-folder"></i> 02_GESTIÓN_PROYECTO</div>
-                <div class="tree-item"><i class="fas fa-folder"></i> 02.1_Contratos</div>
-                <div class="tree-item"><i class="fas fa-folder"></i> 02.2_Cronogramas</div>
-                <div class="tree-item"><i class="fas fa-folder"></i> 02.3_RFIs</div>
-                <div><i class="fas fa-folder"></i> 03_QA-QC_Y_HSE</div>
-                <div class="tree-item"><i class="fas fa-file"></i> 03.1_Certificados</div>
-                <div class="tree-item"><i class="fas fa-file"></i> 03.2_Checklists</div>
-                <div><i class="fas fa-folder"></i> 04_AS-BUILT</div>
-                <div><i class="fas fa-folder"></i> 05_FOTOS_Y_DRONE</div>
+                <div class="tree-item">
+                    <i class="fas fa-folder" style="color:#e6b42c;"></i> <strong>01_Proyecto</strong>
+                    <div class="tree-item">
+                        <i class="fas fa-folder" style="color:#e6b42c;"></i> 01_Administrativo
+                    </div>
+                    <div class="tree-item">
+                        <i class="fas fa-folder-open" style="color:#6eb7ff;"></i> 02_Ingenieria
+                        <div class="tree-item">
+                            <i class="fas fa-folder" style="color:#e6b42c;"></i> 01_Arquitectura
+                        </div>
+                        <div class="tree-item">
+                            <i class="fas fa-folder-open" style="color:#6eb7ff;"></i> 02_Estructural
+                            <div class="tree-item">
+                                <i class="fas fa-file-pdf" style="color:#ff6b6b;"></i> PL-EST-N1_v04.pdf
+                            </div>
+                            <div class="tree-item">
+                                <i class="fas fa-file-pdf" style="color:#2d9e6f;"></i> PL-EST-N2_v04.pdf <span style="color:#2d9e6f;">✓</span>
+                            </div>
+                        </div>
+                        <div class="tree-item">
+                            <i class="fas fa-folder" style="color:#e6b42c;"></i> 03_Mecanica
+                        </div>
+                        <div class="tree-item">
+                            <i class="fas fa-folder" style="color:#e6b42c;"></i> 04_Electrica
+                        </div>
+                    </div>
+                    <div class="tree-item">
+                        <i class="fas fa-folder" style="color:#e6b42c;"></i> 03_Construccion
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Integración con Almacén y Estimaciones -->
+        <!-- Integraciones -->
         <div class="card">
             <div class="card-header">
-                <h3><i class="fas fa-link"></i> Integración Industrial</h3>
+                <h3><i class="fas fa-link"></i> Integraciones Activas</h3>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <!-- Vínculo con almacén -->
-                <div style="background: #0f2e40; border-radius: 24px; padding: 20px;">
-                    <h4><i class="fas fa-boxes"></i> Vínculo con Almacén</h4>
-                    <p style="margin: 10px 0;">Plano estructural activo: Acero especificado A615 Grado 60</p>
-                    <div style="display: flex; gap: 10px;">
-                        <span class="badge badge-success">✅ 20 ton en almacén</span>
-                        <span class="badge badge-info">🚚 10 ton en tránsito</span>
+            <div style="display:grid; gap:15px;">
+                <div style="background:#0f2c3b; padding:16px; border-radius:16px; display:flex; align-items:center; gap:15px;">
+                    <div style="width:48px; height:48px; background:#1e6f9f; border-radius:12px; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-cloud" style="font-size:1.5rem;"></i>
                     </div>
-                    <div style="margin-top: 15px; background: #0c2635; padding: 10px; border-radius: 16px;">
-                        <i class="fas fa-clock"></i> Última entrada: 22/02/2026 · Vale A-445
+                    <div style="flex:1;">
+                        <div style="font-weight:600;">Autodesk BIM 360</div>
+                        <div style="font-size:0.85rem; color:#8fb4d4;">Sincronización automática cada 15 min</div>
                     </div>
+                    <span class="badge badge-success">CONECTADO</span>
                 </div>
-                <!-- Vínculo con Estimaciones -->
-                <div style="background: #0f2e40; border-radius: 24px; padding: 20px;">
-                    <h4><i class="fas fa-calculator"></i> Vínculo con Estimaciones</h4>
-                    <div style="display: flex; justify-content: space-between;">
-                        <span>Montaje Bomba CB-223</span>
-                        <span class="badge badge-warning">⏳ Pendiente As-Built</span>
+                <div style="background:#0f2c3b; padding:16px; border-radius:16px; display:flex; align-items:center; gap:15px;">
+                    <div style="width:48px; height:48px; background:#2d9e6f; border-radius:12px; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-boxes" style="font-size:1.5rem;"></i>
                     </div>
-                    <div style="margin-top: 10px; font-size:0.9rem;">
-                        <i class="fas fa-exclamation-triangle" style="color:#ffa36b;"></i> No se puede cobrar: plano As-Built no cargado en CDE
+                    <div style="flex:1;">
+                        <div style="font-weight:600;">ERP GProA</div>
+                        <div style="font-size:0.85rem; color:#8fb4d4;">Órdenes de compra vinculadas</div>
                     </div>
-                    <div class="btn-outline" style="margin-top:15px;"><i class="fas fa-upload"></i> Subir As-Built para liberar pago</div>
+                    <span class="badge badge-success">CONECTADO</span>
+                </div>
+                <div style="background:#0f2c3b; padding:16px; border-radius:16px; display:flex; align-items:center; gap:15px;">
+                    <div style="width:48px; height:48px; background:#e6b42c; border-radius:12px; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-mobile-alt" style="font-size:1.5rem;"></i>
+                    </div>
+                    <div style="flex:1;">
+                        <div style="font-weight:600;">App Móvil Offline</div>
+                        <div style="font-size:0.85rem; color:#8fb4d4;">Planos disponibles sin conexión</div>
+                    </div>
+                    <span class="badge badge-info">SINCRONIZADO</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Beneficios específicos CDE -->
-    <div style="display: flex; gap: 20px; margin-top: 24px; padding: 20px; background: #0a293d; border-radius: 32px;">
-        <div style="flex:1; display: flex; align-items: center; gap: 12px;">
-            <i class="fas fa-shield" style="color:#6fc3ff; font-size: 2rem;"></i>
-            <div><strong>Fuente Única de Verdad</strong><br>0 retrabajos por planos obsoletos</div>
-        </div>
-        <div style="flex:1; display: flex; align-items: center; gap: 12px;">
-            <i class="fas fa-qrcode" style="color:#6fc3ff; font-size: 2rem;"></i>
-            <div><strong>QR Dinámico</strong><br>Escaneo y validación en obra</div>
-        </div>
-        <div style="flex:1; display: flex; align-items: center; gap: 12px;">
-            <i class="fas fa-file-invoice" style="color:#6fc3ff; font-size: 2rem;"></i>
-            <div><strong>Vinculación Pago</strong><br>No cobro sin As-Built</div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <p style="text-align:right; color:#5f8fb0; padding:20px 0 0;">
-        <i class="fas fa-microchip"></i> CDE · Conforme a ISO 19650 · Reemplazo Enkontrol
-    </p>
 </div>
 </body>
 </html>
