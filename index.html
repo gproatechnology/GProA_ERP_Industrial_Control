@@ -1039,7 +1039,7 @@
     // Function to open CDE modal
     function openCDEModal() {
         document.getElementById('cde-modal').classList.add('active');
-        loadModalContent('cde-modal-content', 'Templates/CDE · CONTROL DOCUMENTAL.html');
+        loadModalContent('cde-modal-content', 'Templates/CDE · CONTROL DOCUMENTAL.html', true);
     }
 
     // Function to close CDE modal
@@ -1050,7 +1050,7 @@
     // Function to open Portal Proveedores modal
     function openPortalModal() {
         document.getElementById('portal-modal').classList.add('active');
-        loadModalContent('portal-modal-content', 'Templates/Portal Provedores.html');
+        loadModalContent('portal-modal-content', 'Templates/Portal Provedores.html', false);
     }
 
     // Function to close Portal Proveedores modal
@@ -1059,7 +1059,7 @@
     }
 
     // Function to load content dynamically
-    function loadModalContent(elementId, url) {
+    function loadModalContent(elementId, url, isCDE = false) {
         const modalContent = document.getElementById(elementId);
         
         fetch(url)
@@ -1070,7 +1070,12 @@
                 modalContent.innerHTML = '';
                 // Get only the body content
                 const bodyContent = doc.body.innerHTML;
-                modalContent.innerHTML = bodyContent;
+                
+                // Wrap content and add appropriate class
+                const wrapper = document.createElement('div');
+                wrapper.className = isCDE ? 'modal-app-container' : 'modal-app-container';
+                wrapper.innerHTML = bodyContent;
+                modalContent.appendChild(wrapper);
             })
             .catch(err => {
                 console.error('Error loading content:', err);
