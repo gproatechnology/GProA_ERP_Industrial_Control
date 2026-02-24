@@ -1035,6 +1035,9 @@
     </div>
 </div>
 
+<!-- DOMPurify for XSS protection -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+
 <script>
     // Function to open CDE modal
     function openCDEModal() {
@@ -1068,13 +1071,34 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 modalContent.innerHTML = '';
-                // Get only the body content
+                
+                // Get styles from head
+                const styles = doc.querySelectorAll('style, link[rel="stylesheet"]');
+                let styleContainer = document.createElement('div');
+                styleContainer.id = 'dynamic-styles-' + elementId;
+                
+                // Add styles to the page
+                styles.forEach(style => {
+                    if (style.tagName === 'STYLE') {
+                        const newStyle = document.createElement('style');
+                        newStyle.textContent = style.textContent;
+                        document.head.appendChild(newStyle);
+                    } else if (style.tagName === 'LINK' && style.rel === 'stylesheet') {
+                        const newLink = document.createElement('link');
+                        newLink.rel = 'stylesheet';
+                        newLink.href = style.href;
+                        document.head.appendChild(newLink);
+                    }
+                });
+                
+                // Get body content
                 const bodyContent = doc.body.innerHTML;
                 
                 // Wrap content and add appropriate class
                 const wrapper = document.createElement('div');
                 wrapper.className = isCDE ? 'modal-app-container' : 'modal-app-container';
-                wrapper.innerHTML = bodyContent;
+                // Sanitize HTML to prevent XSS attacks
+                wrapper.innerHTML = DOMPurify.sanitize(bodyContent);
                 modalContent.appendChild(wrapper);
             })
             .catch(err => {
