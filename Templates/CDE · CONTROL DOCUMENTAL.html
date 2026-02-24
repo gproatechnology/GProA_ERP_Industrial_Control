@@ -424,6 +424,66 @@
         }
 
         /* Responsive Design - Mobile & Tablet */
+        @media screen and (min-width: 1025px) and (max-width: 1399px) {
+            .app-container {
+                max-width: 1400px;
+                margin: 24px;
+                padding: 26px;
+            }
+
+            .app-header {
+                padding: 12px 24px 20px 24px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.9rem;
+            }
+
+            .cde-tabs {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .cde-tab {
+                padding: 12px 28px;
+                font-size: 0.95rem;
+            }
+
+            .grid-2col {
+                gap: 28px;
+            }
+
+            .card {
+                padding: 26px;
+            }
+
+            .metadata-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
+
+            .metadata-item {
+                padding: 16px;
+            }
+
+            .mock-plan {
+                height: 280px;
+            }
+
+            .version-box {
+                padding: 14px;
+            }
+
+            .tree-structure {
+                padding: 22px;
+                font-size: 1rem;
+            }
+
+            .rfis-section {
+                padding: 22px;
+            }
+        }
+
         @media screen and (max-width: 1024px) {
             .app-container {
                 margin: 15px;
@@ -602,6 +662,119 @@
             }
         }
 
+        /* Estilos para PC - Pantallas grandes */
+        @media screen and (min-width: 1400px) {
+            .app-container {
+                max-width: 1800px;
+                margin: 30px auto;
+                padding: 32px;
+            }
+
+            .app-header {
+                padding: 16px 32px 24px 32px;
+            }
+
+            .logo-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .logo-text p {
+                font-size: 1rem;
+            }
+
+            .project-badge {
+                padding: 16px 32px;
+                font-size: 1.1rem;
+            }
+
+            .cde-tabs {
+                padding: 12px;
+                gap: 12px;
+            }
+
+            .cde-tab {
+                padding: 14px 32px;
+                font-size: 1rem;
+            }
+
+            .grid-2col {
+                gap: 32px;
+            }
+
+            .card {
+                padding: 32px;
+            }
+
+            .card-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .metadata-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .metadata-item {
+                padding: 20px;
+            }
+
+            .metadata-label {
+                font-size: 0.9rem;
+            }
+
+            .metadata-value {
+                font-size: 1.2rem;
+            }
+
+            .workflow-steps {
+                margin: 28px 0;
+            }
+
+            .step-icon {
+                width: 52px;
+                height: 52px;
+                font-size: 1.2rem;
+            }
+
+            .step div:last-child {
+                font-size: 1rem;
+            }
+
+            .viewer-container {
+                padding: 28px;
+            }
+
+            .mock-plan {
+                height: 320px;
+            }
+
+            .viewer-tools {
+                gap: 16px;
+            }
+
+            .tool-btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+
+            .version-compare {
+                gap: 20px;
+            }
+
+            .version-box {
+                padding: 18px;
+            }
+
+            .tree-structure {
+                padding: 28px;
+                font-size: 1.1rem;
+            }
+
+            .rfis-section {
+                padding: 28px;
+            }
+        }
+
         /* Touch-friendly for mobile */
         @media (hover: none) and (pointer: coarse) {
             .cde-tab,
@@ -673,10 +846,10 @@
                 <div class="metadata-item">
                     <div class="metadata-label">Responsable</div>
                     <div class="metadata-value">Ing. Estructural SA</div>
+                </div>
             </div>
 
-            <!--</div>
-                 Flujo de aprobación (Workflow) -->
+            <!-- Flujo de aprobación (Workflow) -->
             <div class="card-header" style="margin-top: 10px;">
                 <h3><i class="fas fa-random"></i> Flujo de Aprobación</h3>
             </div>
