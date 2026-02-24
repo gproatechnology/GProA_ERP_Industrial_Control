@@ -422,6 +422,60 @@
             70% { box-shadow: 0 0 0 10px rgba(200, 70, 50, 0); }
             100% { box-shadow: 0 0 0 0 rgba(200, 70, 50, 0); }
         }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #0c1e2e;
+            border-radius: 32px;
+            border: 1px solid #2a5f85;
+            width: 100%;
+            max-width: 1400px;
+            max-height: 90vh;
+            overflow: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #1a4b6b;
+            border: none;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #2a6b9b;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -453,8 +507,8 @@
     <!-- Pestañas de navegación (estéticas) -->
     <div class="demo-tabs">
         <button class="tab-btn active" type="button"><i class="fas fa-eye" aria-hidden="true"></i> Escenarios Demo</button>
-        <button class="tab-btn" type="button"><i class="fas fa-file-signature" aria-hidden="true"></i> CDE / Planos</button>
-        <button class="tab-btn" type="button"><i class="fas fa-truck" aria-hidden="true"></i> Portal Proveedores</button>
+        <button class="tab-btn" type="button" onclick="openCDEModal()"><i class="fas fa-file-signature" aria-hidden="true"></i> CDE / Planos</button>
+        <button class="tab-btn" type="button" onclick="openPortalModal()"><i class="fas fa-truck" aria-hidden="true"></i> Portal Proveedores</button>
         <button class="tab-btn" type="button"><i class="fas fa-chart-line" aria-hidden="true"></i> Control Obra</button>
         <button class="tab-btn" type="button"><i class="fas fa-cubes" aria-hidden="true"></i> BIM Connect</button>
         <span class="live-notification"><i class="fas fa-bell" aria-hidden="true"></i> Beneficios en acción</span>
@@ -765,6 +819,82 @@
             });
         }
     })();
+</script>
+
+<!-- Modal for CDE -->
+<div id="cde-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeCDEModal()"><i class="fas fa-times"></i></button>
+        <div id="cde-modal-content">
+            <!-- Content loaded dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Portal Proveedores -->
+<div id="portal-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closePortalModal()"><i class="fas fa-times"></i></button>
+        <div id="portal-modal-content">
+            <!-- Content loaded dynamically -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to open CDE modal
+    function openCDEModal() {
+        document.getElementById('cde-modal').classList.add('active');
+        loadModalContent('cde-modal-content', 'Templates/CDE · CONTROL DOCUMENTAL.html');
+    }
+
+    // Function to close CDE modal
+    function closeCDEModal() {
+        document.getElementById('cde-modal').classList.remove('active');
+    }
+
+    // Function to open Portal Proveedores modal
+    function openPortalModal() {
+        document.getElementById('portal-modal').classList.add('active');
+        loadModalContent('portal-modal-content', 'Templates/Portal Provedores.html');
+    }
+
+    // Function to close Portal Proveedores modal
+    function closePortalModal() {
+        document.getElementById('portal-modal').classList.remove('active');
+    }
+
+    // Function to load content dynamically
+    function loadModalContent(elementId, url) {
+        const modalContent = document.getElementById(elementId);
+        
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                modalContent.innerHTML = '';
+                // Get only the body content
+                const bodyContent = doc.body.innerHTML;
+                modalContent.innerHTML = bodyContent;
+            })
+            .catch(err => {
+                console.error('Error loading content:', err);
+                modalContent.innerHTML = '<p style="color:white;padding:40px;">Error al cargar el contenido</p>';
+            });
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('click', function(e) {
+        const cdeModal = document.getElementById('cde-modal');
+        if (e.target === cdeModal) {
+            closeCDEModal();
+        }
+        const portalModal = document.getElementById('portal-modal');
+        if (e.target === portalModal) {
+            closePortalModal();
+        }
+    });
 </script>
 </body>
 </html>
