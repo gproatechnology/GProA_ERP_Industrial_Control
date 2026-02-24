@@ -453,6 +453,25 @@
             position: relative;
         }
 
+        /* Modal mobile responsiveness */
+        @media (max-width: 768px) {
+            .modal-overlay {
+                padding: 10px;
+            }
+
+            .modal-content {
+                border-radius: 16px;
+                max-height: 95vh;
+            }
+
+            .modal-close {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
         .modal-close {
             position: absolute;
             top: 20px;
@@ -1074,7 +1093,7 @@
     // Function to open Control de Obras modal
     function openControlObraModal() {
         document.getElementById('control-obra-modal').classList.add('active');
-        loadModalContent('control-obra-modal-content', 'Templates/control de obras.html', false);
+        loadModalContent('control-obra-modal-content', 'Templates/Control de Obras.html', false);
     }
 
     // Function to close Control de Obras modal
