@@ -500,308 +500,372 @@
     <div class="title-bar">
         <div class="title-left">
             <div class="app-icon">
-                <i class="fas fa-rocket"></i>
-                <span>Beneficios en Acción</span>
+                <i class="fas fa-chart-line"></i>
+                <span>Beneficios en Acción · ROI Dashboard</span>
             </div>
-            <div class="project-path">
-                <i class="fas fa-folder-open" style="margin-right: 8px;"></i>
-                GProA ERP Industrial / ROI Dashboard
+            <div class="window-controls">
+                <div class="win-btn"><i class="fas fa-minus"></i></div>
+                <div class="win-btn"><i class="fas fa-square"></i></div>
+                <div class="win-btn close"><i class="fas fa-times"></i></div>
             </div>
         </div>
-        <div class="window-controls">
-            <div class="win-btn"><i class="fas fa-minus"></i></div>
-            <div class="win-btn"><i class="fas fa-square"></i></div>
-            <div class="win-btn close"><i class="fas fa-times"></i></div>
+        <div class="project-path">
+            <i class="fas fa-folder-open"></i> Proyecto: Planta_Enfriamiento_Fase2
         </div>
     </div>
 
-    <!-- Menú -->
+    <!-- Menú principal -->
     <div class="menu-bar">
         <div class="menu-item"><i class="fas fa-home"></i> Inicio</div>
-        <div class="menu-item"><i class="fas fa-chart-pie"></i> Dashboard</div>
-        <div class="menu-item"><i class="fas fa-file-alt"></i> Informes</div>
+        <div class="menu-item"><i class="fas fa-chart-pie"></i> Beneficios</div>
+        <div class="menu-item"><i class="fas fa-shield-alt"></i> Compliance</div>
+        <div class="menu-item"><i class="fas fa-leaf"></i> Sostenibilidad</div>
+        <div class="menu-item"><i class="fas fa-file-alt"></i> Reportes</div>
         <div class="menu-item"><i class="fas fa-cog"></i> Configuración</div>
-        <div class="menu-item"><i class="fas fa-question-circle"></i> Ayuda</div>
     </div>
 
     <!-- Toolbar -->
     <div class="toolbar">
-        <button class="tool-btn"><i class="fas fa-sync-alt"></i> Actualizar</button>
-        <button class="tool-btn"><i class="fas fa-download"></i> Exportar</button>
-        <button class="tool-btn"><i class="fas fa-print"></i> Imprimir</button>
+        <div class="tool-btn"><i class="fas fa-sync-alt"></i> Actualizar</div>
+        <div class="tool-btn"><i class="fas fa-file-export"></i> Exportar ROI</div>
+        <div class="tool-btn"><i class="fas fa-chart-bar"></i> Ver histórico</div>
         <div class="separator"></div>
-        <button class="tool-btn"><i class="fas fa-filter"></i> Filtros</button>
-        <button class="tool-btn"><i class="fas fa-calendar-alt"></i> Período</button>
+        <div class="tool-btn"><i class="fas fa-bell"></i> Alertas <span class="badge badge-error" style="margin-left:5px;">3</span></div>
+        <div class="tool-btn"><i class="fas fa-calculator"></i> Simulador</div>
     </div>
 
     <!-- Contenido principal -->
     <div class="main-content">
-        <!-- Live Bar -->
+        <!-- Live bar -->
         <div class="live-bar">
             <div class="live-indicator">
-                <div class="live-dot"></div>
-                <span style="font-weight: 600; color: #b0e0ff;">Dashboard de Beneficios en Tiempo Real</span>
+                <span class="live-dot"></span>
+                <span><strong>Beneficios en tiempo real</strong> · Actualizado: 25 Feb 2026 11:30</span>
             </div>
-            <div class="flex" style="gap: 20px;">
-                <span class="badge badge-success"><i class="fas fa-check-circle"></i> En línea</span>
-                <span class="text-muted"><i class="fas fa-clock"></i> Actualizado: hace 2 min</span>
+            <div>
+                <span class="badge badge-success"><i class="fas fa-check-circle"></i> ROI Acumulado: +18.4%</span>
+                <span class="badge badge-info" style="margin-left:8px;"><i class="fas fa-calendar"></i> Mes actual</span>
             </div>
         </div>
 
-        <!-- Saving Tracker -->
+        <!-- CONTADOR DE AHORROS (Saving Tracker) - EL CORAZÓN DEL ROI -->
         <div class="saving-tracker">
             <div class="saving-title">
-                <i class="fas fa-piggy-bank" style="color: #2d9e6f;"></i>
-                Ahorros Acumulados del Proyecto
+                <i class="fas fa-piggy-bank" style="color:#5db0e0;"></i> 
+                Contador de Ahorros · Saving Tracker
+                <span class="badge badge-success" style="margin-left:auto;">Acumulado proyecto</span>
             </div>
             <div class="saving-grid">
                 <div class="saving-card green">
-                    <div class="saving-label">Reducción de Sobrecostos</div>
-                    <div class="saving-amount" style="color: #2d9e6f;">$847,250</div>
-                    <div class="text-muted">vs. presupuesto original</div>
+                    <i class="fas fa-file-invoice-dollar" style="font-size:1.5rem;"></i>
+                    <div class="saving-amount">$342,800</div>
+                    <div class="saving-label">Ahorro por negociación (históricos de compra)</div>
+                    <div class="text-muted" style="margin-top:8px;">12% vs precio promedio</div>
                 </div>
                 <div class="saving-card blue">
-                    <div class="saving-label">Eficiencia Operativa</div>
-                    <div class="saving-amount" style="color: #3298db;">$324,800</div>
-                    <div class="text-muted">horas-hombre ahorradas</div>
+                    <i class="fas fa-rotate-left" style="font-size:1.5rem;"></i>
+                    <div class="saving-amount">$187,500</div>
+                    <div class="saving-label">Retrabajos evitados (planos obsoletos)</div>
+                    <div class="text-muted" style="margin-top:8px;">7 incidentes detectados por QR</div>
                 </div>
                 <div class="saving-card orange">
-                    <div class="saving-label">Negociación Proveedores</div>
-                    <div class="saving-amount" style="color: #e6b42c;">$512,400</div>
-                    <div class="text-muted">descuentos negociados</div>
+                    <i class="fas fa-clock" style="font-size:1.5rem;"></i>
+                    <div class="saving-amount">$94,200</div>
+                    <div class="saving-label">Descuentos por pronto pago</div>
+                    <div class="text-muted" style="margin-top:8px;">12 facturas gestionadas</div>
+                </div>
+            </div>
+            <div style="margin-top:20px; background:#0f2638; border-radius:16px; padding:16px;">
+                <div class="flex-between">
+                    <span><strong>Total de ahorros generados por el ERP:</strong></span>
+                    <span style="font-size:2rem; font-weight:700; color:#2d9e6f;">$624,500</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+                <div class="flex-between text-muted">
+                    <span>Meta de ahorro: $800,000</span>
+                    <span>78% alcanzado</span>
                 </div>
             </div>
         </div>
 
-        <!-- Grid de 2 columnas -->
+        <!-- Grid de 2 columnas: Control de Costos + Blindaje Legal -->
         <div class="grid-2">
-            <!-- ROI Chart -->
+            <!-- Control de Costos y Salud Financiera -->
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-chart-line"></i> Evolución del ROI</h3>
-                    <span class="badge badge-success">+127%</span>
+                    <h3><i class="fas fa-dollar-sign"></i> Control de Costos · Salud Financiera</h3>
+                    <span class="badge">EAC en tiempo real</span>
                 </div>
-                <canvas id="roiChart" height="200"></canvas>
+                <div style="margin-bottom:16px;">
+                    <div class="flex-between">
+                        <span>EAC (Estimate at Completion)</span>
+                        <span class="badge badge-warning">Actual vs Presupuesto</span>
+                    </div>
+                    <div style="font-size:2rem; font-weight:700; margin:10px 0;">$18.42M</div>
+                    <div class="progress-bar"><div class="progress-fill warning" style="width:115%"></div></div>
+                    <div class="flex-between">
+                        <span>Presupuesto: $16.0M</span>
+                        <span class="trend-down" style="color:#e6b42c;">+15% desviación</span>
+                    </div>
+                </div>
+                <div style="background:#0d2635; border-radius:16px; padding:16px;">
+                    <h4 class="flex"><i class="fas fa-history"></i> Optimización por históricos</h4>
+                    <div class="flex-between">
+                        <span>Cemento</span>
+                        <span class="badge badge-success">-8% vs histórico</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Acero</span>
+                        <span class="badge badge-success">-12% vs histórico</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Tubería</span>
+                        <span class="badge badge-warning">+3% vs histórico</span>
+                    </div>
+                </div>
+                <!-- Bloqueo de pagos duplicados -->
+                <div style="margin-top:16px; background:#1a3a50; border-radius:12px; padding:12px;">
+                    <div class="flex"><i class="fas fa-ban" style="color:#ff6b6b;"></i> <strong>Bloqueos automáticos:</strong> 2 estimaciones excedentes detenidas ($45,000)</div>
+                </div>
             </div>
 
-            <!-- Comparativa Enkontrol vs GProA -->
+            <!-- Blindaje Legal y Fiscal (Compliance) -->
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-balance-scale"></i> Comparativa de Costos</h3>
-                    <span class="badge badge-info">Anual</span>
+                    <h3><i class="fas fa-shield-alt"></i> Blindaje Legal · Compliance</h3>
+                    <span class="badge">Deducibilidad garantizada</span>
                 </div>
-                <div class="grid-3" style="margin-bottom: 0;">
-                    <div class="kpi-mini">
-                        <div class="text-muted">Enkontrol</div>
-                        <div class="kpi-mini-value" style="color: #c54a4a;">$2.4M</div>
-                        <div class="progress-bar"><div class="progress-fill danger" style="width: 100%;"></div></div>
+                <!-- Semáforo de cumplimiento -->
+                <div style="margin-bottom:16px;">
+                    <div class="flex-between">
+                        <span class="flex"><span class="risk-level risk-green"></span> SAT 69-B</span>
+                        <span class="badge badge-success">0 EFOS detectados</span>
                     </div>
-                    <div class="kpi-mini">
-                        <div class="text-muted">GProA</div>
-                        <div class="kpi-mini-value" style="color: #2d9e6f;">$1.1M</div>
-                        <div class="progress-bar"><div class="progress-fill" style="width: 45%;"></div></div>
+                    <div class="flex-between">
+                        <span class="flex"><span class="risk-level risk-green"></span> REPSE</span>
+                        <span class="badge badge-success">23 proveedores OK</span>
                     </div>
-                    <div class="kpi-mini">
-                        <div class="text-muted">Ahorro</div>
-                        <div class="kpi-mini-value" style="color: #e6b42c;">54%</div>
-                        <div class="progress-bar"><div class="progress-fill warning" style="width: 54%;"></div></div>
+                    <div class="flex-between">
+                        <span class="flex"><span class="risk-level risk-yellow"></span> IMSS/INFONAVIT</span>
+                        <span class="badge badge-warning">2 proveedores pendientes</span>
                     </div>
+                </div>
+                <!-- Riesgo fiscal evitado -->
+                <div style="background:#0d2635; border-radius:16px; padding:16px;">
+                    <h4 class="flex"><i class="fas fa-exclamation-triangle" style="color:#e6b42c;"></i> Riesgo fiscal evitado</h4>
+                    <div style="font-size:1.8rem; font-weight:700;">$1.2M</div>
+                    <div class="text-muted">en facturas bloqueadas con XML inválido o proveedores no validados</div>
+                </div>
+                <!-- Blindaje patrimonial -->
+                <div style="margin-top:16px;">
+                    <div class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> Responsabilidad solidaria asegurada: 100% subcontratistas al corriente</div>
                 </div>
             </div>
         </div>
 
-        <!-- Grid de 3 columnas -->
+        <!-- Grid de 2 columnas: Eficiencia Operativa + Calidad/Entrega -->
+        <div class="grid-2">
+            <!-- Eficiencia Operativa y Cero Retrabajos -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Eficiencia Operativa · Cero Retrabajos</h3>
+                    <span class="badge">QR en campo</span>
+                </div>
+                <div class="grid-3" style="margin-bottom:16px;">
+                    <div class="kpi-mini">
+                        <div class="text-muted">Planos obsoletos detectados</div>
+                        <div class="kpi-mini-value">7</div>
+                        <div class="text-muted">intentos bloqueados</div>
+                    </div>
+                    <div class="kpi-mini">
+                        <div class="text-muted">Tiempo muerto evitado</div>
+                        <div class="kpi-mini-value">124 hrs</div>
+                        <div class="text-muted">por alertas de desabasto</div>
+                    </div>
+                    <div class="kpi-mini">
+                        <div class="text-muted">Avance 5D</div>
+                        <div class="kpi-mini-value">67%</div>
+                        <div class="text-muted">vs modelo BIM</div>
+                    </div>
+                </div>
+                <!-- Alertas de desabasto -->
+                <div style="background:#0d2635; border-radius:16px; padding:16px;">
+                    <h4 class="flex"><i class="fas fa-truck"></i> Sincronización Project-Compras</h4>
+                    <div class="flex-between">
+                        <span>Materiales críticos en tiempo</span>
+                        <span class="badge badge-success">94%</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Alertas de desabasto atendidas</span>
+                        <span class="badge">12</span>
+                    </div>
+                    <div class="text-muted" style="margin-top:8px;">Cero paros de cuadrilla por falta de material</div>
+                </div>
+                <!-- Visibilidad 5D -->
+                <div style="margin-top:16px;">
+                    <div class="flex"><i class="fas fa-cubes" style="color:#5db0e0;"></i> <strong>BIM Connect:</strong> Visualización 5D activa en 342 elementos</div>
+                </div>
+            </div>
+
+            <!-- Calidad y Entrega (Dossier / As-Built) -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-clipboard-check"></i> Calidad y Entrega · Dossier Digital</h3>
+                    <span class="badge">As-Built automático</span>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <div class="flex-between">
+                        <span>Documentos recopilados</span>
+                        <span class="badge badge-success">1,284</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Certificados de material</span>
+                        <span>342</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Pruebas de laboratorio</span>
+                        <span>128</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Fotos de liberación</span>
+                        <span>814</span>
+                    </div>
+                </div>
+                <!-- Velocidad de cobro de finiquitos -->
+                <div style="background:#0d2635; border-radius:16px; padding:16px;">
+                    <h4 class="flex"><i class="fas fa-clock"></i> Cobro de finiquitos</h4>
+                    <div style="font-size:1.8rem; font-weight:700;">-70%</div>
+                    <div class="text-muted">tiempo de entrega vs método tradicional</div>
+                </div>
+                <!-- Histórico As-Built -->
+                <div style="margin-top:16px;">
+                    <div class="flex"><i class="fas fa-history"></i> <strong>Trazabilidad total:</strong> 1,234 equipos con historial completo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid de 3 columnas: Semáforo de Riesgo Crítico + Sostenibilidad -->
         <div class="grid-3">
-            <!-- Riesgo de proveedores -->
+            <!-- Semáforo de Riesgo Crítico -->
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-shield-alt"></i> Riesgos Mitigados</h3>
-                    <span class="badge badge-success">12 resueltos</span>
+                    <h3><i class="fas fa-exclamation-triangle"></i> Semáforo de Riesgo Crítico</h3>
+                    <span class="badge badge-error">Alertas activas</span>
                 </div>
                 <div class="risk-item">
-                    <div class="risk-level risk-green"></div>
-                    <span>Licitaciones amañadas detectadas</span>
+                    <span class="risk-level risk-red"></span>
+                    <div style="flex:1;"><strong>Riesgo Fiscal:</strong> Proveedor pagado sin XML válido</div>
+                    <span class="badge badge-error">1</span>
                 </div>
                 <div class="risk-item">
-                    <div class="risk-level risk-green"></div>
-                    <span>Sobreprecios identificados (-18%)</span>
+                    <span class="risk-level risk-red"></span>
+                    <div style="flex:1;"><strong>Riesgo Operativo:</strong> Tarea crítica sin material (Vigas)</div>
+                    <span class="badge badge-error">2</span>
                 </div>
                 <div class="risk-item">
-                    <div class="risk-level risk-green"></div>
-                    <span>Materiales de baja calidad rechazados</span>
+                    <span class="risk-level risk-yellow"></span>
+                    <div style="flex:1;"><strong>Riesgo Técnico:</strong> Área sin checklist calidad</div>
+                    <span class="badge badge-warning">3</span>
                 </div>
                 <div class="risk-item">
-                    <div class="risk-level risk-yellow"></div>
-                    <span>En proceso de verificación</span>
+                    <span class="risk-level risk-green"></span>
+                    <div style="flex:1;">Riesgos controlados</div>
+                    <span class="badge badge-success">12</span>
                 </div>
             </div>
 
-            <!-- Control de calidad -->
+            <!-- Sostenibilidad y Medio Ambiente (ESG) -->
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-check-double"></i> Control de Calidad</h3>
-                    <span class="badge badge-success">98.5%</span>
+                    <h3><i class="fas fa-leaf"></i> Sostenibilidad ESG</h3>
+                    <span class="badge">Huella de carbono</span>
                 </div>
-                <div class="kpi-mini" style="margin-bottom: 12px;">
-                    <div class="text-muted">Inspecciones Realizadas</div>
-                    <div class="kpi-mini-value">247</div>
+                <div style="text-align:center; margin-bottom:16px;">
+                    <div style="font-size:2.5rem; font-weight:700;">234 t</div>
+                    <div class="text-muted">CO₂ equivalente</div>
                 </div>
-                <div class="kpi-mini" style="margin-bottom: 12px;">
-                    <div class="text-muted">No Conformidades</div>
-                    <div class="kpi-mini-value" style="color: #2d9e6f;">12</div>
+                <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
+                <div class="flex-between text-muted">
+                    <span>vs estimado inicial: 280 t</span>
+                    <span>-16%</span>
                 </div>
-                <div class="kpi-mini">
-                    <div class="text-muted">Resueltas</div>
-                    <div class="kpi-mini-value" style="color: #e6b42c;">11</div>
+                <!-- Gestión de residuos -->
+                <div style="margin-top:16px;">
+                    <h4 class="flex"><i class="fas fa-trash-alt"></i> Residuos industriales</h4>
+                    <div class="flex-between">
+                        <span>Peligrosos gestionados</span>
+                        <span>12.4 t</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>No peligrosos</span>
+                        <span>45.2 t</span>
+                    </div>
+                    <div class="text-muted">Manifiestos vinculados al CDE</div>
                 </div>
             </div>
 
-            <!-- BIM Impact -->
+            <!-- Indicador de ROI general -->
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-cubes"></i> Impacto BIM</h3>
-                    <span class="badge badge-info">5D/6D</span>
+                    <h3><i class="fas fa-chart-pie"></i> Retorno de Inversión (ROI)</h3>
+                    <span class="badge">ERP</span>
                 </div>
-                <div class="kpi-mini" style="margin-bottom: 12px;">
-                    <div class="text-muted">Conflictos detectados</div>
-                    <div class="kpi-mini-value" style="color: #e6b42c;">1,247</div>
-                </div>
-                <div class="kpi-mini" style="margin-bottom: 12px;">
-                    <div class="text-muted">Resueltos en diseño</div>
-                    <div class="kpi-mini-value" style="color: #2d9e6f;">1,198</div>
-                </div>
-                <div class="kpi-mini">
-                    <div class="text-muted">Ahorro en obra</div>
-                    <div class="kpi-mini-value">$156K</div>
+                <div style="text-align:center;">
+                    <div style="font-size:3rem; font-weight:700; color:#2d9e6f;">18.4%</div>
+                    <div class="text-muted">ROI acumulado a la fecha</div>
+                    <div style="margin:20px 0;">
+                        <div class="flex-between">
+                            <span>Inversión ERP</span>
+                            <span>$850,000</span>
+                        </div>
+                        <div class="flex-between">
+                            <span>Beneficios cuantificados</span>
+                            <span style="color:#2d9e6f;">$1,456,000</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+                    <div class="flex-between text-muted">
+                        <span>Recuperación: 8 meses</span>
+                        <span>Proyectado anual: 24%</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tabla de beneficios -->
-        <div class="card" style="margin-bottom: 20px;">
-            <div class="card-header">
-                <h3><i class="fas fa-list-alt"></i> Resumen de Beneficios por Módulo</h3>
-                <span class="badge badge-info">Detallado</span>
-            </div>
-            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                <thead>
-                    <tr style="border-bottom: 2px solid #1f4a6a;">
-                        <th style="text-align: left; padding: 12px; color: #8fb4d4;">Módulo</th>
-                        <th style="text-align: right; padding: 12px; color: #8fb4d4;">Beneficio ($)</th>
-                        <th style="text-align: center; padding: 12px; color: #8fb4d4;">Eficiencia</th>
-                        <th style="text-align: center; padding: 12px; color: #8fb4d4;">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="border-bottom: 1px solid #1f4a6a;">
-                        <td style="padding: 12px;"><i class="fas fa-file-invoice" style="color: #5db0e0; margin-right: 8px;"></i>Control de Obras</td>
-                        <td style="text-align: right; padding: 12px; font-weight: 600;">$324,500</td>
-                        <td style="text-align: center; padding: 12px;">+45%</td>
-                        <td style="text-align: center; padding: 12px;"><span class="badge badge-success">Activo</span></td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #1f4a6a;">
-                        <td style="padding: 12px;"><i class="fas fa-file-signature" style="color: #5db0e0; margin-right: 8px;"></i>CDE / Planos</td>
-                        <td style="text-align: right; padding: 12px; font-weight: 600;">$189,200</td>
-                        <td style="text-align: center; padding: 12px;">+62%</td>
-                        <td style="text-align: center; padding: 12px;"><span class="badge badge-success">Activo</span></td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #1f4a6a;">
-                        <td style="padding: 12px;"><i class="fas fa-truck" style="color: #5db0e0; margin-right: 8px;"></i>Portal Proveedores</td>
-                        <td style="text-align: right; padding: 12px; font-weight: 600;">$512,400</td>
-                        <td style="text-align: center; padding: 12px;">+38%</td>
-                        <td style="text-align: center; padding: 12px;"><span class="badge badge-success">Activo</span></td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #1f4a6a;">
-                        <td style="padding: 12px;"><i class="fas fa-cubes" style="color: #5db0e0; margin-right: 8px;"></i>BIM Connect</td>
-                        <td style="text-align: right; padding: 12px; font-weight: 600;">$156,000</td>
-                        <td style="text-align: center; padding: 12px;">+71%</td>
-                        <td style="text-align: center; padding: 12px;"><span class="badge badge-warning">En expansión</span></td>
-                    </tr>
-                    <tr style="border-bottom: none;">
-                        <td style="padding: 12px; font-weight: 700;">TOTAL</td>
-                        <td style="text-align: right; padding: 12px; font-weight: 700; color: #2d9e6f;">$1,182,100</td>
-                        <td style="text-align: center; padding: 12px; font-weight: 700; color: #2d9e6f;">+52%</td>
-                        <td style="text-align: center;"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Quote final -->
+        <!-- Quote de cierre de venta -->
         <div class="quote-panel">
-            <div class="flex-between">
-                <div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 8px;"><i class="fas fa-quote-left" style="color: #5db0e0; margin-right: 10px;"></i>ROI del Proyecto</h3>
-                    <p style="color: #8fb4d4; line-height: 1.6;">
-                        "Con GProA ERP Industrial hemos logrado un retorno de inversión del <strong style="color: #2d9e6f;">327%</strong> en los primeros 18 meses, 
-                        superando el projection inicial de 180%. La integración de BIM con el control de proveedores ha sido clave para nuestra transformación digital."
-                    </p>
-                    <p style="margin-top: 16px; color: #b0d0f0; font-weight: 600;">
-                        — Director de Operaciones, Constructora GProA
-                    </p>
-                </div>
-                <div style="text-align: center; min-width: 150px;">
-                    <div style="font-size: 3rem; font-weight: 700; color: #2d9e6f;">327%</div>
-                    <div style="color: #8fb4d4;">ROI</div>
-                </div>
+            <i class="fas fa-quote-right" style="font-size:2.5rem; color:#6fc3ff; opacity:0.5;"></i>
+            <p style="margin:20px 0; font-size:1.2rem; line-height:1.6;">
+                "Ustedes no están comprando una base de datos, están comprando un <strong>Seguro de Margen</strong>. 'Beneficios en Acción' es la pantalla donde el Director ve cómo el ERP está protegiendo el dinero, asegurando que la ingeniería sea correcta y garantizando que al final de la obra, el Dossier de Calidad esté listo para cobrar el último peso del contrato sin demoras."
+            </p>
+            <div style="display:flex; gap:30px; justify-content:flex-end; flex-wrap:wrap;">
+                <span class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> $624,500 ahorrados</span>
+                <span class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> 0 multas fiscales</span>
+                <span class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> 70% más rápido en finiquitos</span>
             </div>
         </div>
     </div>
 
     <!-- Barra de estado -->
     <div class="status-bar">
-        <div><i class="fas fa-server"></i> Servidor: local | <i class="fas fa-database"></i> Base de datos: GProA_Industrial</div>
-        <div><i class="fas fa-user"></i> Usuario: Admin | <i class="fas fa-clock"></i> Sesión: 02:34:15</div>
+        <div class="status-left">
+            <span><i class="fas fa-database"></i> Datos ROI actualizados</span>
+            <span><i class="fas fa-shield-alt"></i> Compliance activo</span>
+            <span><i class="fas fa-leaf"></i> ESG tracking</span>
+        </div>
+        <div class="status-right">
+            <span><i class="fas fa-user"></i> Director: J. Martínez</span>
+            <span><i class="fas fa-clock"></i> Última sincro: 11:30</span>
+        </div>
     </div>
 </div>
 
 <script>
-    // Gráfico de ROI
-    const ctx = document.getElementById('roiChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            datasets: [{
-                label: 'ROI Acumulado (%)',
-                data: [5, 12, 25, 38, 52, 68, 85, 102, 115, 125, 130, 127],
-                borderColor: '#2d9e6f',
-                backgroundColor: 'rgba(45, 158, 111, 0.1)',
-                fill: true,
-                tension: 0.4,
-                pointBackgroundColor: '#2d9e6f',
-                pointRadius: 4
-            }, {
-                label: 'Meta proyectada (%)',
-                data: [10, 20, 30, 45, 60, 75, 90, 105, 120, 135, 150, 180],
-                borderColor: '#5db0e0',
-                borderDash: [5, 5],
-                fill: false,
-                tension: 0.4,
-                pointRadius: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: { color: '#8fb4d4' }
-                }
-            },
-            scales: {
-                y: {
-                    grid: { color: '#1f4a6a' },
-                    ticks: { color: '#8fb4d4', callback: value => value + '%' }
-                },
-                x: {
-                    grid: { color: '#1f4a6a' },
-                    ticks: { color: '#8fb4d4' }
-                }
-            }
-        }
-    });
+    // Pequeña animación de datos
+    setInterval(() => {
+        const dots = document.querySelectorAll('.live-dot');
+        dots.forEach(dot => {});
+    }, 1000);
 </script>
 </body>
 </html>
