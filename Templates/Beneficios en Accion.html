@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beneficios en Acción · ROI Dashboard | ERP Industrial</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js y librerías gráficas -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a1a24;
+            color: #e6edf3;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        /* Ventana principal estilo programa ejecutable */
+        .roi-window {
+            width: 100%;
+            max-width: 1600px;
+            height: 95vh;
+            background: #0e2538;
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 180, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #2d5a7a;
+        }
+
+        /* Barra de título */
+        .title-bar {
+            background: #0d1f2e;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #1f4a6a;
+            user-select: none;
+        }
+
+        .title-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .win-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #9bb8d4;
+            transition: all 0.2s;
+        }
+
+        .win-btn:hover {
+            background: #1f4059;
+            color: white;
+        }
+
+        .win-btn.close:hover {
+            background: #c54a4a;
+        }
+
+        .app-icon {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-icon i {
+            font-size: 1.5rem;
+            color: #5db0e0;
+        }
+
+        .app-icon span {
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .project-path {
+            background: #1a3a50;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #b0d0f0;
+            border: 1px solid #2d6a95;
+        }
+
+        /* Menú principal */
+        .menu-bar {
+            background: #0f2638;
+            padding: 8px 24px;
+            display: flex;
+            gap: 24px;
+            border-bottom: 1px solid #1f3f58;
+        }
+
+        .menu-item {
+            color: #b0cde0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .menu-item:hover {
+            background: #1a3e58;
+            color: white;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            background: #0f2638;
+            padding: 8px 24px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #1f3f58;
+        }
+
+        .tool-btn {
+            background: #1a3a50;
+            border: 1px solid #2d5470;
+            color: #cde1f0;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tool-btn i {
+            color: #5db0e0;
+        }
+
+        .separator {
+            width: 1px;
+            background: #1f4a6a;
+            margin: 0 8px;
+        }
+
+        /* Contenido principal con scroll */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background: #0a1c2b;
+            scrollbar-width: thin;
+            scrollbar-color: #1f4a6a #0a1c2b;
+        }
+
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .main-content::-webkit-scrollbar-track {
+            background: #0a1c2b;
+        }
+        .main-content::-webkit-scrollbar-thumb {
+            background: #1f4a6a;
+            border-radius: 10px;
+        }
+
+        /* Live bar */
+        .live-bar {
+            background: #0f2638;
+            border-radius: 16px;
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #2a5f85;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #2d9e6f;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(45,158,111,0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(45,158,111,0); }
+            100% { box-shadow: 0 0 0 0 rgba(45,158,111,0); }
+        }
+
+        /* Contador de ahorros - Saving Tracker */
+        .saving-tracker {
+            background: linear-gradient(145deg, #0d2f40, #0a2535);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #2d6a95;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .saving-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .saving-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .saving-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .saving-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .saving-card {
+            background: #0f2638;
+            border-radius: 20px;
+            padding: 20px;
+            border-left: 5px solid;
+        }
+
+        .saving-card.green { border-left-color: #2d9e6f; }
+        .saving-card.blue { border-left-color: #3298db; }
+        .saving-card.orange { border-left-color: #e6b42c; }
+
+        .saving-amount {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .saving-label {
+            color: #8fb4d4;
+            font-size: 0.9rem;
+        }
+
+        /* Grid de 2 columnas */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1000px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Grid de 3 columnas */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1100px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 700px) {
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: #102937;
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid #2b4f6b;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #1f4a6a;
+            padding-bottom: 12px;
+        }
+
+        .card-header h3 {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-header i {
+            color: #5db0e0;
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            background: #1f4059;
+            color: #cae3f5;
+            border: 1px solid #346a8c;
+            white-space: nowrap;
+        }
+
+        .badge-success {
+            background: #0d492d;
+            border-color: #2d9e6f;
+            color: #b8f0d6;
+        }
+
+        .badge-warning {
+            background: #7a5a1a;
+            border-color: #e6b42c;
+            color: #ffecb3;
+        }
+
+        .badge-error {
+            background: #632b2b;
+            border-color: #c54a4a;
+            color: #ffc6c6;
+        }
+
+        .badge-info {
+            background: #124a6b;
+            border-color: #3298db;
+            color: #c1e2ff;
+        }
+
+        /* Semáforo de riesgo */
+        .risk-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #1f4a6a;
+        }
+
+        .risk-level {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .risk-red { background: #c54a4a; box-shadow: 0 0 10px #c54a4a; }
+        .risk-yellow { background: #e6b42c; }
+        .risk-green { background: #2d9e6f; }
+
+        /* Indicadores de eficiencia */
+        .kpi-mini {
+            background: #0d2635;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .kpi-mini-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 8px 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #1f4059;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2d9e6f;
+        }
+
+        .progress-fill.warning { background: #e6b42c; }
+        .progress-fill.danger { background: #c54a4a; }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .text-muted {
+            color: #8fb4d4;
+            font-size: 0.85rem;
+        }
+
+        /* Tooltip */
+        .tooltip-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: #1f4a6a;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 10px;
+            margin-left: 5px;
+            cursor: help;
+            position: relative;
+        }
+
+        .tooltip-icon:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d1f2e;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            border: 1px solid #3980b0;
+            margin-bottom: 5px;
+            z-index: 100;
+        }
+
+        /* Barra de estado */
+        .status-bar {
+            background: #0d1f2e;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #8fb4d4;
+            border-top: 1px solid #1f4a6a;
+        }
+
+        /* Quote final */
+        .quote-panel {
+            background: linear-gradient(145deg, #0f2b3d, #0a1e2c);
+            border-radius: 24px;
+            padding: 30px;
+            margin: 24px 0;
+            border: 1px solid #2d5470;
+        }
+    </style>
+</head>
+<body>
+<div class="roi-window">
+    <!-- Barra de título -->
+    <div class="title-bar">
+        <div class="title-left">
+            <div class="app-icon">
+                <i class="fas fa-chart-line"></i>
+                <span>Beneficios en Acción · ROI Dashboard</span>
+            </div>
+            <div class="window-controls">
+                <div class="win-btn"><i class="fas fa-minus"></i></div>
+                <div class="win-btn"><i class="fas fa-square"></i></div>
+                <div class="win-btn close"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="project-path">
+            <i class="fas fa-folder-open"></i> Proyecto: Planta_Enfriamiento_Fase2
+        </div>
+    </div>
+
+    <!-- Menú principal -->
+    <div class="menu-bar">
+        <div class="menu-item"><i class="fas fa-home"></i> Inicio</div>
+        <div class="menu-item"><i class="fas fa-chart-pie"></i> Beneficios</div>
+        <div class="menu-item"><i class="fas fa-shield-alt"></i> Compliance</div>
+        <div class="menu-item"><i class="fas fa-leaf"></i> Sostenibilidad</div>
+        <div class="menu-item"><i class="fas fa-file-alt"></i> Reportes</div>
+        <div class="menu-item"><i class="fas fa-cog"></i> Configuración</div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <div class="tool-btn"><i class="fas fa-sync-alt"></i> Actualizar</div>
+        <div class="tool-btn"><i class="fas fa-file-export"></i> Exportar ROI</div>
+        <div class="tool-btn"><i class="fas fa-chart-bar"></i> Ver histórico</div>
+        <div class="separator"></div>
+        <div class="tool-btn"><i class="fas fa-bell"></i> Alertas <span class="badge badge-error" style="margin-left:5px;">3</span></div>
+        <div class="tool-btn"><i class="fas fa-calculator"></i> Simulador</div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Live bar -->
+        <div class="live-bar">
+            <div class="live-indicator">
+                <span class="live-dot"></span>
+                <span><strong>Beneficios en tiempo real</strong> · Actualizado: 25 Feb 2026 11:30</span>
+            </div>
+            <div>
+                <span class="badge badge-success"><i class="fas fa-check-circle"></i> ROI Acumulado: +18.4%</span>
+                <span class="badge badge-info" style="margin-left:8px;"><i class="fas fa-calendar"></i> Mes actual</span>
+            </div>
+        </div>
+
+        <!-- CONTADOR DE AHORROS (Saving Tracker) - EL CORAZÓN DEL ROI -->
+        <div class="saving-tracker">
+            <div class="saving-title">
+                <i class="fas fa-piggy-bank" style="color:#5db0e0;"></i> 
+                Contador de Ahorros · Saving Tracker
+                <span class="badge badge-success" style="margin-left:auto;">Acumulado proyecto</span>
+            </div>
+            <div class="saving-grid">
+                <div class="saving-card green">
+                    <i class="fas fa-file-invoice-dollar" style="font-size:1.5rem;"></i>
+                    <div class="saving-amount">$342,800</div>
+                    <div class="saving-label">Ahorro por negociación (históricos de compra)</div>
+                    <div class="text-muted" style="margin-top:8px;">12% vs precio promedio</div>
+                </div>
+                <div class="saving-card blue">
+                    <i class="fas fa-rotate-left" style="font-size:1.5rem;"></i>
+                    <div class="saving-amount">$187,500</div>
+                    <div class="saving-label">Retrabajos evitados (planos obsoletos)</div>
+                    <div class="text-muted" style="margin-top:8px;">7 incidentes detectados por QR</div>
+                </div>
+                <div class="saving-card orange">
+                    <i class="fas fa-clock" style="font-size:1.5rem;"></i>
+                    <div class="saving-amount">$94,200</div>
+                    <div class="saving-label">Descuentos por pronto pago</div>
+                    <div class="text-muted" style="margin-top:8px;">12 facturas gestionadas</div>
+                </div>
+            </div>
+            <div style="margin-top:20px; background:#0f2638; border-radius:16px; padding:16px;">
+                <div class="flex-between">
+                    <span><strong>Total de ahorros generados por el ERP:</strong></span>
+                    <span style="font-size:2rem; font-weight:700; color:#2d9e6f;">$624,500</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+                <div class="flex-between text-muted">
+                    <span>Meta de ahorro: $800,000</span>
+                    <span>78% alcanzado</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid de 2 columnas: Control de Costos + Blindaje Legal -->
+        <div class="grid-2">
+            <!-- Control de Costos y Salud Financiera -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-dollar-sign"></i> Control de Costos · Salud Financiera</h3>
+                    <span class="badge">EAC en tiempo real</span>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <div class="flex-between">
+                        <span>EAC (Estimate at Completion)</span>
+                        <span class="badge badge-warning">Actual vs Presupuesto</span>
+                    </div>
+                    <div style="font-size:2rem; font-weight:700; margin:10px 0;">$18.42M</div>
+                    <div class="progress-bar"><div class="progress-fill warning" style="width:115%"></div></div>
+                    <div class="flex-between">
+                        <span>Presupuesto: $16.0M</span>
+                        <span class="trend-down" style="color:#e6b42c;">+15% desviación</span>
+                    </div>
+                </div>
+                <div style="background:#0d2635; border-radius:16px; padding:16px;">
+                    <h4 class="flex"><i class="fas fa-history"></i> Optimización por históricos</h4>
+                    <div class="flex-between">
+                        <span>Cemento</span>
+                        <span class="badge badge-success">-8% vs histórico</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Acero</span>
+                        <span class="badge badge-success">-12% vs histórico</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Tubería</span>
+                        <span class="badge badge-warning">+3% vs histórico</span>
+                    </div>
+                </div>
+                <!-- Bloqueo de pagos duplicados -->
+                <div style="margin-top:16px; background:#1a3a50; border-radius:12px; padding:12px;">
+                    <div class="flex"><i class="fas fa-ban" style="color:#ff6b6b;"></i> <strong>Bloqueos automáticos:</strong> 2 estimaciones excedentes detenidas ($45,000)</div>
+                </div>
+            </div>
+
+            <!-- Blindaje Legal y Fiscal (Compliance) -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-shield-alt"></i> Blindaje Legal · Compliance</h3>
+                    <span class="badge">Deducibilidad garantizada</span>
+                </div>
+                <!-- Semáforo de cumplimiento -->
+                <div style="margin-bottom:16px;">
+                    <div class="flex-between">
+                        <span class="flex"><span class="risk-level risk-green"></span> SAT 69-B</span>
+                        <span class="badge badge-success">0 EFOS detectados</span>
+                    </div>
+                    <div class="flex-between">
+                        <span class="flex"><span class="risk-level risk-green"></span> REPSE</span>
+                        <span class="badge badge-success">23 proveedores OK</span>
+                    </div>
+                    <div class="flex-between">
+                        <span class="flex"><span class="risk-level risk-yellow"></span> IMSS/INFONAVIT</span>
+                        <span class="badge badge-warning">2 proveedores pendientes</span>
+                    </div>
+                </div>
+                <!-- Riesgo fiscal evitado -->
+                <div style="background:#0d2635; border-radius:16px; padding:16px;">
+                    <h4 class="flex"><i class="fas fa-exclamation-triangle" style="color:#e6b42c;"></i> Riesgo fiscal evitado</h4>
+                    <div style="font-size:1.8rem; font-weight:700;">$1.2M</div>
+                    <div class="text-muted">en facturas bloqueadas con XML inválido o proveedores no validados</div>
+                </div>
+                <!-- Blindaje patrimonial -->
+                <div style="margin-top:16px;">
+                    <div class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> Responsabilidad solidaria asegurada: 100% subcontratistas al corriente</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid de 2 columnas: Eficiencia Operativa + Calidad/Entrega -->
+        <div class="grid-2">
+            <!-- Eficiencia Operativa y Cero Retrabajos -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Eficiencia Operativa · Cero Retrabajos</h3>
+                    <span class="badge">QR en campo</span>
+                </div>
+                <div class="grid-3" style="margin-bottom:16px;">
+                    <div class="kpi-mini">
+                        <div class="text-muted">Planos obsoletos detectados</div>
+                        <div class="kpi-mini-value">7</div>
+                        <div class="text-muted">intentos bloqueados</div>
+                    </div>
+                    <div class="kpi-mini">
+                        <div class="text-muted">Tiempo muerto evitado</div>
+                        <div class="kpi-mini-value">124 hrs</div>
+                        <div class="text-muted">por alertas de desabasto</div>
+                    </div>
+                    <div class="kpi-mini">
+                        <div class="text-muted">Avance 5D</div>
+                        <div class="kpi-mini-value">67%</div>
+                        <div class="text-muted">vs modelo BIM</div>
+                    </div>
+                </div>
+                <!-- Alertas de desabasto -->
+                <div style="background:#0d2635; border-radius:16px; padding:16px;">
+                    <h4 class="flex"><i class="fas fa-truck"></i> Sincronización Project-Compras</h4>
+                    <div class="flex-between">
+                        <span>Materiales críticos en tiempo</span>
+                        <span class="badge badge-success">94%</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Alertas de desabasto atendidas</span>
+                        <span class="badge">12</span>
+                    </div>
+                    <div class="text-muted" style="margin-top:8px;">Cero paros de cuadrilla por falta de material</div>
+                </div>
+                <!-- Visibilidad 5D -->
+                <div style="margin-top:16px;">
+                    <div class="flex"><i class="fas fa-cubes" style="color:#5db0e0;"></i> <strong>BIM Connect:</strong> Visualización 5D activa en 342 elementos</div>
+                </div>
+            </div>
+
+            <!-- Calidad y Entrega (Dossier / As-Built) -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-clipboard-check"></i> Calidad y Entrega · Dossier Digital</h3>
+                    <span class="badge">As-Built automático</span>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <div class="flex-between">
+                        <span>Documentos recopilados</span>
+                        <span class="badge badge-success">1,284</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Certificados de material</span>
+                        <span>342</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Pruebas de laboratorio</span>
+                        <span>128</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>Fotos de liberación</span>
+                        <span>814</span>
+                    </div>
+                </div>
+                <!-- Velocidad de cobro de finiquitos -->
+                <div style="background:#0d2635; border-radius:16px; padding:16px;">
+                    <h4 class="flex"><i class="fas fa-clock"></i> Cobro de finiquitos</h4>
+                    <div style="font-size:1.8rem; font-weight:700;">-70%</div>
+                    <div class="text-muted">tiempo de entrega vs método tradicional</div>
+                </div>
+                <!-- Histórico As-Built -->
+                <div style="margin-top:16px;">
+                    <div class="flex"><i class="fas fa-history"></i> <strong>Trazabilidad total:</strong> 1,234 equipos con historial completo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid de 3 columnas: Semáforo de Riesgo Crítico + Sostenibilidad -->
+        <div class="grid-3">
+            <!-- Semáforo de Riesgo Crítico -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Semáforo de Riesgo Crítico</h3>
+                    <span class="badge badge-error">Alertas activas</span>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-level risk-red"></span>
+                    <div style="flex:1;"><strong>Riesgo Fiscal:</strong> Proveedor pagado sin XML válido</div>
+                    <span class="badge badge-error">1</span>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-level risk-red"></span>
+                    <div style="flex:1;"><strong>Riesgo Operativo:</strong> Tarea crítica sin material (Vigas)</div>
+                    <span class="badge badge-error">2</span>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-level risk-yellow"></span>
+                    <div style="flex:1;"><strong>Riesgo Técnico:</strong> Área sin checklist calidad</div>
+                    <span class="badge badge-warning">3</span>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-level risk-green"></span>
+                    <div style="flex:1;">Riesgos controlados</div>
+                    <span class="badge badge-success">12</span>
+                </div>
+            </div>
+
+            <!-- Sostenibilidad y Medio Ambiente (ESG) -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-leaf"></i> Sostenibilidad ESG</h3>
+                    <span class="badge">Huella de carbono</span>
+                </div>
+                <div style="text-align:center; margin-bottom:16px;">
+                    <div style="font-size:2.5rem; font-weight:700;">234 t</div>
+                    <div class="text-muted">CO₂ equivalente</div>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
+                <div class="flex-between text-muted">
+                    <span>vs estimado inicial: 280 t</span>
+                    <span>-16%</span>
+                </div>
+                <!-- Gestión de residuos -->
+                <div style="margin-top:16px;">
+                    <h4 class="flex"><i class="fas fa-trash-alt"></i> Residuos industriales</h4>
+                    <div class="flex-between">
+                        <span>Peligrosos gestionados</span>
+                        <span>12.4 t</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>No peligrosos</span>
+                        <span>45.2 t</span>
+                    </div>
+                    <div class="text-muted">Manifiestos vinculados al CDE</div>
+                </div>
+            </div>
+
+            <!-- Indicador de ROI general -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-pie"></i> Retorno de Inversión (ROI)</h3>
+                    <span class="badge">ERP</span>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-size:3rem; font-weight:700; color:#2d9e6f;">18.4%</div>
+                    <div class="text-muted">ROI acumulado a la fecha</div>
+                    <div style="margin:20px 0;">
+                        <div class="flex-between">
+                            <span>Inversión ERP</span>
+                            <span>$850,000</span>
+                        </div>
+                        <div class="flex-between">
+                            <span>Beneficios cuantificados</span>
+                            <span style="color:#2d9e6f;">$1,456,000</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+                    <div class="flex-between text-muted">
+                        <span>Recuperación: 8 meses</span>
+                        <span>Proyectado anual: 24%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quote de cierre de venta -->
+        <div class="quote-panel">
+            <i class="fas fa-quote-right" style="font-size:2.5rem; color:#6fc3ff; opacity:0.5;"></i>
+            <p style="margin:20px 0; font-size:1.2rem; line-height:1.6;">
+                "Ustedes no están comprando una base de datos, están comprando un <strong>Seguro de Margen</strong>. 'Beneficios en Acción' es la pantalla donde el Director ve cómo el ERP está protegiendo el dinero, asegurando que la ingeniería sea correcta y garantizando que al final de la obra, el Dossier de Calidad esté listo para cobrar el último peso del contrato sin demoras."
+            </p>
+            <div style="display:flex; gap:30px; justify-content:flex-end; flex-wrap:wrap;">
+                <span class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> $624,500 ahorrados</span>
+                <span class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> 0 multas fiscales</span>
+                <span class="flex"><i class="fas fa-check-circle" style="color:#2d9e6f;"></i> 70% más rápido en finiquitos</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de estado -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span><i class="fas fa-database"></i> Datos ROI actualizados</span>
+            <span><i class="fas fa-shield-alt"></i> Compliance activo</span>
+            <span><i class="fas fa-leaf"></i> ESG tracking</span>
+        </div>
+        <div class="status-right">
+            <span><i class="fas fa-user"></i> Director: J. Martínez</span>
+            <span><i class="fas fa-clock"></i> Última sincro: 11:30</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pequeña animación de datos
+    setInterval(() => {
+        const dots = document.querySelectorAll('.live-dot');
+        dots.forEach(dot => {});
+    }, 1000);
+</script>
+</body>
+</html>
