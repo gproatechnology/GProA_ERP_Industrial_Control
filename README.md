@@ -8,60 +8,142 @@
 
 Este ecosistema ERP nace para resolver la desconexión documental y operativa en proyectos de construcción industrial. A diferencia de un sistema contable tradicional, este ERP se enfoca en el **Control de Procesos Críticos**, integrando la metodología BIM, el blindaje fiscal de subcontratistas y la movilidad en sitio.
 
-## 🚀 Módulos Core y Diferenciadores
+---
 
-### 1. Common Data Environment (CDE) & Control de Planos
+## 🚀 Estado del Desarrollo
 
-* **Fuente Única de Verdad:** Repositorio centralizado para planos y especificaciones.
-* **QR Dinámico de Validación:** Cada plano impreso cuenta con un código QR que, al ser escaneado en obra, confirma si la versión es la vigente o si está obsoleta (Rev. Control).
-* **Gestión de RFIs:** Flujo digital para solicitudes de información técnica con trazabilidad de impacto en costo y tiempo.
+### ✅ Módulos Implementados (Demo Funcional)
 
-### 2. Portal de Proveedores y Blindaje Fiscal (Compliance)
+| Módulo | Archivo | Descripción |
+|--------|---------|-------------|
+| **Dashboard Principal** | [`index.html`](index.html) | Panel de beneficios con métricas clave, KPIs y visualización de impacto |
+| **CDE - Control Documental** | [`Templates/CDE · CONTROL DOCUMENTAL.html`](Templates/CDE%20·%20CONTROL%20DOCUMENTAL.html) | Gestión de planos, validación QR, flujo de aprobaciones y control de versiones |
+| **Control de Obras** | [`Templates/Control de Obras.html`](Templates/Control%20de%20Obras.html) | Centro de mando para seguimiento de avance, almacén y QA/QC |
+| **Portal de Proveedores** | [`Templates/Portal Provedores.html`](Templates/Portal%20Provedores.html) | Blindaje fiscal, semáforo de cumplimiento y gestión de certificados |
 
-* **Semáforo de Cumplimiento:** Bloqueo automático de pagos y carga de facturas si el proveedor tiene documentos vencidos (Opinión SAT, IMSS, REPSE, Infonavit).
-* **Carga de Certificados:** Obligatoriedad de adjuntar Certificados de Calidad de Materiales (Mill Test Reports) para la liberación de pagos.
-* **Cuadros Comparativos:** Algoritmo que analiza el **Precio Promedio Ponderado ($P_p$)** histórico para optimizar compras de acero, concreto y equipos críticos.
+### 🎯 Características Implementadas
 
-### 3. Movilidad y Control de Obra (QA/QC)
+#### Dashboard Principal ([`index.html`](index.html))
+- Panel de beneficios con métricas de reducción de retrabajos (-25%)
+- KPIs de cumplimiento legal (100% expedientes actualizados)
+- Análisis de eficiencia en compras (5-8% ahorro)
+- Visualización de impacto en cierre de proyectos (-50% tiempo)
+- Interfaz responsive con diseño oscuro profesional
 
-* **App de Almacén:** Gestión de entradas y salidas mediante escaneo de códigos de barras/QR en dispositivos móviles.
-* **Liberación de Áreas (Checklists):** Protocolos digitales de inspección para obra civil, mecánica y eléctrica con evidencia fotográfica y firma digital.
-* **Dossier de Calidad Automatizado:** Generación del libro de entrega final con un clic, consolidando toda la evidencia recolectada durante la obra.
+#### CDE - Control Documental ([`CDE · CONTROL DOCUMENTAL.html`](Templates/CDE%20·%20CONTROL%20DOCUMENTAL.html))
+- **Validación QR de Planos:** Sistema de códigos QR para verificar vigencia de documentos en campo
+- **Control de Versiones:** Indicadores visuales de estado (Vigente/Obsoleto/En Revisión)
+- **Flujo de Aprobaciones:** Workflow con tiempos de respuesta y alertas
+- **Metadatos de Documentos:** Información estructurada por disciplina, área y responsable
+- **Visor Integrado:** Previsualización de planos con herramientas de zoom y navegación
 
-### 4. Integración BIM 5D & Planeación
+#### Control de Obras ([`Control de Obras.html`](Templates/Control%20de%20Obras.html))
+- **Centro de Mando:** Dashboard ejecutivo con avance físico y financiero
+- **Gestión de Almacén:** Control de entradas/salidas con escaneo de códigos
+- **Checklists QA/QC:** Protocolos digitales de inspección por especialidad
+- **Reportes de Avance:** Gráficos de tendencia y curvas S
+- **Alertas de Desviación:** Notificaciones de retrasos y sobrecostos
 
-* **Sincronización con MS Project:** Las tareas del cronograma disparan automáticamente las requisiciones de compra.
-* **Visor de Revit Integrado:** Visualización del avance financiero y físico sobre el modelo 3D del proyecto.
+#### Portal de Proveedores ([`Portal Provedores.html`](Templates/Portal%20Provedores.html))
+- **Semáforo de Cumplimiento:** Validación automática de documentos fiscales
+  - Opinión SAT (32 días de vigencia)
+  - IMSS (30 días)
+  - REPSE (30 días)
+  - Infonavit (30 días)
+- **Bloqueo Automático:** Restricción de pagos si documentos están vencidos
+- **Certificados de Calidad:** Carga obligatoria de Mill Test Reports
+- **Cuadros Comparativos:** Análisis de precios ponderados históricos
+- **Generación de QR:** Códigos para acceso rápido a expediente del proveedor
+
+---
+
+## 🛠️ Stack Técnico
+
+| Componente | Tecnología |
+|------------|------------|
+| **Frontend** | HTML5, CSS3, JavaScript Vanilla |
+| **Estilos** | CSS Custom Properties, Flexbox, Grid |
+| **Fuentes** | Inter (UI), JetBrains Mono (código) |
+| **Iconos** | Font Awesome 6.x |
+| **Gráficos** | Chart.js 4.4.0 |
+| **Códigos QR** | QRCode.js |
+
+### Características Técnicas Destacadas
+- **Diseño Responsive:** Adaptable a desktop, tablet y móvil
+- **Tema Oscuro Profesional:** Paleta de colores corporativa (#0b1a24, #0f2638)
+- **Sin Dependencias Backend:** Demo 100% frontend, ejecutable localmente
+- **Componentes Modulares:** Estructura reutilizable basada en cards
+- **Accesibilidad:** Etiquetas semánticas y navegación por teclado
+
+---
+
+## 🚀 Cómo Ejecutar
+
+### Opción 1: Abrir directamente en el navegador
+Simplemente abre el archivo [`index.html`](index.html) en tu navegador (doble clic o arrastrar el archivo al navegador).
+
+### Opción 2: Servidor HTTP local
+Ejecuta este comando en tu terminal:
+
+```bash
+cd /workspaces/GProA_ERP_Industrial_Control && python3 -m http.server 8000
+```
+
+Luego accede a: `http://localhost:8000`
+
+Ambos métodos funcionan sin necesidad de configuración adicional.
 
 ---
 
 ## 🗺️ Roadmap de Implementación (12 Semanas)
 
-| Fase | Título | Entregable Clave |
-| --- | --- | --- |
-| **01** | **Cimentación de Datos** | Mapeo de WBS y limpieza de catálogos Enkontrol. |
-| **02** | **Blindaje Operativo** | Portal de Proveedores y Control de Planos (QR). |
-| **03** | **Control en Campo** | App de Almacén y Checklists de Calidad (QA/QC). |
-| **04** | **Inteligencia de Negocio** | Integración BIM 5D y Dashboards Directivos. |
-| **05** | **Go-Live Piloto** | Implementación en proyecto real e Hypercare. |
+| Fase | Título | Estado | Entregable Clave |
+|------|--------|--------|------------------|
+| **01** | **Cimentación de Datos** | 🔵 Planificado | Mapeo de WBS y limpieza de catálogos Enkontrol |
+| **02** | **Blindaje Operativo** | 🟡 En Demo | Portal de Proveedores y Control de Planos (QR) |
+| **03** | **Control en Campo** | 🟡 En Demo | App de Almacén y Checklists de Calidad (QA/QC) |
+| **04** | **Inteligencia de Negocio** | 🔵 Planificado | Integración BIM 5D y Dashboards Directivos |
+| **05** | **Go-Live Piloto** | 🔵 Planificado | Implementación en proyecto real e Hypercare |
 
----
-
-## 🛠️ Stack Técnico Sugerido
-
-* **Backend:** [Insertar Tecnología, ej: Node.js / Python]
-* **Frontend:** [Insertar Tecnología, ej: React / Angular]
-* **Base de Datos:** [Insertar Tecnología, ej: PostgreSQL / SQL Server]
-* **Integraciones:** API Enkontrol, Autodesk Forge (para visor Revit), SAT (validación XML).
+**Leyenda:** ✅ Completado | 🟡 En Demo | 🔵 Planificado
 
 ---
 
 ## 📈 Beneficios Esperados
 
-* **Reducción de Retrabajos:** -25% mediante el control de versiones de planos.
-* **Cumplimiento Legal:** 100% de expedientes de subcontratistas actualizados.
-* **Eficiencia en Compras:** Ahorro del 5-8% mediante análisis de históricos y comparativas.
-* **Cierre de Proyecto:** Reducción del 50% en el tiempo de elaboración del Dossier de Calidad.
+| Beneficio | Métrica | Impacto |
+|-----------|---------|---------|
+| **Reducción de Retrabajos** | Control de versiones de planos | -25% |
+| **Cumplimiento Legal** | Expedientes de subcontratistas | 100% actualizados |
+| **Eficiencia en Compras** | Análisis de históricos | 5-8% ahorro |
+| **Cierre de Proyecto** | Elaboración Dossier de Calidad | -50% tiempo |
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+GProA_ERP_Industrial_Control/
+├── index.html                          # Dashboard principal de demo
+├── README.md                           # Documentación del proyecto
+├── LICENSE                             # Licencia MIT
+├── erp_terminal.txt                    # Instrucciones de ejecución
+└── Templates/
+    ├── CDE · CONTROL DOCUMENTAL.html   # Módulo de control documental
+    ├── Control de Obras.html           # Módulo de control de obra
+    └── Portal Provedores.html          # Portal de proveedores
+```
+
+---
+
+## 🔮 Próximos Pasos
+
+1. **Integración con Backend:** Desarrollar API REST para persistencia de datos
+2. **Base de Datos:** Implementar PostgreSQL/SQL Server para almacenamiento
+3. **Autenticación:** Sistema de login con roles y permisos
+4. **Integración Enkontrol:** Conexión con API de Enkontrol para datos maestros
+5. **App Móvil:** Desarrollo de aplicación nativa para uso en campo
+6. **Visor BIM:** Integración con Autodesk Forge para modelos Revit
 
 ---
 
@@ -69,4 +151,10 @@ Este ecosistema ERP nace para resolver la desconexión documental y operativa en
 
 Para dudas sobre la implementación o acceso al ambiente de demo:
 
-*Este proyecto es propiedad de [Nombre de tu Empresa/Consultora] y está diseñado exclusivamente para el sector de Construcción Industrial.*
+*Este proyecto es desarrollado por **GProA Technology S. de R.L. de C.V.** y está diseñado exclusivamente para el sector de Construcción Industrial.*
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo [`LICENSE`](LICENSE) para más detalles.

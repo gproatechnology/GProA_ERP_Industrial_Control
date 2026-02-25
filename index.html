@@ -723,8 +723,8 @@
         <button class="tab-btn" type="button" onclick="openCDEModal()"><i class="fas fa-file-signature" aria-hidden="true"></i> CDE / Planos</button>
         <button class="tab-btn" type="button" onclick="openPortalModal()"><i class="fas fa-truck" aria-hidden="true"></i> Portal Proveedores</button>
         <button class="tab-btn" type="button" onclick="openControlObraModal()"><i class="fas fa-chart-line" aria-hidden="true"></i> Control Obra</button>
-        <button class="tab-btn" type="button"><i class="fas fa-cubes" aria-hidden="true"></i> BIM Connect</button>
-        <span class="live-notification"><i class="fas fa-bell" aria-hidden="true"></i> Beneficios en acción</span>
+        <button class="tab-btn" type="button" onclick="openBIMConnectModal()"><i class="fas fa-cubes" aria-hidden="true"></i> BIM Connect</button>
+        <button class="tab-btn" type="button" onclick="openBeneficiosModal()"><i class="fas fa-rocket" aria-hidden="true"></i> Beneficios en Acción</button>
     </div>
 
     <!-- =================== MÓDULOS CON BENEFICIOS EXPLÍCITOS =================== -->
@@ -1064,6 +1064,26 @@
     </div>
 </div>
 
+<!-- Modal for BIM Connect -->
+<div id="bim-connect-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeBIMConnectModal()"><i class="fas fa-times"></i></button>
+        <div id="bim-connect-modal-content">
+            <!-- Content loaded dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Beneficios en Acción -->
+<div id="beneficios-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeBeneficiosModal()"><i class="fas fa-times"></i></button>
+        <div id="beneficios-modal-content">
+            <!-- Content loaded dynamically -->
+        </div>
+    </div>
+</div>
+
 <!-- DOMPurify for XSS protection -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 
@@ -1099,6 +1119,28 @@
     // Function to close Control de Obras modal
     function closeControlObraModal() {
         document.getElementById('control-obra-modal').classList.remove('active');
+    }
+
+    // Function to open BIM Connect modal
+    function openBIMConnectModal() {
+        document.getElementById('bim-connect-modal').classList.add('active');
+        loadModalContent('bim-connect-modal-content', 'Templates/BIM Connect.html', false);
+    }
+
+    // Function to close BIM Connect modal
+    function closeBIMConnectModal() {
+        document.getElementById('bim-connect-modal').classList.remove('active');
+    }
+
+    // Function to open Beneficios en Acción modal
+    function openBeneficiosModal() {
+        document.getElementById('beneficios-modal').classList.add('active');
+        loadModalContent('beneficios-modal-content', 'Templates/Beneficios en Accion.html', false);
+    }
+
+    // Function to close Beneficios en Acción modal
+    function closeBeneficiosModal() {
+        document.getElementById('beneficios-modal').classList.remove('active');
     }
 
     // Function to load content dynamically
@@ -1160,6 +1202,10 @@
         const controlObraModal = document.getElementById('control-obra-modal');
         if (e.target === controlObraModal) {
             closeControlObraModal();
+        }
+        const bimConnectModal = document.getElementById('bim-connect-modal');
+        if (e.target === bimConnectModal) {
+            closeBIMConnectModal();
         }
     });
 </script>
