@@ -669,6 +669,20 @@
             .forgot-password {
                 order: 2;
             }
+            
+            /* Mobile UX Refinement - Touch optimization */
+            .form-input,
+            .login-btn,
+            .social-btn {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+            
+            /* Evitar scroll horizontal */
+            html, body {
+                overflow-x: hidden;
+                max-width: 100vw;
+            }
         }
     </style>
 </head>

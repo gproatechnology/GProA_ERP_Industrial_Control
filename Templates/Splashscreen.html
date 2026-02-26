@@ -389,6 +389,14 @@
                 padding: 16px;
             }
         }
+        
+        /* Mobile UX Refinement - Evitar scroll horizontal */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                max-width: 100vw;
+            }
+        }
     </style>
 </head>
 <body>

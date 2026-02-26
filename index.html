@@ -743,6 +743,369 @@
                 font-size: 1.3rem;
             }
         }
+        
+        /* ============================================
+           MOBILE UX REFINEMENT - Optimizaciones adicionales
+           Sin afectar versión Desktop
+           ============================================ */
+        
+        /* Mobile: Proyecto Activo - Mejora de jerarquía visual */
+        @media (max-width: 768px) {
+            /* Contenedor principal del banner superior */
+            .top-banner {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+            
+            .logo-area {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                width: 100%;
+            }
+            
+            /* GIASA - Reducción proporcional */
+            .giasa-mega {
+                padding: 6px 12px 6px 10px;
+                gap: 8px;
+                border-radius: 30px;
+                justify-content: center;
+            }
+            
+            .giasa-mega i {
+                font-size: 1.2rem;
+            }
+            
+            .giasa-mega-text {
+                display: flex;
+                flex-direction: column;
+                line-height: 1.1;
+            }
+            
+            .giasa-mega-text .main {
+                font-size: clamp(0.9rem, 4vw, 1.1rem);
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+            
+            .giasa-mega-text .sub {
+                font-size: 0.55rem;
+                letter-spacing: 0.3px;
+            }
+            
+            /* Proyecto Activo - Tarjeta estructurada tipo card móvil */
+            .project-tag {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 16px;
+                gap: 4px;
+                border-radius: 16px;
+                text-align: center;
+                background: linear-gradient(145deg, #024d82, #013a63);
+            }
+            
+            .project-tag .project-active {
+                font-size: 0.6rem;
+                width: auto;
+                letter-spacing: 1px;
+                margin-bottom: 2px;
+            }
+            
+            .project-tag .project-name {
+                font-size: 0.95rem;
+                font-weight: 600;
+            }
+            
+            .project-tag .project-phase {
+                font-size: 0.7rem;
+                padding: 2px 8px;
+            }
+            
+            .project-tag .project-location {
+                font-size: 0.65rem;
+                width: auto;
+            }
+            
+            /* Reloj - Reducción y mejor alineación */
+            .live-clock {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                padding: 8px 14px;
+                border-radius: 20px;
+                gap: 8px;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+            
+            .live-clock i {
+                font-size: 1rem;
+            }
+            
+            .clock-info {
+                text-align: left;
+            }
+            
+            .clock-time {
+                font-size: clamp(0.9rem, 4vw, 1.1rem);
+                font-weight: 600;
+            }
+            
+            .clock-date {
+                font-size: 0.6rem;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+            }
+            
+            /* Title Bar - Panel principal reorganizado */
+            .title-bar {
+                padding: 8px 10px;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .status-indicator {
+                order: 1;
+                font-size: 0.7rem;
+                justify-content: center;
+                width: 100%;
+                padding: 4px 0;
+            }
+            
+            .win-controls {
+                order: 2;
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+            }
+            
+            .win-btn {
+                width: 40px;
+                height: 36px;
+                font-size: 0.85rem;
+                border-radius: 10px;
+                min-width: 44px;
+                min-height: 44px;
+            }
+            
+            /* Menú Bar - Estructura de dashboard móvil */
+            .menu-bar {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding: 8px 10px;
+                gap: 6px;
+                scrollbar-width: none;
+            }
+            
+            .menu-bar::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .menu-item {
+                flex-shrink: 0;
+                font-size: 0.7rem;
+                padding: 8px 10px;
+                white-space: nowrap;
+            }
+            
+            /* Toolbar - Dashboard móvil */
+            .toolbar-row {
+                padding: 8px 10px;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .tool-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 10px 14px;
+                font-size: 0.75rem;
+                border-radius: 12px;
+            }
+            
+            .toolbar-stats {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 4px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .stat-pill {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+            
+            .toolbar-row-2 {
+                padding: 8px 10px;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .search-box {
+                width: 100%;
+                padding: 10px 14px;
+                border-radius: 12px;
+            }
+            
+            .live-badge {
+                width: 100%;
+                justify-content: center;
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+            
+            /* Panel Principal - Mobile Dashboard Layout */
+            .main-flex {
+                flex-direction: column;
+            }
+            
+            /* Stats Rail - Grid de tarjetas */
+            .stats-rail {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 12px;
+                border-right: none;
+                border-bottom: 1px solid #3170b0;
+            }
+            
+            .stat-card {
+                padding: 12px;
+                border-radius: 14px;
+                margin-bottom: 0;
+            }
+            
+            .stat-title {
+                font-size: 0.65rem;
+                margin-bottom: 6px;
+            }
+            
+            .kpi-number {
+                font-size: clamp(1.2rem, 5vw, 1.5rem);
+            }
+            
+            /* Módulos Panel - Dashboard móvil */
+            .modules-panel {
+                padding: 12px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .module-card {
+                padding: 12px;
+                border-radius: 14px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .module-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+                margin-bottom: 8px;
+                border-radius: 10px;
+            }
+            
+            .module-card h3 {
+                font-size: 0.8rem;
+                margin-bottom: 4px;
+                line-height: 1.3;
+            }
+            
+            .module-card p {
+                font-size: 0.65rem;
+                margin-bottom: 8px;
+                line-height: 1.3;
+            }
+            
+            .card-metric {
+                font-size: 0.6rem;
+                padding: 4px 8px;
+                border-radius: 8px;
+                margin-top: auto;
+            }
+            
+            /* Insights Row */
+            .insights-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .insight-card {
+                padding: 12px;
+                border-radius: 14px;
+            }
+            
+            .insight-card h4 {
+                font-size: 0.8rem;
+                margin-bottom: 10px;
+            }
+            
+            .insight-item {
+                font-size: 0.75rem;
+                padding: 6px 0;
+            }
+            
+            /* Status Bar */
+            .status-bar {
+                padding: 8px 10px;
+                flex-direction: column;
+                gap: 6px;
+                font-size: 0.65rem;
+            }
+            
+            .status-left, .status-right {
+                justify-content: center;
+                gap: 12px;
+            }
+            
+            /* Evitar scroll horizontal */
+            html, body {
+                overflow-x: hidden;
+                max-width: 100vw;
+            }
+            
+            .app-desktop {
+                max-width: 100vw;
+                border-radius: 0;
+            }
+        }
+        
+        /* Mobile muy pequeño */
+        @media (max-width: 400px) {
+            .stats-rail {
+                grid-template-columns: 1fr;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .giasa-mega {
+                padding: 5px 10px 5px 8px;
+            }
+            
+            .giasa-mega-text .sub {
+                display: none;
+            }
+            
+            .project-tag .project-location {
+                display: none;
+            }
+        }
 
         /* MODALES */
         .modal-overlay {

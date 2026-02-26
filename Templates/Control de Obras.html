@@ -831,6 +831,19 @@
                 -webkit-user-select: none;
                 user-select: none;
             }
+            
+            /* Mobile UX Refinement - Evitar scroll horizontal */
+            html, body {
+                overflow-x: hidden;
+                max-width: 100vw;
+            }
+            
+            .program-window {
+                max-width: 100vw;
+                border-radius: 0;
+                height: auto;
+                min-height: 100vh;
+            }
         }
     </style>
 </head>
