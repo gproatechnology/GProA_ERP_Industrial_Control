@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERP Industrial Control - Iniciar Sesión</title>
+    
+    <!-- AUTH FLOW CONTROL -->
+    <script>
+        (function() {
+            const AUTH_KEY = 'erp_authenticated';
+            
+            // If already authenticated, skip to index
+            if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+                window.location.replace('../index.html');
+                return;
+            }
+        })();
+    </script>
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERP Industrial Control - Cargando</title>
+    
+    <!-- SPLASHSCREEN FLOW CONTROL -->
+    <script>
+        (function() {
+            const SPLASH_KEY = 'erp_splash_shown';
+            const AUTH_KEY = 'erp_authenticated';
+            
+            // If already authenticated, skip to index
+            if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+                window.location.replace('../index.html');
+                return;
+            }
+            
+            // If splash already shown, redirect to Auth
+            if (sessionStorage.getItem(SPLASH_KEY) === 'true') {
+                window.location.replace('Auth.html');
+                return;
+            }
+        })();
+    </script>
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -4,6 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>ERP Constructor · Contraste Profesional</title>
+    
+    <!-- ENTRY POINT FLOW CONTROL - This must be the first script -->
+    <script>
+        (function() {
+            // Flow control keys
+            const SPLASH_KEY = 'erp_splash_shown';
+            const AUTH_KEY = 'erp_authenticated';
+            
+            // Get current page (for logging/debugging)
+            var currentPath = window.location.pathname;
+            var isIndexPage = currentPath.endsWith('index.html') || currentPath.endsWith('/');
+            
+            // Only apply flow control if we're on index.html
+            if (isIndexPage) {
+                // Check authentication state
+                var isAuthenticated = sessionStorage.getItem(AUTH_KEY) === 'true';
+                var splashShown = sessionStorage.getItem(SPLASH_KEY) === 'true';
+                
+                // Flow state machine
+                if (!splashShown) {
+                    // State 1: Splashscreen not shown - redirect to Splashscreen
+                    window.location.replace('Templates/Splashscreen.html');
+                    return;
+                } else if (!isAuthenticated) {
+                    // State 2: Splash shown but not authenticated - redirect to Auth
+                    window.location.replace('Templates/Auth.html');
+                    return;
+                }
+                // State 3: Authenticated - allow access to index.html
+                // Continue loading the page normally
+            }
+        })();
+    </script>
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
