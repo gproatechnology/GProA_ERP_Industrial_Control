@@ -304,6 +304,22 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         
+        .tool-btn.logout-btn {
+            background: #8b1a1a;
+            border-color: #c53030;
+            margin-left: auto;
+        }
+        
+        .tool-btn.logout-btn:hover {
+            background: #a02020;
+            border-color: #e53e3e;
+            box-shadow: 0 4px 12px rgba(197, 48, 48, 0.4);
+        }
+        
+        .tool-btn.logout-btn i {
+            color: #feb2b2;
+        }
+        
         .tool-btn i {
             color: #ffb571; /* naranja para iconos de acción */
         }
@@ -761,6 +777,12 @@
             .live-badge {
                 font-size: 0.7rem;
                 padding: 6px 12px;
+            }
+            .tool-btn.logout-btn {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 8px;
+                justify-content: center;
             }
         }
         
@@ -1223,6 +1245,7 @@
             <span class="stat-pill"><i class="fas fa-dollar-sign"></i> $2.46M ahorro</span>
             <span class="stat-pill"><i class="fas fa-shield"></i> 147 blindadas</span>
         </div>
+        <div class="tool-btn logout-btn" onclick="logout()" title="Cerrar Sesión"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</div>
     </div>
 
     <!-- TOOLBAR 2 -->
