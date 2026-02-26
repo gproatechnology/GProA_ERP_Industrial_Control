@@ -888,15 +888,25 @@ iente</span>
 
     <script>
         // Authentication flow control - Protect against direct access
-        if (sessionStorage.getItem('erp_authenticated') !== 'true') {
-            window.location.href = 'Auth.html';
+        // Universal flow: Splashscreen → Auth → Main Dashboard (same for Desktop and Mobile)
+        const isAuthenticated = sessionStorage.getItem('erp_authenticated') === 'true';
+        const splashShown = sessionStorage.getItem('erp_splash_shown') === 'true';
+        
+        if (!isAuthenticated) {
+            // If splash not shown yet, go to Splashscreen
+            if (!splashShown) {
+                window.location.href = 'Splashscreen.html';
+            } else {
+                // If splash already shown but not authenticated, go to Auth
+                window.location.href = 'Auth.html';
+            }
         }
         
         // Logout function
         function templateLogout() {
             sessionStorage.removeItem('erp_authenticated');
             sessionStorage.removeItem('erp_splash_shown');
-            window.location.href = 'Auth.html';
+            window.location.href = 'Splashscreen.html';
         }
     </script>
 </body>
