@@ -836,12 +836,16 @@
     </div>
 
     <script>
-        // Check if user came from splashscreen
-        const cameFromSplash = sessionStorage.getItem('erp_splash_shown');
-        
-        // If not from splashscreen, redirect to splashscreen
-        if (!cameFromSplash) {
-            window.location.href = 'Splashscreen.html';
+        // Authentication flow control
+        // If already authenticated, redirect to main dashboard
+        if (sessionStorage.getItem('erp_authenticated') === 'true') {
+            window.location.href = '../index.html';
+        } else {
+            // If not from splashscreen, redirect to splashscreen
+            const cameFromSplash = sessionStorage.getItem('erp_splash_shown');
+            if (!cameFromSplash) {
+                window.location.href = 'Splashscreen.html';
+            }
         }
 
         // Toggle password visibility

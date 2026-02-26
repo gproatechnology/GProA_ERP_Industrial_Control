@@ -1338,6 +1338,18 @@
 <div id="modal-user" class="modal-overlay"><div class="modal-content"><button class="modal-close" onclick="closeModal('modal-user')"><i class="fas fa-times"></i></button><h2>👤 Usuario</h2><p style="margin-top:16px;">Administrador - GIASA ERP Constructor</p></div></div>
 
 <script>
+    // Authentication flow control - Protect against direct access
+    if (sessionStorage.getItem('erp_authenticated') !== 'true') {
+        window.location.href = 'Templates/Auth.html';
+    }
+    
+    // Logout function
+    function logout() {
+        sessionStorage.removeItem('erp_authenticated');
+        sessionStorage.removeItem('erp_splash_shown');
+        window.location.href = 'Templates/Splashscreen.html';
+    }
+    
     // RELOJ EN TIEMPO REAL
     function updateClock() {
         const now = new Date();

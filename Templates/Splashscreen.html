@@ -505,6 +505,11 @@
             }
         }, 1200);
 
+        // Check if splash was already shown - redirect to Auth if so
+        if (sessionStorage.getItem('erp_splash_shown') === 'true') {
+            window.location.href = 'Auth.html';
+        }
+
         // Skip splash screen
         function skipSplash() {
             sessionStorage.setItem('erp_splash_shown', 'true');
