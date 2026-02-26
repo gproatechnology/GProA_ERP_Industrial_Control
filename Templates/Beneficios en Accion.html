@@ -1201,5 +1201,19 @@
         dots.forEach(dot => {});
     }, 1000);
 </script>
+
+    <script>
+        // Authentication flow control - Protect against direct access
+        if (sessionStorage.getItem('erp_authenticated') !== 'true') {
+            window.location.href = 'Auth.html';
+        }
+        
+        // Logout function
+        function templateLogout() {
+            sessionStorage.removeItem('erp_authenticated');
+            sessionStorage.removeItem('erp_splash_shown');
+            window.location.href = 'Auth.html';
+        }
+    </script>
 </body>
 </html>
