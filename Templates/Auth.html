@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Industrial Control - Iniciar Sesión</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b1a24;
+            color: #e6edf3;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Background effects */
+        .auth-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 10% 90%, rgba(30, 111, 159, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 10%, rgba(110, 183, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(15, 38, 56, 0.9) 0%, transparent 60%),
+                #0b1a24;
+            z-index: -1;
+        }
+
+        .auth-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(45, 84, 112, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(45, 84, 112, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* Main container */
+        .auth-container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            background: rgba(12, 28, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            border: 1px solid #2a5575;
+            box-shadow: 
+                0 40px 80px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(30, 111, 159, 0.1);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Left side - Branding */
+        .auth-branding {
+            flex: 1;
+            background: linear-gradient(180deg, #0d2840 0%, #0a1d2e 100%);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-branding::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(30, 111, 159, 0.1) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .brand-header {
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .brand-logo-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #1e6f9f 0%, #0d4a70 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #6eb7ff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .brand-logo-text {
+            font-weight: 700;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #c0e2ff, #6eb7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .brand-tagline {
+            font-size: 0.9rem;
+            color: #88b8d8;
+            margin-top: 4px;
+        }
+
+        .brand-features {
+            position: relative;
+            z-index: 1;
+            margin-top: 40px;
+        }
+
+        .brand-features h3 {
+            font-size: 1.1rem;
+            color: #c0e2ff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            color: #a0c8e0;
+        }
+
+        .feature-list li i {
+            width: 28px;
+            height: 28px;
+            background: rgba(66, 214, 158, 0.15);
+            border: 1px solid rgba(66, 214, 158, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #42d69e;
+            font-size: 0.8rem;
+        }
+
+        .brand-footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(45, 84, 112, 0.3);
+        }
+
+        .brand-footer p {
+            font-size: 0.8rem;
+            color: #5a8aa8;
+        }
+
+        .brand-footer strong {
+            color: #88b8d8;
+        }
+
+        /* Right side - Login form */
+        .auth-form-section {
+            flex: 1;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-bottom: 36px;
+        }
+
+        .form-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            font-size: 0.95rem;
+            color: #88b8d8;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #a0c8e0;
+            margin-bottom: 8px;
+        }
+
+        .form-input-wrapper {
+            position: relative;
+        }
+
+        .form-input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5a8aa8;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(10, 28, 43, 0.8);
+            border: 1px solid #2a4b64;
+            border-radius: 12px;
+            padding: 14px 16px 14px 48px;
+            font-size: 0.95rem;
+            color: #e6edf3;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3d7a9e;
+            box-shadow: 0 0 0 3px rgba(61, 122, 158, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-input:focus + i,
+        .form-input:focus ~ i {
+            color: #6eb7ff;
+        }
+
+        .form-input::placeholder {
+            color: #4a6a8a;
+        }
+
+        /* Password toggle */
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #5a8aa8;
+            cursor: pointer;
+            padding: 4px;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #6eb7ff;
+        }
+
+        /* Form options */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .remember-me input[type="checkbox"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: rgba(10, 28, 43, 0.8);
+            border: 1px solid #2a4b64;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .remember-me input[type="checkbox"]:checked {
+            background: #1e6f9f;
+            border-color: #1e6f9f;
+        }
+
+        .remember-me input[type="checkbox"]:checked::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 0.7rem;
+        }
+
+        .remember-me span {
+            font-size: 0.85rem;
+            color: #88b8d8;
+        }
+
+        .forgot-password {
+            font-size: 0.85rem;
+            color: #6eb7ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #a0d0ff;
+            text-decoration: underline;
+        }
+
+        /* Login button */
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1e6f9f 0%, #0d4a70 100%);
+            border: 1px solid #2a6b9e;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(135deg, #2580b0 0%, #1e6f9f 100%);
+            box-shadow: 0 8px 20px rgba(30, 111, 159, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn i {
+            font-size: 1rem;
+        }
+
+        /* Demo note */
+        .demo-note {
+            background: rgba(66, 214, 158, 0.1);
+            border: 1px solid rgba(66, 214, 158, 0.3);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .demo-note i {
+            color: #42d69e;
+            font-size: 1.1rem;
+        }
+
+        .demo-note p {
+            font-size: 0.85rem;
+            color: #a0c8e0;
+        }
+
+        .demo-note strong {
+            color: #42d69e;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #2a4b64, transparent);
+        }
+
+        .divider-text {
+            font-size: 0.8rem;
+            color: #5a8aa8;
+            white-space: nowrap;
+        }
+
+        /* Social login */
+        .social-login {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            flex: 1;
+            background: rgba(10, 28, 43, 0.8);
+            border: 1px solid #2a4b64;
+            border-radius: 10px;
+            padding: 12px;
+            color: #88b8d8;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .social-btn:hover {
+            background: rgba(30, 111, 159, 0.2);
+            border-color: #3d7a9e;
+            color: #a0d0ff;
+        }
+
+        .social-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Back link */
+        .back-link {
+            text-align: center;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(42, 75, 100, 0.3);
+        }
+
+        .back-link a {
+            color: #6eb7ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: #a0d0ff;
+        }
+
+        /* Error message */
+        .error-message {
+            background: rgba(197, 74, 74, 0.15);
+            border: 1px solid rgba(197, 74, 74, 0.4);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-message i {
+            color: #c54a4a;
+        }
+
+        .error-message p {
+            font-size: 0.85rem;
+            color: #ffc6c6;
+        }
+
+        /* Loading state */
+        .login-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .login-btn.loading .btn-text {
+            display: none;
+        }
+
+        .login-btn .btn-loader {
+            display: none;
+        }
+
+        .login-btn.loading .btn-loader {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+                align-items: flex-start;
+            }
+            
+            .auth-container {
+                flex-direction: column;
+                max-width: 100%;
+                border-radius: 20px;
+            }
+
+            .auth-branding {
+                padding: 24px 20px;
+            }
+
+            .brand-features {
+                display: none;
+            }
+            
+            .brand-logo {
+                margin-bottom: 20px;
+            }
+            
+            .brand-logo-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+            }
+            
+            .brand-logo-text {
+                font-size: 1.2rem;
+            }
+
+            .auth-form-section {
+                padding: 24px 20px;
+            }
+
+            .brand-footer {
+                display: none;
+            }
+
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .form-header p {
+                font-size: 0.85rem;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+            
+            .form-input {
+                padding: 12px 14px 12px 44px;
+                font-size: 0.9rem;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+            
+            .social-btn {
+                padding: 10px;
+            }
+            
+            .login-btn {
+                padding: 14px 20px;
+            }
+            
+            .demo-note {
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            
+            .auth-container {
+                border-radius: 16px;
+            }
+            
+            .auth-branding {
+                padding: 20px 16px;
+            }
+            
+            .auth-form-section {
+                padding: 20px 16px;
+            }
+            
+            .form-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .form-options {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .remember-me {
+                order: 1;
+            }
+            
+            .forgot-password {
+                order: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-background"></div>
+
+    <div class="auth-container">
+        <!-- Left side - Branding -->
+        <div class="auth-branding">
+            <div class="brand-header">
+                <div class="brand-logo">
+                    <div class="brand-logo-icon">
+                        <i class="fas fa-helmet-safety"></i>
+                    </div>
+                    <div>
+                        <div class="brand-logo-text">ERP Industrial</div>
+                        <div class="brand-tagline">Control 360° de Construcción</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand-features">
+                <h3>Características Principales</h3>
+                <ul class="feature-list">
+                    <li>
+                        <i class="fas fa-shield-halved"></i>
+                        <span>Blindaje fiscal y legal</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-file-signature"></i>
+                        <span>Control documental CDE</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-qrcode"></i>
+                        <span>Validación QR en campo</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-cubes"></i>
+                        <span>Integración BIM 5D</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="brand-footer">
+                <p><strong>GProA Technology</strong> S. de R.L. de C.V.</p>
+                <p>Soluciones ERP para Construcción Industrial</p>
+            </div>
+        </div>
+
+        <!-- Right side - Login form -->
+        <div class="auth-form-section">
+            <div class="form-header">
+                <h2>Bienvenido de nuevo</h2>
+                <p>Ingresa tus credenciales para acceder al sistema</p>
+            </div>
+
+            <!-- Error message -->
+            <div class="error-message" id="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Credenciales incorrectas. Por favor intenta de nuevo.</p>
+            </div>
+
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="form-label" for="email">Correo electrónico</label>
+                    <div class="form-input-wrapper">
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="form-input" 
+                            placeholder="correo@empresa.com"
+                            required
+                            autocomplete="email"
+                        >
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label class="form-label" for="password">Contraseña</label>
+                    <div class="form-input-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input" 
+                            placeholder="••••••••••••"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <i class="fas fa-lock"></i>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="password-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Options -->
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <span>Recordarme</span>
+                    </label>
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <!-- Login button -->
+                <button type="submit" class="login-btn" id="login-btn">
+                    <span class="btn-text">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Iniciar Sesión
+                    </span>
+                    <i class="fas fa-circle-notch btn-loader"></i>
+                </button>
+            </form>
+
+            <!-- Demo note -->
+            <div class="demo-note">
+                <i class="fas fa-info-circle"></i>
+                <p><strong>Demo:</strong> Usa cualquier correo y contraseña para acceder</p>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider">
+                <div class="divider-line"></div>
+                <span class="divider-text">O continúa con</span>
+                <div class="divider-line"></div>
+            </div>
+
+            <!-- Social login -->
+            <div class="social-login">
+                <button type="button" class="social-btn" onclick="socialLogin('google')">
+                    <i class="fab fa-google"></i>
+                    Google
+                </button>
+                <button type="button" class="social-btn" onclick="socialLogin('microsoft')">
+                    <i class="fab fa-microsoft"></i>
+                    Microsoft
+                </button>
+            </div>
+
+            <!-- Back link -->
+            <div class="back-link">
+                <a href="Splashscreen.html">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver al inicio
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user came from splashscreen
+        const cameFromSplash = sessionStorage.getItem('erp_splash_shown');
+        
+        // If not from splashscreen, redirect to splashscreen
+        if (!cameFromSplash) {
+            window.location.href = 'Splashscreen.html';
+        }
+
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('password-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.classList.remove('fa-eye');
+                passwordIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.classList.remove('fa-eye-slash');
+                passwordIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Handle login
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const loginBtn = document.getElementById('login-btn');
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Show loading state
+            loginBtn.classList.add('loading');
+            errorMessage.classList.remove('show');
+
+            // Simulate login delay
+            setTimeout(() => {
+                // Demo: Accept any credentials
+                if (email && password) {
+                    // Set authentication flag
+                    sessionStorage.setItem('erp_authenticated', 'true');
+                    // Redirect to main dashboard
+                    window.location.href = '../index.html';
+                } else {
+                    // Show error
+                    loginBtn.classList.remove('loading');
+                    errorMessage.classList.add('show');
+                }
+            }, 1500);
+        }
+
+        // Social login handlers
+        function socialLogin(provider) {
+            // Demo: Show alert
+            alert(`Inicio de sesión con ${provider} - Funcionalidad de demo`);
+        }
+
+        // Add keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                handleLogin(e);
+            }
+        });
+    </script>
+</body>
+</html>

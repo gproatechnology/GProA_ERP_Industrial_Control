@@ -15,9 +15,9 @@
         .title-bar { background: #0d1f2e; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1f4a6a; }
         .title-bar-left { display: flex; align-items: center; gap: 16px; }
         .window-controls { display: flex; gap: 12px; }
-        .window-control { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #9bb8d4; transition: all 0.2s; }
+        .window-control { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #9bb8d4; transition: all 0.2s; cursor: pointer; }
         .window-control:hover { background: #1f4059; color: white; }
-        .window-control.close:hover { background: #c54a4a; color: white; }
+
         .app-icon { display: flex; align-items: center; gap: 8px; }
         .app-icon i { font-size: 1.4rem; color: #5db0e0; }
         .app-icon span { font-weight: 600; font-size: 1rem; color: white; }
@@ -143,20 +143,95 @@
         .status-left, .status-right { display: flex; gap: 16px; }
         
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            .program-window { height: auto; min-height: 100vh; border-radius: 16px; }
+            body { padding: 8px; }
+            .program-window { height: auto; min-height: 100vh; border-radius: 12px; }
             .title-bar { padding: 10px 12px; flex-wrap: wrap; gap: 10px; }
-            .window-controls { gap: 8px; }
-            .window-control { width: 28px; height: 28px; }
-            .menu-bar { padding: 8px 12px; gap: 12px; font-size: 0.8rem; }
-            .toolbar { padding: 8px 12px; gap: 8px; }
-            .tool-btn { padding: 6px 10px; font-size: 0.75rem; }
-            .main-content { padding: 12px; }
-            .status-panel { padding: 10px 12px; flex-direction: column; align-items: flex-start; }
-            .card { padding: 14px; border-radius: 14px; }
+            .title-bar-left { width: 100%; justify-content: space-between; }
+            .window-controls { gap: 6px; }
+            .window-control { width: 28px; height: 28px; font-size: 0.8rem; }
+            .app-icon i { font-size: 1.2rem; }
+            .app-icon span { font-size: 0.9rem; }
+            .menu-bar { padding: 6px 10px; gap: 8px; font-size: 0.7rem; overflow-x: auto; }
+            .menu-item { padding: 4px 6px; white-space: nowrap; }
+            .toolbar { padding: 6px 10px; gap: 6px; overflow-x: auto; }
+            .tool-btn { padding: 6px 10px; font-size: 0.7rem; white-space: nowrap; }
+            .main-content { padding: 10px; }
+            .status-panel { padding: 10px 12px; flex-direction: column; align-items: flex-start; gap: 8px; }
+            .project-badge { font-size: 0.75rem; padding: 4px 10px; }
+            .grid-4col, .grid-3col, .grid-2col, .grid-main { grid-template-columns: 1fr; gap: 12px; }
+            .card { padding: 12px; border-radius: 12px; margin-bottom: 12px; }
+            .card-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .card-header h3 { font-size: 0.95rem; }
             .metadata-grid, .metadata-grid-3 { grid-template-columns: 1fr; }
-            .kpi-value { font-size: 1.6rem; }
-            .corte-monto { font-size: 2rem; }
+            .kpi-card { padding: 12px; }
+            .kpi-value { font-size: 1.4rem; }
+            .kpi-label { font-size: 0.65rem; }
+            .corte-monto { font-size: 1.8rem; }
+            .validation-box { padding: 10px; }
+            .regex-input { font-size: 0.75rem; padding: 8px; }
+            .workflow-steps { flex-wrap: wrap; gap: 10px; }
+            .step { min-width: 60px; }
+            .step-icon { width: 28px; height: 28px; }
+            .step-label { font-size: 0.6rem; }
+            .viewer-container { padding: 10px; }
+            .mock-plan { height: 150px; }
+            .qr-section { padding: 12px; }
+            .qr-code { width: 100px; height: 100px; }
+            .qr-code i { font-size: 2.5rem; }
+            .status-bar { flex-direction: column; gap: 8px; padding: 8px 12px; }
+            .status-left, .status-right { flex-wrap: wrap; gap: 8px; }
+            .badge { font-size: 0.6rem; padding: 3px 8px; }
+        }
+        
+        @media (max-width: 480px) {
+            body { padding: 4px; }
+            .program-window { border-radius: 8px; }
+            .title-bar { padding: 8px; }
+            .app-icon span { display: none; }
+            .window-control { width: 24px; height: 24px; }
+            .menu-bar { font-size: 0.65rem; }
+            .toolbar { padding: 4px 8px; }
+            .tool-btn { padding: 4px 8px; font-size: 0.65rem; }
+            .main-content { padding: 8px; }
+            .card { padding: 10px; border-radius: 10px; }
+            .card-header h3 { font-size: 0.85rem; }
+            .kpi-value { font-size: 1.2rem; }
+            .saving-amount { font-size: 1.5rem; }
+        }
+        
+        /* Touch-friendly buttons for mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .window-control,
+            .tool-btn,
+            .menu-item {
+                min-height: 44px;
+                min-width: 44px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            .window-controls {
+                z-index: 9999;
+                position: relative;
+            }
+            .window-control {
+                pointer-events: auto;
+                z-index: 10000;
+                position: relative;
+            }
+        }
+        
+        /* Additional mobile fixes */
+        @media screen and (max-width: 768px) {
+            .window-controls {
+                z-index: 9999;
+            }
+            .window-control {
+                z-index: 10000;
+                position: relative;
+                pointer-events: auto;
+                -webkit-user-select: none;
+                user-select: none;
+            }
         }
     </style>
 </head>
@@ -171,9 +246,7 @@
             </div>
         </div>
         <div class="window-controls">
-            <div class="window-control"><i class="fas fa-minus"></i></div>
-            <div class="window-control"><i class="fas fa-square"></i></div>
-            <div class="window-control close"><i class="fas fa-times"></i></div>
+            <div class="window-control" onclick="window.location.href='../index.html'" title="Volver al menú principal"><i class="fas fa-arrow-left"></i> Volver</div>
         </div>
     </div>
 

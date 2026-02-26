@@ -72,6 +72,7 @@
             border-radius: 8px;
             color: #9bb8d4;
             transition: all 0.2s;
+            cursor: pointer;
         }
 
         .win-btn:hover {
@@ -79,9 +80,7 @@
             color: white;
         }
 
-        .win-btn.close:hover {
-            background: #c54a4a;
-        }
+
 
         .app-icon {
             display: flex;
@@ -492,6 +491,330 @@
             margin: 24px 0;
             border: 1px solid #2d5470;
         }
+
+        /* Responsive Design - Mobile & Tablet */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 8px;
+                align-items: flex-start;
+            }
+
+            .roi-window {
+                height: auto;
+                min-height: 100vh;
+                border-radius: 12px;
+            }
+
+            .title-bar {
+                padding: 10px 12px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .title-left {
+                gap: 10px;
+                flex-wrap: wrap;
+                flex: 1;
+            }
+
+            .window-controls {
+                gap: 6px;
+            }
+
+            .win-btn {
+                width: 28px;
+                height: 28px;
+            }
+
+            .app-icon i {
+                font-size: 1.2rem;
+            }
+
+            .app-icon span {
+                font-size: 0.85rem;
+            }
+
+            .project-path {
+                width: 100%;
+                font-size: 0.75rem;
+                padding: 6px 12px;
+                justify-content: center;
+            }
+
+            .menu-bar {
+                padding: 8px 12px;
+                gap: 6px;
+                font-size: 0.75rem;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .menu-item {
+                padding: 6px 8px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .menu-item i {
+                display: none;
+            }
+
+            .toolbar {
+                padding: 8px 12px;
+                gap: 6px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .tool-btn {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+                flex: 1;
+                min-width: calc(50% - 6px);
+                justify-content: center;
+            }
+
+            .separator {
+                display: none;
+            }
+
+            .main-content {
+                padding: 12px;
+            }
+
+            .live-bar {
+                padding: 12px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            /* Saving Tracker - Mobile */
+            .saving-tracker {
+                padding: 16px;
+                border-radius: 16px;
+                margin-bottom: 16px;
+            }
+
+            .saving-title {
+                font-size: 1.1rem;
+                margin-bottom: 14px;
+            }
+
+            .saving-grid {
+                gap: 12px;
+            }
+
+            .saving-card {
+                padding: 14px;
+                border-radius: 14px;
+            }
+
+            .saving-amount {
+                font-size: 1.6rem;
+            }
+
+            .saving-label {
+                font-size: 0.8rem;
+            }
+
+            /* Grids - Mobile */
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            /* Cards - Mobile */
+            .card {
+                padding: 14px;
+                border-radius: 14px;
+                margin-bottom: 16px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .card-header h3 {
+                font-size: 0.95rem;
+            }
+
+            /* KPI Mini - Mobile */
+            .kpi-mini {
+                padding: 12px;
+            }
+
+            .kpi-mini-value {
+                font-size: 1.4rem;
+            }
+
+            /* Risk Item - Mobile */
+            .risk-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 10px 0;
+            }
+
+            /* Quote Panel - Mobile */
+            .quote-panel {
+                padding: 16px;
+                margin: 12px 0;
+                border-radius: 14px;
+            }
+
+            /* Badge - Mobile */
+            .badge {
+                font-size: 0.6rem;
+                padding: 3px 8px;
+            }
+
+            /* Progress Bar */
+            .progress-bar {
+                height: 6px;
+            }
+
+            /* Flex between - Mobile */
+            .flex-between {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            /* Status Bar - Mobile */
+            .status-bar {
+                padding: 8px 12px;
+                flex-direction: column;
+                gap: 8px;
+                font-size: 0.65rem;
+            }
+
+            /* Tooltip - Mobile */
+            .tooltip-icon:hover::after {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 4px;
+            }
+
+            .roi-window {
+                border-radius: 8px;
+            }
+
+            .title-bar {
+                padding: 8px 10px;
+            }
+
+            .app-icon i {
+                font-size: 1rem;
+            }
+
+            .app-icon span {
+                font-size: 0.75rem;
+            }
+
+            .win-btn {
+                width: 24px;
+                height: 24px;
+                font-size: 0.7rem;
+            }
+
+            .menu-bar {
+                padding: 6px 8px;
+            }
+
+            .menu-item {
+                font-size: 0.7rem;
+            }
+
+            .toolbar {
+                padding: 6px 8px;
+            }
+
+            .tool-btn {
+                padding: 6px 8px;
+                font-size: 0.65rem;
+            }
+
+            .tool-btn i {
+                display: none;
+            }
+
+            .main-content {
+                padding: 10px;
+            }
+
+            .card {
+                padding: 12px;
+                border-radius: 12px;
+            }
+
+            .card-header h3 {
+                font-size: 0.85rem;
+            }
+
+            .saving-tracker {
+                padding: 12px;
+                border-radius: 12px;
+            }
+
+            .saving-card {
+                padding: 12px;
+            }
+
+            .saving-amount {
+                font-size: 1.4rem;
+            }
+
+            .project-path {
+                font-size: 0.7rem;
+            }
+
+            .text-muted {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Touch-friendly buttons for mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .win-btn,
+            .tool-btn,
+            .menu-item {
+                min-height: 44px;
+                min-width: 44px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            .window-controls {
+                z-index: 9999;
+                position: relative;
+            }
+            .win-btn {
+                pointer-events: auto;
+                z-index: 10000;
+                position: relative;
+            }
+        }
+        
+        /* Additional mobile fixes */
+        @media screen and (max-width: 768px) {
+            .window-controls {
+                z-index: 9999;
+            }
+            .win-btn {
+                z-index: 10000;
+                position: relative;
+                pointer-events: auto;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -504,9 +827,7 @@
                 <span>Beneficios en Acción · ROI Dashboard</span>
             </div>
             <div class="window-controls">
-                <div class="win-btn"><i class="fas fa-minus"></i></div>
-                <div class="win-btn"><i class="fas fa-square"></i></div>
-                <div class="win-btn close"><i class="fas fa-times"></i></div>
+                <div class="win-btn" onclick="window.location.href='../index.html'" title="Volver al menú principal"><i class="fas fa-arrow-left"></i> Volver</div>
             </div>
         </div>
         <div class="project-path">

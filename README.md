@@ -16,12 +16,32 @@ Este ecosistema ERP nace para resolver la desconexión documental y operativa en
 
 | Módulo | Archivo | Descripción |
 |--------|---------|-------------|
+| **Splashscreen** | [`Templates/Splashscreen.html`](Templates/Splashscreen.html) | Pantalla de carga con animación y progreso |
+| **Autenticación** | [`Templates/Auth.html`](Templates/Auth.html) | Login con validación, recordar sesión y opciones sociales |
 | **Dashboard Principal** | [`index.html`](index.html) | Panel de beneficios con métricas clave, KPIs y visualización de impacto |
 | **CDE - Control Documental** | [`Templates/CDE · CONTROL DOCUMENTAL.html`](Templates/CDE%20·%20CONTROL%20DOCUMENTAL.html) | Gestión de planos, validación QR, flujo de aprobaciones y control de versiones |
 | **Control de Obras** | [`Templates/Control de Obras.html`](Templates/Control%20de%20Obras.html) | Centro de mando para seguimiento de avance, almacén y QA/QC |
 | **Portal de Proveedores** | [`Templates/Portal Provedores.html`](Templates/Portal%20Provedores.html) | Blindaje fiscal, semáforo de cumplimiento y gestión de certificados |
 
 ### 🎯 Características Implementadas
+
+#### Splashscreen ([`Templates/Splashscreen.html`](Templates/Splashscreen.html))
+- **Animación de carga:** Barra de progreso animada con gradientes
+- **Indicadores de paso:** Visualización del estado de carga (recursos, servicios, autenticación)
+- **Botón saltar:** Opción para omitir la animación
+- **Redirección automática:** Transición automática después de 5 segundos
+- **Diseño responsivo:** Adaptable a dispositivos móviles
+
+#### Autenticación ([`Templates/Auth.html`](Templates/Auth.html))
+- **Diseño profesional:** Interfaz de login con branding corporativo
+- **Validación de campos:** Campos de correo y contraseña con iconos
+- **Mostrar/ocultar contraseña:** Toggle para visualizar la contraseña
+- **Recordar sesión:** Checkbox para mantener la sesión activa
+- **Recuperar contraseña:** Enlace para recuperar acceso
+- **Botón social:** Opciones de login con Google y Microsoft
+- **Mensaje de error:** Alerta visual para credenciales incorrectas
+- **Estado de carga:** Animación durante el proceso de autenticación
+- **Demo mode:** Acepta cualquier correo y contraseña
 
 #### Dashboard Principal ([`index.html`](index.html))
 - Panel de beneficios con métricas de reducción de retrabajos (-25%)
@@ -80,7 +100,11 @@ Este ecosistema ERP nace para resolver la desconexión documental y operativa en
 ## 🚀 Cómo Ejecutar
 
 ### Opción 1: Abrir directamente en el navegador
-Simplemente abre el archivo [`index.html`](index.html) en tu navegador (doble clic o arrastrar el archivo al navegador).
+Simplemente abre el archivo [`Templates/Splashscreen.html`](Templates/Splashscreen.html) en tu navegador (doble clic o arrastrar el archivo al navegador). El flujo es:
+
+1. **Splashscreen** → Pantalla de carga con animación
+2. **Auth** → Pantalla de inicio de sesión
+3. **Dashboard** → Panel principal del ERP
 
 ### Opción 2: Servidor HTTP local
 Ejecuta este comando en tu terminal:
@@ -89,7 +113,7 @@ Ejecuta este comando en tu terminal:
 cd /workspaces/GProA_ERP_Industrial_Control && python3 -m http.server 8000
 ```
 
-Luego accede a: `http://localhost:8000`
+Luego accede a: `http://localhost:8000/Templates/Splashscreen.html`
 
 Ambos métodos funcionan sin necesidad de configuración adicional.
 
@@ -129,9 +153,13 @@ GProA_ERP_Industrial_Control/
 ├── LICENSE                             # Licencia MIT
 ├── erp_terminal.txt                    # Instrucciones de ejecución
 └── Templates/
+    ├── Splashscreen.html               # Pantalla de carga inicial
+    ├── Auth.html                       # Pantalla de autenticación
     ├── CDE · CONTROL DOCUMENTAL.html   # Módulo de control documental
     ├── Control de Obras.html           # Módulo de control de obra
-    └── Portal Provedores.html          # Portal de proveedores
+    ├── Portal Provedores.html          # Portal de proveedores
+    ├── BIM Connect.html                # Integración BIM
+    └── Beneficios en Accion.html       # Demo de beneficios
 ```
 
 ---

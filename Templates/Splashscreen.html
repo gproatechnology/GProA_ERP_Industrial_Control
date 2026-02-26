@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Industrial Control - Cargando</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b1a24;
+            color: #e6edf3;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Animated background */
+        .splash-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(30, 111, 159, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(110, 183, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(15, 38, 56, 0.8) 0%, transparent 70%),
+                #0b1a24;
+            z-index: -1;
+        }
+
+        /* Grid pattern overlay */
+        .splash-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(45, 84, 112, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(45, 84, 112, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        .splash-container {
+            text-align: center;
+            padding: 40px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo Animation */
+        .logo-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #1e6f9f 0%, #0d4a70 100%);
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 56px;
+            color: #6eb7ff;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(30, 111, 159, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: pulse-glow 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 34px;
+            background: linear-gradient(135deg, #6eb7ff, #1e6f9f, #6eb7ff);
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(10px);
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 
+                    0 20px 40px rgba(0, 0, 0, 0.4),
+                    0 0 60px rgba(30, 111, 159, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 
+                    0 25px 50px rgba(0, 0, 0, 0.5),
+                    0 0 80px rgba(30, 111, 159, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.5; }
+        }
+
+        .logo-text {
+            margin-bottom: 16px;
+        }
+
+        .logo-text h1 {
+            font-weight: 700;
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #c0e2ff 0%, #6eb7ff 50%, #c0e2ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text .tagline {
+            color: #88b8d8;
+            font-size: 1rem;
+            margin-top: 8px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Loading Animation */
+        .loading-section {
+            margin-top: 48px;
+        }
+
+        .loading-bar-container {
+            width: 280px;
+            height: 6px;
+            background: rgba(30, 111, 159, 0.2);
+            border-radius: 10px;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #1e6f9f, #6eb7ff, #1e6f9f);
+            border-radius: 10px;
+            animation: loading 2s ease-in-out infinite;
+            width: 60%;
+        }
+
+        @keyframes loading {
+            0% {
+                width: 0%;
+                margin-left: 0%;
+            }
+            50% {
+                width: 60%;
+                margin-left: 20%;
+            }
+            100% {
+                width: 0%;
+                margin-left: 100%;
+            }
+        }
+
+        .loading-status {
+            font-size: 0.9rem;
+            color: #88b8d8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .loading-status i {
+            color: #42d69e;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Loading steps */
+        .loading-steps {
+            margin-top: 32px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .loading-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #5a8aa8;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .loading-step.active {
+            opacity: 1;
+            color: #6eb7ff;
+        }
+
+        .loading-step.completed {
+            opacity: 1;
+            color: #42d69e;
+        }
+
+        .loading-step .step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(30, 111, 159, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+
+        .loading-step.active .step-icon {
+            background: rgba(110, 183, 255, 0.2);
+            border: 1px solid #6eb7ff;
+        }
+
+        .loading-step.completed .step-icon {
+            background: rgba(66, 214, 158, 0.2);
+            border: 1px solid #42d69e;
+        }
+
+        /* Version info */
+        .version-info {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: #3d6a8a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .version-info .dot {
+            width: 6px;
+            height: 6px;
+            background: #42d69e;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(66, 214, 158, 0.5); }
+            50% { box-shadow: 0 0 0 6px rgba(66, 214, 158, 0); }
+        }
+
+        /* Company info */
+        .company-info {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: #4a7a9a;
+        }
+
+        /* Skip button */
+        .skip-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 1px solid #2a4b64;
+            color: #6a9aba;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .skip-btn:hover {
+            background: rgba(30, 111, 159, 0.2);
+            border-color: #3d7a9e;
+            color: #a0d0ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .splash-container {
+                padding: 20px;
+            }
+            
+            .logo-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+                border-radius: 20px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.4rem;
+            }
+
+            .logo-text .tagline {
+                font-size: 0.75rem;
+            }
+            
+            .loading-bar-container {
+                width: 220px;
+            }
+
+            .loading-steps {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .loading-step {
+                font-size: 0.7rem;
+            }
+
+            .version-info {
+                bottom: 16px;
+                font-size: 0.65rem;
+            }
+
+            .company-info {
+                bottom: 40px;
+                font-size: 0.7rem;
+            }
+            
+            .skip-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .logo-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 32px;
+                border-radius: 18px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+            
+            .splash-container {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-background"></div>
+    
+    <button class="skip-btn" onclick="skipSplash()">
+        <i class="fas fa-forward"></i> Saltar
+    </button>
+
+    <div class="splash-container">
+        <div class="logo-wrapper">
+            <div class="logo-icon">
+                <i class="fas fa-helmet-safety"></i>
+            </div>
+            <div class="logo-text">
+                <h1>ERP INDUSTRIAL CONTROL</h1>
+                <p class="tagline">Gestión 360° de Construcción</p>
+            </div>
+        </div>
+
+        <div class="loading-section">
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
+            <div class="loading-status">
+                <i class="fas fa-circle-notch fa-spin"></i>
+                <span id="loading-message">Inicializando sistema...</span>
+            </div>
+
+            <div class="loading-steps">
+                <div class="loading-step completed" id="step-1">
+                    <div class="step-icon"><i class="fas fa-check"></i></div>
+                    <span>Cargando recursos</span>
+                </div>
+                <div class="loading-step active" id="step-2">
+                    <div class="step-icon"><i class="fas fa-sync fa-spin"></i></div>
+                    <span>Conectando servicios</span>
+                </div>
+                <div class="loading-step" id="step-3">
+                    <div class="step-icon"><i class="fas fa-key"></i></div>
+                    <span>Preparando autenticación</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="company-info">GProA Technology S. de R.L. de C.V.</div>
+    <div class="version-info">
+        <span class="dot"></span>
+        <span>v1.0.0 · Demo</span>
+    </div>
+
+    <script>
+        // Loading messages
+        const messages = [
+            'Inicializando sistema...',
+            'Cargando configuración...',
+            'Conectando con el servidor...',
+            'Verificando permisos...',
+            'Preparando interfaz...'
+        ];
+
+        let currentStep = 1;
+        let messageIndex = 0;
+
+        // Update loading message
+        function updateMessage() {
+            const messageEl = document.getElementById('loading-message');
+            if (messageIndex < messages.length) {
+                messageEl.textContent = messages[messageIndex];
+                messageIndex++;
+            }
+        }
+
+        // Update step indicators
+        function updateSteps() {
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            const step3 = document.getElementById('step-3');
+
+            if (currentStep >= 1) {
+                step1.classList.remove('active');
+                step1.classList.add('completed');
+                step1.querySelector('.step-icon').innerHTML = '<i class="fas fa-check"></i>';
+            }
+
+            if (currentStep >= 2) {
+                step2.classList.remove('active');
+                step2.classList.add('completed');
+                step2.querySelector('.step-icon').innerHTML = '<i class="fas fa-check"></i>';
+            }
+
+            if (currentStep >= 3) {
+                step3.classList.remove('active');
+                step3.classList.add('completed');
+                step3.querySelector('.step-icon').innerHTML = '<i class="fas fa-check"></i>';
+            }
+        }
+
+        // Simulate loading process
+        setInterval(() => {
+            if (currentStep < 3) {
+                updateMessage();
+                currentStep++;
+                updateSteps();
+            }
+        }, 1200);
+
+        // Skip splash screen
+        function skipSplash() {
+            sessionStorage.setItem('erp_splash_shown', 'true');
+            window.location.href = 'Auth.html';
+        }
+
+        // Auto-redirect after 5 seconds
+        setTimeout(() => {
+            sessionStorage.setItem('erp_splash_shown', 'true');
+            window.location.href = 'Auth.html';
+        }, 5000);
+    </script>
+</body>
+</html>
