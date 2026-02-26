@@ -37,23 +37,595 @@
 
         .app-container {
             width: 100%;
-            max-width: 1600px;
+            max-width: 1650px;
             margin: 20px;
             background: rgba(12, 28, 40, 0.95);
             backdrop-filter: blur(12px);
-            border-radius: 48px;
+            border-radius: 24px;
             border: 1px solid #2a5575;
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8);
             overflow: hidden;
-            padding: 24px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
         }
 
-        .app-header {
+        /* Title Bar - Windows Style */
+        .title-bar {
+            background: linear-gradient(180deg, #0d2840 0%, #0a1e30 100%);
+            padding: 8px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px 20px 20px;
-            border-bottom: 1px solid #1f405a;
+            border-bottom: 1px solid #1a3a55;
+            user-select: none;
+            -webkit-app-region: drag;
+        }
+
+        .title-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            -webkit-app-region: no-drag;
+        }
+
+        /* GIASA Logo - Blue Section */
+        .giasa-logo {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            padding: 8px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+            border: 1px solid #0088ff;
+        }
+
+        .giasa-logo i {
+            font-size: 1.4rem;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .giasa-logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .giasa-logo-text .main {
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .giasa-logo-text .sub {
+            font-size: 0.6rem;
+            color: #99ccff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .app-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #a8c8e8;
+            font-size: 0.9rem;
+        }
+
+        .app-title i {
+            color: #5db0e0;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 8px;
+            -webkit-app-region: no-drag;
+        }
+
+        .win-btn {
+            width: 36px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            color: #9bb8d4;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .win-btn:hover {
+            background: #1a3a55;
+            color: white;
+        }
+
+        .win-btn.close:hover {
+            background: #c54a4a;
+            color: white;
+        }
+
+        /* Menu Bar - Application Menu */
+        .menu-bar {
+            background: #0f2638;
+            padding: 6px 16px;
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid #1a3a50;
+            flex-wrap: wrap;
+        }
+
+        .menu-item {
+            color: #b0cde0;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .menu-item:hover {
+            background: #1a3e58;
+            color: white;
+        }
+
+        .menu-item i {
+            margin-right: 6px;
+            font-size: 0.8rem;
+            color: #5db0e0;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            background: #0d1f30;
+            padding: 10px 16px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #1a3a50;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: linear-gradient(180deg, #1a3a50 0%, #152f44 100%);
+            border: 1px solid #2d5470;
+            color: #cde1f0;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tool-btn:hover {
+            background: #234b68;
+            border-color: #3d6a8c;
+        }
+
+        .tool-btn i {
+            color: #e0a05d;
+        }
+
+        .toolbar-separator {
+            width: 1px;
+            background: #2d5470;
+            margin: 0 8px;
+        }
+
+        /* Main Content Area */
+        .app-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar - Menu de Modulos */
+        .sidebar {
+            width: 280px;
+            background: #0d1f30;
+            border-right: 1px solid #1a3a50;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            color: #5db0e0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #1a3a50;
+        }
+
+        .module-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #a8c8e8;
+        }
+
+        .module-item:hover {
+            background: #1a3a50;
+            color: white;
+        }
+
+        .module-item.active {
+            background: linear-gradient(90deg, #1a4a6a 0%, #1a3a50 100%);
+            color: white;
+            border-left: 3px solid #5db0e0;
+        }
+
+        .module-item i {
+            width: 24px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .module-item .module-name {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .module-item .module-badge {
+            background: #c54a4a;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-view {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #0a1c2b;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            background: #0d1f30;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #6a9ab8;
+            border-top: 1px solid #1a3a50;
+        }
+
+        .status-left, .status-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #2d9e6f;
+            border-radius: 50%;
+        }
+
+        /* Legacy compatibility */
+        .app-header {
+            display: none;
+        }
+
+        /* ==================== MENÚ PRINCIPAL STYLES ==================== */
+        
+        /* Panel Principal */
+        .main-panel {
+            padding: 10px;
+        }
+
+        /* Logo GIASA Principal */
+        .giasa-main-logo {
+            background: linear-gradient(135deg, #0a2840 0%, #0d3550 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid #1a4a6a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .giasa-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .giasa-icon-large {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+            border: 2px solid #0088ff;
+        }
+
+        .giasa-text-main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .giasa-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 3px;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .giasa-subtitle {
+            font-size: 1rem;
+            color: #7ab8ff;
+            margin: 5px 0;
+            font-weight: 500;
+        }
+
+        .giasa-divider {
+            height: 2px;
+            width: 200px;
+            background: linear-gradient(90deg, #0088ff, transparent);
+            margin: 8px 0;
+        }
+
+        .giasa-system {
+            font-size: 0.85rem;
+            color: #5a9bc8;
+            font-weight: 400;
+        }
+
+        .giasa-badge {
+            background: linear-gradient(135deg, #1a5a3a 0%, #0d3525 100%);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: #6fdf9f;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #2d8a5a;
+        }
+
+        .giasa-badge i {
+            color: #4ae0a0;
+        }
+
+        /* Menú Grid Principal */
+        .main-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .main-menu-item {
+            background: linear-gradient(135deg, #0f2a3d 0%, #0d2235 100%);
+            border: 1px solid #1a3a55;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .main-menu-item:hover {
+            background: linear-gradient(135deg, #1a3a55 0%, #153045 100%);
+            border-color: #3d6a8c;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-icon-main {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #1e4a6a 0%, #153050 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #5db0e0;
+            border: 1px solid #2d5a7a;
+        }
+
+        .menu-icon-main.portal {
+            background: linear-gradient(135deg, #3a1e6a 0%, #2a153a 100%);
+            border-color: #5a2d8a;
+            color: #a06ddb;
+        }
+
+        .menu-icon-main.obra {
+            background: linear-gradient(135deg, #6a3a1e 0%, #4a2a15 100%);
+            border-color: #8a5a2d;
+            color: #dba06d;
+        }
+
+        .menu-icon-main.bim {
+            background: linear-gradient(135deg, #1e6a4a 0%, #154a35 100%);
+            border-color: #2d8a6a;
+            color: #6ddba0;
+        }
+
+        .menu-icon-main.beneficios {
+            background: linear-gradient(135deg, #6a1e3a 0%, #4a152a 100%);
+            border-color: #8a2d4a;
+            color: #db6d8a;
+        }
+
+        .menu-text-main {
+            flex: 1;
+        }
+
+        .menu-text-main h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            margin: 0 0 4px 0;
+        }
+
+        .menu-text-main p {
+            font-size: 0.85rem;
+            color: #7a9ab0;
+            margin: 0;
+        }
+
+        .menu-arrow {
+            color: #4a6a80;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .main-menu-item:hover .menu-arrow {
+            color: #5db0e0;
+            transform: translateX(5px);
+        }
+
+        /* Accesos Rápidos */
+        .quick-access {
+            background: #0d2035;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #1a3a50;
+        }
+
+        .quick-title {
+            font-size: 0.9rem;
+            color: #5db0e0;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
+            background: linear-gradient(135deg, #1a3a55 0%, #152a40 100%);
+            border: 1px solid #2d5a7a;
+            color: #a0c0d8;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-btn:hover {
+            background: #234b68;
+            border-color: #3d7a9e;
+            color: white;
+        }
+
+        .quick-btn i {
+            color: #e0a05d;
+        }
+
+        /* Estado del Sistema */
+        .system-status {
+            display: flex;
+            gap: 30px;
+            padding: 15px 20px;
+            background: #0a1a28;
+            border-radius: 12px;
+            border: 1px solid #1a2a3a;
+            flex-wrap: wrap;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #6a8aa0;
+        }
+
+        .status-indicator .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2d9e6f;
+        }
+
+        .status-indicator .status-dot.warning {
+            background: #e6b42c;
+        }
+
+        .status-indicator .status-dot.success {
+            background: #4ae0a0;
+        }
+
+        /* Responsive for main menu */
+        @media (max-width: 768px) {
+            .giasa-main-logo {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .giasa-logo-container {
+                flex-direction: column;
+            }
+
+            .giasa-title {
+                font-size: 1.8rem;
+            }
+
+            .main-menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-buttons {
+                flex-direction: column;
+            }
+
+            .system-status {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .app-header {
         }
 
         .logo-area {
@@ -708,304 +1280,113 @@
         </div>
     </div>
 
-    <!-- NUEVA SECCIÓN: BENEFICIOS CLAVE DEL ERP -->
-    <div class="benefits-strip">
-        <span class="benefit-pill"><i class="fas fa-shield-halved" aria-hidden="true"></i> Blindaje Legal/Financiero</span>
-        <span class="benefit-pill"><i class="fas fa-bolt" aria-hidden="true"></i> +30% Velocidad en Compras</span>
-        <span class="benefit-pill"><i class="fas fa-file-invoice" aria-hidden="true"></i> 0 Retrabajos por Planos</span>
-        <span class="benefit-pill"><i class="fas fa-chart-line" aria-hidden="true"></i> Sobrecostos Controlados</span>
-        <span class="benefit-pill"><i class="fas fa-hand-holding-dollar" aria-hidden="true"></i> Ahorro en Mermas</span>
+    <!-- Panel Principal con Logo GIASA - Menú Principal -->
+    <div class="main-panel">
+        
+        <!-- Logo GIASA Prominente -->
+        <div class="giasa-main-logo">
+            <div class="giasa-logo-container">
+                <div class="giasa-icon-large">
+                    <i class="fas fa-building-columns"></i>
+                </div>
+                <div class="giasa-text-main">
+                    <h1 class="giasa-title">GIASA</h1>
+                    <p class="giasa-subtitle">Ingeniería y Construcción</p>
+                    <div class="giasa-divider"></div>
+                    <p class="giasa-system">Sistema ERP Constructor</p>
+                </div>
+            </div>
+            <div class="giasa-badge">
+                <i class="fas fa-check-circle"></i> Sistema Activo
+            </div>
+        </div>
+
+        <!-- Menú Principal de Módulos -->
+        <div class="main-menu-grid">
+            <div class="main-menu-item" onclick="openCDEModal()">
+                <div class="menu-icon-main">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <div class="menu-text-main">
+                    <h3>CDE</h3>
+                    <p>Control Documental</p>
+                </div>
+                <div class="menu-arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <div class="main-menu-item" onclick="openPortalModal()">
+                <div class="menu-icon-main portal">
+                    <i class="fas fa-truck-loading"></i>
+                </div>
+                <div class="menu-text-main">
+                    <h3>Portal Proveedores</h3>
+                    <p>Blindaje y Validaciones</p>
+                </div>
+                <div class="menu-arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <div class="main-menu-item" onclick="openControlObraModal()">
+                <div class="menu-icon-main obra">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <div class="menu-text-main">
+                    <h3>Control de Obra</h3>
+                    <p>Concreto, Acero, Costos</p>
+                </div>
+                <div class="menu-arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <div class="main-menu-item" onclick="openBIMConnectModal()">
+                <div class="menu-icon-main bim">
+                    <i class="fas fa-cubes"></i>
+                </div>
+                <div class="menu-text-main">
+                    <h3>BIM Connect</h3>
+                    <p>Modelos y Take-offs</p>
+                </div>
+                <div class="menu-arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <div class="main-menu-item" onclick="openBeneficiosModal()">
+                <div class="menu-icon-main beneficios">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="menu-text-main">
+                    <h3>Beneficios en Acción</h3>
+                    <p>Demo Interactivo</p>
+                </div>
+                <div class="menu-arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </div>
+
+        <!-- Accesos Rápidos -->
+        <div class="quick-access">
+            <h4 class="quick-title"><i class="fas fa-bolt"></i> Accesos Rápidos</h4>
+            <div class="quick-buttons">
+                <button class="quick-btn"><i class="fas fa-plus-circle"></i> Nueva Requisición</button>
+                <button class="quick-btn"><i class="fas fa-file-invoice"></i> Generar Orden Compra</button>
+                <button class="quick-btn"><i class="fas fa-qrcode"></i> Escanear Insumo</button>
+                <button class="quick-btn"><i class="fas fa-chart-bar"></i> Reporte Costos</button>
+            </div>
+        </div>
+
+        <!-- Estado del Sistema -->
+        <div class="system-status">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>Servidor: Conectado</span>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot warning"></span>
+                <span>Proyecto Activo: Torres del Parque</span>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot success"></span>
+                <span>Usuario: Administrador</span>
+            </div>
+        </div>
+
     </div>
-
-    <!-- Pestañas de navegación (estéticas) -->
-    <div class="demo-tabs">
-        <button class="tab-btn active" type="button"><i class="fas fa-eye" aria-hidden="true"></i> Escenarios Demo</button>
-        <button class="tab-btn" type="button" onclick="openCDEModal()"><i class="fas fa-file-signature" aria-hidden="true"></i> CDE / Planos</button>
-        <button class="tab-btn" type="button" onclick="openPortalModal()"><i class="fas fa-truck" aria-hidden="true"></i> Portal Proveedores</button>
-        <button class="tab-btn" type="button" onclick="openControlObraModal()"><i class="fas fa-chart-line" aria-hidden="true"></i> Control Obra</button>
-        <button class="tab-btn" type="button" onclick="openBIMConnectModal()"><i class="fas fa-cubes" aria-hidden="true"></i> BIM Connect</button>
-        <button class="tab-btn" type="button" onclick="openBeneficiosModal()"><i class="fas fa-rocket" aria-hidden="true"></i> Beneficios en Acción</button>
-    </div>
-
-    <!-- =================== MÓDULOS CON BENEFICIOS EXPLÍCITOS =================== -->
-
-    <!-- Fila 1: CDE, Portal, Cuadro Comparativo -->
-    <div class="cards-grid">
-        <!-- CDE · Control Documental -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-draw-polygon"></i> CDE · Control Documental</h3>
-                <span class="badge badge-info"><i class="fas fa-stamp"></i> Versiones</span>
-            </div>
-            <div class="plano-card">
-                <div style="display: flex; justify-content: space-between;">
-                    <span><i class="fas fa-file-pdf"></i> <strong>PL-EST-N2</strong> v.04</span>
-                    <span class="badge badge-success">APROBADO</span>
-                </div>
-                <div style="margin-top: 12px; font-size:0.85rem;">
-                    <span><i class="fas fa-mobile-alt"></i> visible en app móvil</span>
-                </div>
-            </div>
-            <div class="plano-card obsoleto-card">
-                <div style="display: flex; justify-content: space-between;">
-                    <span><i class="fas fa-file-pdf"></i> <strong>PL-EST-N2</strong> v.03</span>
-                    <span class="badge badge-warning">OBSOLETO</span>
-                </div>
-                <div style="margin-top: 8px; background: #271f1f; padding: 8px; border-radius: 12px;">
-                    <i class="fas fa-exclamation-triangle" style="color:#ffa36b;"></i> Intento bloqueado: redirigido a v.04
-                </div>
-            </div>
-            <!-- BENEFICIO EXPLÍCITO -->
-            <div class="benefit-tag">
-                <i class="fas fa-check-circle" style="color:#6ccb9c;"></i> Beneficio: 0 retrabajos · Fuente única de verdad
-            </div>
-        </div>
-
-        <!-- Portal · Blindaje Proveedores (WOW) -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-truck"></i> Portal · Blindaje Proveedores</h3>
-                <span class="badge badge-error"><i class="fas fa-shield-halved"></i> FILTRO ACTIVO</span>
-            </div>
-            <div class="proveedor-row">
-                <div><i class="fas fa-building"></i> Hormigones del Centro</div>
-                <span class="badge badge-success">IMSS vigente</span>
-            </div>
-            <div class="proveedor-row">
-                <div><i class="fas fa-building"></i> Aceros Industriales</div>
-                <span class="badge badge-error">Opinión SAT vencida</span>
-            </div>
-            <div style="background: #301f1f; border-radius: 16px; padding: 14px; margin-top: 12px;">
-                <div style="display: flex; justify-content: space-between;">
-                    <span><i class="fas fa-file-invoice"></i> Factura #F8854 (Aceros)</span>
-                    <span class="badge badge-error"><i class="fas fa-ban"></i> RECHAZO AUTOMÁTICO</span>
-                </div>
-            </div>
-            <!-- BENEFICIO EXPLÍCITO -->
-            <div class="benefit-tag">
-                <i class="fas fa-shield" style="color:#6fc3ff;"></i> Beneficio: Blindaje legal/financiero · Pagos seguros
-            </div>
-        </div>
-
-        <!-- Cuadro Comparativo + histórico -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-chart-simple"></i> Cuadro Comparativo</h3>
-                <span class="badge badge-info">histórico</span>
-            </div>
-            <table class="tabla-precios">
-                <tr><td>Cemento CPC 40kg</td><td><span class="highlight">$185</span></td><td>feb 2026</td></tr>
-                <tr><td>Cemento CPC 40kg</td><td>$179</td><td>ene 2026</td></tr>
-                <tr><td>Cemento CPC 40kg</td><td>$168</td><td>dic 2025</td></tr>
-            </table>
-            <div class="btn-soft" style="margin-top:12px; padding:8px; background:#14415e; border-radius:40px; text-align:center;">
-                <i class="fas fa-robot"></i> Compra sugerida basada en histórico
-            </div>
-            <!-- BENEFICIO EXPLÍCITO -->
-            <div class="benefit-tag">
-                <i class="fas fa-bolt"></i> Beneficio: +30% velocidad en decisiones de compra
-            </div>
-        </div>
-    </div>
-
-    <!-- Fila 2: Control Obra, Visor BIM -->
-    <div class="cards-grid">
-        <!-- Control de Obra: Concreto Reforzado -->
-        <div class="card card-large">
-            <div class="card-header">
-                <h3><i class="fas fa-chart-pie"></i> Control de Obra: Concreto Reforzado</h3>
-                <span class="badge badge-warning"><i class="fas fa-triangle-exclamation"></i> 10% SOBRECOSTO</span>
-            </div>
-            <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
-                <div style="width: 220px; height: 140px;"><canvas id="chartSobrecostoDemo"></canvas></div>
-                <div>
-                    <div><span class="badge badge-error">merma reportada: +5.3 m³ (app móvil)</span></div>
-                    <ul style="margin-top: 20px; list-style: none;">
-                        <li><i class="fas fa-coins"></i> Presupuesto: $1,240,000</li>
-                        <li><i class="fas fa-coins" style="color:#ff9f7c;"></i> Real: $1,364,000</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- BENEFICIO EXPLÍCITO -->
-            <div class="benefit-tag">
-                <i class="fas fa-chart-line"></i> Beneficio: Desviaciones detectadas en tiempo real · Mermas controladas
-            </div>
-        </div>
-
-        <!-- Visor BIM (Revit Forge) -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-cubes"></i> Visor BIM (Revit Forge)</h3>
-            </div>
-            <div class="bim-mock">
-                <i class="fas fa-cube"></i>
-                <div style="flex:1">
-                    <div style="font-weight: 600; font-size: 1.2rem;">ZAPATA Z-12</div>
-                    <div style="display: flex; justify-content: space-between; margin-top:8px;">
-                        <span>Compra: <span style="color:#83d0a8;">adquirido</span></span>
-                        <span>Instalación: <span style="color:#f0b37b;">60%</span></span>
-                    </div>
-                    <div style="background:#1c526b; height:6px; margin-top:12px; border-radius:6px;">
-                        <div style="width:60%; height:6px; background:#f0b37b; border-radius:6px;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- BENEFICIO EXPLÍCITO -->
-            <div class="benefit-tag">
-                <i class="fas fa-cube"></i> Beneficio: Take-offs automáticos · Ahorro semanas de trabajo manual
-            </div>
-        </div>
-    </div>
-
-    <!-- Fila 3: Almacén Mobile, Calidad/HSE, Gantt -->
-    <div class="cards-grid">
-        <!-- Almacén en obra · Mobile -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-qrcode"></i> Almacén en obra · Mobile</h3>
-            </div>
-            <div style="background: #10394b; padding: 16px; border-radius: 22px;">
-                <div><i class="fas fa-camera"></i> Escanear QR / Barras</div>
-                <div style="display:flex; gap:8px; margin:12px 0;">
-                    <span class="badge badge-info">entrada</span>
-                    <span class="badge badge-info">salida</span>
-                    <span class="badge badge-success">firma digital</span>
-                </div>
-                <div style="font-family: monospace;">Vale V-234 firmado digital: J. Pérez</div>
-            </div>
-            <div class="benefit-tag">
-                <i class="fas fa-hand-holding-dollar"></i> Beneficio: Trazabilidad total · Reducción de mermas
-            </div>
-        </div>
-
-        <!-- Calidad / HSE -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-clipboard-check"></i> Calidad / HSE</h3>
-            </div>
-            <div>
-                <div style="padding: 8px 0;"><i class="far fa-file"></i> Colado losa: checklist OK ✅</div>
-                <div style="padding: 8px 0;"><i class="far fa-file"></i> Permiso alturas vence 3d ⚠️</div>
-                <div style="padding: 8px 0;"><i class="far fa-file"></i> Residuos: disposal OK</div>
-            </div>
-            <div class="benefit-tag">
-                <i class="fas fa-shield"></i> Beneficio: Cumplimiento normativo · Prevención de riesgos
-            </div>
-        </div>
-
-        <!-- Gantt → Requisición -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-diagram-project"></i> Gantt → Requisición</h3>
-            </div>
-            <div style="background:#123d50; padding:16px; border-radius:20px;">
-                Tarea "Losa N2" (18/03) dispara solicitud de concreto → <span class="badge badge-success">Req #334 generada</span>
-            </div>
-            <div class="benefit-tag">
-                <i class="fas fa-bolt"></i> Beneficio: Compras justo a tiempo · Reducción de inventario
-            </div>
-        </div>
-    </div>
-
-    <!-- =================== MAPA DE RUTA TÉCNICA =================== -->
-    <div class="roadmap-section">
-        <h2 style="display: flex; gap: 10px; margin-bottom:20px;">
-            <i class="fas fa-map-signs"></i> Ruta de implementación · Campos personalizados · Esquema BD
-        </h2>
-        <div class="roadmap-flex">
-            <div class="phase">
-                <div class="title"><i class="fas fa-draw-polygon"></i> Fase 1 · CDE & BIM</div>
-                <ul>
-                    <li><i class="fas fa-check-circle" style="color:#56d9a0;"></i> Repositorio único por proyecto</li>
-                    <li><i class="fas fa-check-circle"></i> Workflow aprobación planos</li>
-                    <li><i class="fas fa-tag"></i> <strong>Campos:</strong> version, sello_aprob, url_modelo</li>
-                </ul>
-            </div>
-            <div class="phase">
-                <div class="title"><i class="fas fa-truck"></i> Fase 2 · Compras/Proveedores</div>
-                <ul>
-                    <li><i class="fas fa-check-circle"></i> Portal con blindaje SAT/IMSS</li>
-                    <li><i class="fas fa-check-circle"></i> Cuadro comparativo histórico</li>
-                    <li><i class="fas fa-tag"></i> <strong>Campos:</strong> vigencia_imss, opinion_sat</li>
-                </ul>
-            </div>
-            <div class="phase">
-                <div class="title"><i class="fas fa-helmet-safety"></i> Fase 3 · Obra/Almacén</div>
-                <ul>
-                    <li><i class="fas fa-check-circle"></i> Escaneo QR, firmas digitales</li>
-                    <li><i class="fas fa-check-circle"></i> Dashboards sobrecosto real-time</li>
-                    <li><i class="fas fa-tag"></i> <strong>Campos:</strong> firma_digital, lat_lng_merma</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- ESQUEMA BASE DE DATOS: Tarea - Insumo - Factura -->
-        <div class="db-schema">
-            <h3 style="margin-bottom:20px;"><i class="fas fa-database"></i> Relación: Tarea de Obra - Insumo - Factura</h3>
-            <div class="schema-tables">
-                <div>
-                    <span style="color:#a3d0ff;">tarea_obra</span>
-                    <ul>
-                        <li>id_tarea (PK)</li>
-                        <li>nombre_tarea</li>
-                        <li>fecha_inicio</li>
-                        <li>id_proyecto</li>
-                    </ul>
-                </div>
-                <div>
-                    <span style="color:#a3d0ff;">insumo_tarea</span>
-                    <ul>
-                        <li>id_insumo_tarea (PK)</li>
-                        <li>id_tarea (FK)</li>
-                        <li>id_insumo (FK)</li>
-                        <li>cantidad_requerida</li>
-                    </ul>
-                </div>
-                <div>
-                    <span style="color:#a3d0ff;">factura_proveedor</span>
-                    <ul>
-                        <li>id_factura (PK)</li>
-                        <li>id_proveedor (FK)</li>
-                        <li>uuid_sat</li>
-                        <li>id_insumo_tarea (FK)</li>
-                        <li>estatus_validacion</li>
-                    </ul>
-                </div>
-            </div>
-            <p style="text-align:center; margin-top:25px; color:#a5c9ff;">🔗 Trazabilidad completa: cada factura ligada a un insumo y a una tarea de obra</p>
-        </div>
-    </div>
-
-    <!-- EFECTO WOW (reforzado) -->
-    <div class="wow-footer">
-        <div class="wow-card">
-            <i class="fas fa-gem" style="color:#5cb0ff; font-size:2rem;"></i>
-            <h4 style="margin:10px 0;">Efecto WOW: Blindaje Proveedores</h4>
-            <p>Opiniones SAT/IMSS vencidas → bloqueo automático de facturación. Legal y finanzas protegidos.</p>
-        </div>
-        <div class="wow-card">
-            <i class="fas fa-mobile-alt" style="color:#5cb0ff; font-size:2rem;"></i>
-            <h4 style="margin:10px 0;">Única Fuente de Verdad</h4>
-            <p>Residente en campo ve solo el último plano aprobado. Nunca más retrabajos por planos obsoletos.</p>
-        </div>
-        <div class="wow-card">
-            <i class="fas fa-cube" style="color:#5cb0ff; font-size:2rem;"></i>
-            <h4 style="margin:10px 0;">BIM sin modelo perfecto</h4>
-            <p>El ERP lee cantidades (take-offs) del modelo BIM para alimentar presupuestos. Ahorro manual.</p>
-        </div>
-    </div>
-
-    <!-- Resumen final de beneficios -->
-    <div style="display: flex; justify-content: center; gap: 40px; margin: 30px 0 10px; padding: 20px; background: #0a2535; border-radius: 60px;">
-        <div><i class="fas fa-check-circle" style="color:#4ae0a0;"></i> Blindaje Legal</div>
-        <div><i class="fas fa-check-circle" style="color:#4ae0a0;"></i> 0 Retrabajos</div>
-        <div><i class="fas fa-check-circle" style="color:#4ae0a0;"></i> Control de Mermas</div>
-        <div><i class="fas fa-check-circle" style="color:#4ae0a0;"></i> Compras Inteligentes</div>
-        <div><i class="fas fa-check-circle" style="color:#4ae0a0;"></i> Trazabilidad Total</div>
-    </div>
-
-    <p style="text-align:right; color:#5f8fb0; padding:20px;"><i class="fas fa-microchip"></i> Demo interactivo · Implementación Senior · Reemplazo Enkontrol</p>
-</div>
 
 <script>
     (function() {
